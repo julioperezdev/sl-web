@@ -29,7 +29,7 @@ export default function Header() {
                     <ol>
                         <li><Link href='/clients'>Clientes</Link></li>
                         <li><Link href='/sellers'>Vendedores</Link></li>
-                        <li>Proveedores</li>
+                        <li><Link href='/provider'>Proveedores</Link></li>
                     </ol>
                 </details>
             </div>
