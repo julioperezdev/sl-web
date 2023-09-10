@@ -1,0 +1,71 @@
+.formBase{
+    display: grid;
+    width: 55%;
+    height: 500px;
+    margin: auto;
+    border: 2px solid rgb(169, 169, 169);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 8px 8px 8px rgb(215, 215, 215);
+    text-align: center;
+}
+
+.formBase > img{
+    margin: 0 auto;
+}
+.formBase > p{
+    font-size: 38px;
+    margin: 0;
+}
+
+.formBase > div{
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    width: 80%;
+    justify-self: center;
+
+}
+
+.formBase > div > input{
+    display: grid;
+    width: 300px;
+    font-size: 22px;
+    align-items: center;
+    background-color: rgb(246, 246, 246);
+    border: 1px solid rgb(136, 136, 136);
+    border-radius: 5px;
+    margin: 5px auto;
+    padding: 5px 20px;
+    outline: none;
+}
+
+.description{
+    height: 125px;
+    resize: none;
+    outline: none;
+    font-size: 22px;
+    background-color: rgb(246, 246, 246);
+    border: 1px solid rgb(136, 136, 136);
+    border-radius: 5px;
+    padding: 5px 20px;
+    margin-top: 5px;
+    width: 670px;
+    justify-self: center;
+}
+
+.formBase > div > button{
+    font-size: 22px;
+    padding: 10px;
+    margin: 5px auto;
+    border-radius: 10px;
+    background-color: rgb(64, 178, 239);
+    color: rgb(255, 255, 255);
+    text-decoration: none;  
+    width: 150px;
+    height: 50px;
+}
+
+.formBase > div > button > a{
+    text-decoration: none;  
+    color: rgb(255, 255, 255);
+}

@@ -1,0 +1,18 @@
+.headerBase {
+    display: grid;
+    grid-template-columns: 10% 60% 15% 15%;
+    justify-items: center;
+    align-items: center;
+}
+
+.headerLinks{
+    display: grid;
+    grid-template-columns: repeat(3, 33%);
+    width: 80%;
+    justify-self: left;
+    font-size: 20px;
+}
+
+.headerLinks > details{
+    margin: 0 20px;
+}
