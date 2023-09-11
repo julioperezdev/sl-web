@@ -33,6 +33,7 @@ export default function Header() {
                         <li><Link href='/note'>Recordatorios</Link></li>
                         <li><Link href='/clear'>Borrar Datos</Link></li>
                         <li><Link href='/currency'>Cotización</Link></li>
+                        <li><Link href='/user'>Usuarios</Link></li>
                     </ol>
                 </details>
             </div>
