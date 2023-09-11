@@ -1,7 +1,8 @@
+import UpdateCurrencyComponent from "@/components/currency/updateCurrency/UpdateCurrencyComponent"
 export default function UpdateCurrencyPage() {
     return (
         <div>
-            <ProviderMenuComponent/>
+            <UpdateCurrencyComponent/>
         </div>
     )
 }
