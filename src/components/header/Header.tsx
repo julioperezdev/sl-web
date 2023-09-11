@@ -32,6 +32,7 @@ export default function Header() {
                         <li><Link href='/provider'>Proveedores</Link></li>
                         <li><Link href='/note'>Recordatorios</Link></li>
                         <li><Link href='/clear'>Borrar Datos</Link></li>
+                        <li><Link href='/currency'>Cotización</Link></li>
                     </ol>
                 </details>
             </div>
