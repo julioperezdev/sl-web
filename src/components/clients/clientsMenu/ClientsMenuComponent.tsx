@@ -1,29 +1,35 @@
-import styles from './ClientsMenu.module.css';
-import Image from 'next/image';
-import Link from 'next/link';
+import MenuFormComponent from '@/components/common/menuForm/MenuFormComponent';
+import { MenuFormData } from '@/models/MenuFormData';
 
 export default function ClientsMenuComponent() {
+  const clientMenuData:MenuFormData = {
+    imageName:'/clientMenu.png',
+    title:'Clientes',
+    returnUrl:'/',
+    options:[
+      {
+        optionsImage: '/add-user.png',
+        optionHref: '/clients/add',
+        optionDescription: 'Nuevo cliente'
+      },
+      {
+        optionsImage: '/edit-user.png',
+        optionHref: '/clients/update',
+        optionDescription: 'Modificar cliente'
+      },
+      {
+        optionsImage: '/menu.png',
+        optionHref: '/clients/list',
+        optionDescription: 'Lista de clientes'
+      },
+      {
+        optionsImage: '/difference-user.png',
+        optionHref: '/clients/difference',
+        optionDescription: 'Diferencia de clientes'
+      },
+    ]
+  }
   return (
-    <div className={styles.clientMenuBase}>
-      <Image src={'/clientMenu.png'} alt='Icono para el menu de clientes' width={80} height={80} />
-      <p>Clientes</p>
-      <div>
-        <Image src={'/add-user.png'} alt='' width={30} height={30} />
-        <Link href='/clients/add'>Nuevo cliente</Link>
-      </div>
-      <div>
-        <Image src={'/edit-user.png'} alt='' width={30} height={30} />
-        <Link href='/clients/update'>Modificar cliente</Link>
-      </div>
-      <div>
-        <Image src={'/menu.png'} alt='' width={30} height={30} />
-        <Link href='/clients/list'>Lista de clientes</Link>
-      </div>
-      <div>
-        <Image src={'/difference-user.png'} alt='' width={30} height={30} />
-        <Link href='/clients/difference'>Diferencia de clientes</Link>
-      </div>
-      <Link href='/'>Atrás</Link>
-    </div>
+    <MenuFormComponent {...clientMenuData}/>
   )
 }

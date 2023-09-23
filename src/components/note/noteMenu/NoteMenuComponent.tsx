@@ -1,25 +1,30 @@
-import styles from './NoteMenuComponent.module.css';
-import Image from 'next/image';
-import Link from 'next/link';
+import { MenuFormData } from '@/models/MenuFormData';
+import MenuFormComponent from '@/components/common/menuForm/MenuFormComponent';
 
 export default function NoteMenuComponent() {
+  const clientMenuData:MenuFormData = {
+    imageName:'/notes.png',
+    title:'Recordatorios',
+    returnUrl:'/',
+    options:[
+      {
+        optionsImage: '/add-post.png',
+        optionHref: '/note/add',
+        optionDescription: 'Nuevo Recordatorio'
+      },
+      {
+        optionsImage: '/clipboard.png',
+        optionHref: '/note/add',
+        optionDescription: 'Modificar/Eliminar Recordatorio'
+      },
+      {
+        optionsImage: '/menu.png',
+        optionHref: '/note/add',
+        optionDescription: 'Historial de Recordatorios'
+      }
+    ]
+  }
   return (
-    <div className={styles.clientMenuBase}>
-      <Image src={'/notes.png'} alt='Icono para el menu de recordatorios' width={80} height={80} />
-      <p>Recordatorios</p>
-      <div>
-        <Image src={'/add-post.png'} alt='' width={30} height={30} />
-        <Link href='/note/add'>Nuevo Recordatorio</Link>
-      </div>
-      <div>
-        <Image src={'/clipboard.png'} alt='' width={30} height={30} />
-        <Link href='/note/add'>Modificar/Eliminar Recordatorio</Link>
-      </div>
-      <div>
-        <Image src={'/menu.png'} alt='' width={30} height={30} />
-        <Link href='/note/add'>Historial de Recordatorios</Link>
-      </div>
-      <Link href='/'>Atrás</Link>
-    </div>
+    <MenuFormComponent {...clientMenuData}/>
   )
 }

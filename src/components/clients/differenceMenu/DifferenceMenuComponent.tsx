@@ -1,21 +1,25 @@
-import styles from './DifferenceMenuComponent.module.css';
-import Image from 'next/image';
-import Link from 'next/link';
+import MenuFormComponent from '@/components/common/menuForm/MenuFormComponent';
+import { MenuFormData } from '@/models/MenuFormData';
 
 export default function DifferenceMenuComponent() {
-    return (
-        <div className={styles.differenceMenuBase}>
-            <Image src={'/difference-user.png'} alt='Icono para el menu de diferencia de clientes' width={80} height={80} />
-            <p>Diferencia de Clientes</p>
-            <div>
-                <Image src={'/add-list.png'} alt='' width={30} height={30} />
-                <Link href='/clients/difference/add'>Nueva diferencia</Link>
-            </div>
-            <div>
-                <Image src={'/menu.png'} alt='' width={30} height={30} />
-                <Link href='/clients/difference/list'>Histórico de Diferencias</Link>
-            </div>
-            <Link href='/clients'>Atrás</Link>
-        </div>
-    )
+    const clientMenuData:MenuFormData = {
+        imageName:'/difference-user.png',
+        title:'Diferencia de Clientes',
+        returnUrl:'/clients',
+        options:[
+          {
+            optionsImage: '/add-list.png',
+            optionHref: '/clients/difference/add',
+            optionDescription: 'Nueva diferencia'
+          },
+          {
+            optionsImage: '/menu.png',
+            optionHref: '/clients/difference/list',
+            optionDescription: 'Histórico de Diferencias'
+          }
+        ]
+      }
+      return (
+        <MenuFormComponent {...clientMenuData}/>
+      )
 }

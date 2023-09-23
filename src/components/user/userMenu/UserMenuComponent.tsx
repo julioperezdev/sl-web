@@ -1,25 +1,30 @@
-import styles from './UserMenuComponent.module.css';
-import Image from 'next/image';
-import Link from 'next/link';
+import MenuFormComponent from '@/components/common/menuForm/MenuFormComponent';
+import { MenuFormData } from '@/models/MenuFormData';
 
 export default function UserMenuComponent() {
+  const clientMenuData:MenuFormData = {
+    imageName:'/clientMenu.png',
+    title:'Usuarios',
+    returnUrl:'/',
+    options:[
+      {
+        optionsImage: '/add-user.png',
+        optionHref: '/user/add',
+        optionDescription: 'Registrar Usuario'
+      },
+      {
+        optionsImage: '/clipboard.png',
+        optionHref: '/user/update',
+        optionDescription: 'Asignar/Modificar Usuario'
+      },
+      {
+        optionsImage: '/difference-user.png',
+        optionHref: '/user/list',
+        optionDescription: 'Lista de Usuarios'
+      }
+    ]
+  }
   return (
-    <div className={styles.clientMenuBase}>
-      <Image src={'/clientMenu.png'} alt='Icono para el menu de usuarios' width={80} height={80} />
-      <p>Usuarios</p>
-      <div>
-        <Image src={'/add-user.png'} alt='' width={30} height={30} />
-        <Link href='/user/add'>Registrar Usuario</Link>
-      </div>
-      <div>
-        <Image src={'/clipboard.png'} alt='' width={30} height={30} />
-        <Link href='/user/update'>Asignar/Modificar Usuario</Link>
-      </div>
-      <div>
-        <Image src={'/difference-user.png'} alt='' width={30} height={30} />
-        <Link href='/user/list'>Lista de Usuarios</Link>
-      </div>
-      <Link href='/'>Atrás</Link>
-    </div>
+    <MenuFormComponent {...clientMenuData}/>
   )
 }
