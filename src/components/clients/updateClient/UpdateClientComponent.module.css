@@ -15,7 +15,14 @@
     margin: 0 auto;
 }
 .formBase > p{
-    font-size: 38px;
+    font-size: 30px;
+}
+.name{
+    font-size: 22px !important; 
+    height: 40px;
+    border: 1px solid rgb(136, 136, 136);
+    padding-top: 10px;
+
 }
 
 .formBase > input{

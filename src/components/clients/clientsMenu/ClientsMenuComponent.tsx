@@ -12,11 +12,11 @@ export default function ClientsMenuComponent() {
         optionHref: '/clients/add',
         optionDescription: 'Nuevo cliente'
       },
-      {
-        optionsImage: '/edit-user.png',
-        optionHref: '/clients/update',
-        optionDescription: 'Modificar cliente'
-      },
+      // {
+      //   optionsImage: '/edit-user.png',
+      //   optionHref: '/clients/update',
+      //   optionDescription: 'Modificar cliente'
+      // },
       {
         optionsImage: '/menu.png',
         optionHref: '/clients/list',

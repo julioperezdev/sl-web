@@ -4,3 +4,6 @@ export interface AddClient {
     address: string;
     description: string;
 }
+export interface AddClientRequest extends AddClient{
+    id:string;
+}

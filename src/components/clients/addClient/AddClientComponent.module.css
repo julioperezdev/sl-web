@@ -1,9 +1,9 @@
 .formBase{
     display: grid;
-    width: 25%;
-    height: 600px;
+    width: 20%;
+    height: 520px;
     justify-content: center;
-    margin: auto;
+    margin: 100px auto;
     border: 2px solid rgb(169, 169, 169);
     border-radius: 20px;
     padding: 30px;
@@ -15,19 +15,24 @@
     margin: 0 auto;
 }
 .formBase > p{
-    font-size: 38px;
+    font-size: 30px;
+    font-weight: 500;
+}
+.formBase > span{
+    color: red;
 }
 
 .formBase > input{
     display: grid;
     width: 300px;
+    height: 40px;
     font-size: 22px;
     align-items: center;
     background-color: rgb(232, 232, 232);
     border: 1px solid rgb(136, 136, 136);
     border-radius: 5px;
-    margin: 5px auto;
-    padding: 5px 20px;
+    margin: 1px auto;
+    padding: 2px 15px;
     outline: none;
 }
 
@@ -51,6 +56,7 @@
     background-color: rgb(64, 178, 239);
     color: rgb(255, 255, 255);
     text-decoration: none;  
+    border: 1px solid  rgb(64, 178, 239);
 }
 
 .formBase > div > button > a{

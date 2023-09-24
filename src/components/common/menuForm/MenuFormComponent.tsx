@@ -9,7 +9,7 @@ export default function MenuFormComponent(menuFormData:MenuFormData) {
     return (
 
         <div className={styles.clientMenuBase}>
-            <Image src={menuFormData.imageName} alt='' width={80} height={80} />
+            <Image src={menuFormData.imageName} alt='' width={70} height={70} />
             <p>{menuFormData.title}</p>
             {
                 menuFormData.options.map(particular => (
