@@ -7,10 +7,13 @@ import { useForm } from "react-hook-form";
 import { v4 as uuid } from 'uuid'
 import toast, { Toaster } from 'react-hot-toast';
 import { ONLY_NUMBERS_ON_STRING, ONLY_LETTERS_ON_STRING } from '@/models/RegexConsts';
+import { useRouter } from 'next/navigation';
+import { sleep } from '@/helper/sleepInMilli/Sleep';
 
 
 export default function AddClientComponent() {
     const { register, handleSubmit, reset, formState: { errors } } = useForm<AddClient>();
+    const router = useRouter();
 
     const onSubmit = handleSubmit(async (data) => {
         try {
@@ -19,6 +22,8 @@ export default function AddClientComponent() {
             if (response.status == 201) {
                 reset();
                 toast.success('Se ha guardado exitosamente el Cliente')
+                await sleep(2000);
+                router.replace(`/clients`)
             } else {
                 toast.error('Ops... No se pudo guardar el Cliente')
             }

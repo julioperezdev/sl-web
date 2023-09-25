@@ -8,19 +8,22 @@ import { useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import { ONLY_NUMBERS_ON_STRING } from '@/models/RegexConsts';
 import toast, { Toaster } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 
 
 export default function UpdateClientComponent(idValue: {idValue:string}) {
     const { register, handleSubmit, reset,setValue , formState: { errors } } = useForm<AddClient>();
-
+    const router = useRouter();
+    
     const onSubmit = handleSubmit(async (data) => {
         try {
             const dataValidated = converFormData(data);
             const response = await sendForm(dataValidated);
             if (response.ok) {
-                //reset();
+                reset();
                 toast.success('Se ha actualizado exitosamente el Cliente')
+                router.replace(`/clients`)
             } else {
                 toast.error('Ops... No se pudo actualizar el Cliente')
             }

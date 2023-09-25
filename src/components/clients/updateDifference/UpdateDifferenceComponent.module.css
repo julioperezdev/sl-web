@@ -18,6 +18,34 @@
     margin: 0;
 }
 
+.formBase > div > select{
+    
+    width: 340px;
+    font-size: 22px;
+    align-items: center;
+    background-color: rgb(232, 232, 232);
+    border: 1px solid rgb(136, 136, 136);
+    border-radius: 5px;
+    margin: 5px auto;
+    padding: 5px 20px;
+    outline: none;
+}
+.name{
+    display: grid;
+    font-size: 20px !important; 
+    height: 40px;
+    border: 1px solid rgb(136, 136, 136);
+    padding-top: 10px;
+    width: 300px;
+    align-items: center;
+    background-color: rgb(232, 232, 232);
+    border: 1px solid rgb(136, 136, 136);
+    border-radius: 5px;
+    margin: 5px auto;
+    padding: 5px 20px;
+
+}
+
 .formBase > div{
     display: grid;
     grid-template-columns: repeat(2, 50%);
