@@ -25,7 +25,7 @@ export default function AddDifferenceComponent() {
             if (response.status == 201) {
                 reset();
                 toast.success('Se ha guardado exitosamente la diferencia del cliente')
-                sleep(1500)
+                await sleep(1500)
                 router.replace(`/clients/difference`)
             } else {
                 toast.error('Ops... No se pudo guardar la diferencia del cliente')

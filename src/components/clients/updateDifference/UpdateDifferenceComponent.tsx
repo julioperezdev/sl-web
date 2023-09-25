@@ -25,7 +25,7 @@ export default function UpdateDifferenceComponent(idValue: {idValue:string}) {
             if (response.ok) {
                 reset();
                 toast.success('Se ha actualizado exitosamente la Diferencia de Cliente')
-                sleep(3000)
+                await sleep(3000)
                 router.replace(`/clients/difference`)
             } else {
                 toast.error('Ops... No se pudo actualizar a Diferencia de Cliente')
