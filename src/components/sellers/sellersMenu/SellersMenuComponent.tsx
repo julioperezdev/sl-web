@@ -14,8 +14,8 @@ export default function SellersMenuComponent() {
       },
       {
         optionsImage: '/sellerUpdate.png',
-        optionHref: '/sellers/update',
-        optionDescription: 'Modificar vendedor'
+        optionHref: '/sellers/list',
+        optionDescription: 'Listar vendedores'
       },
       {
         optionsImage: '/sellerCommission.png',
