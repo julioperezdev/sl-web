@@ -1,12 +1,32 @@
+'use client'
 import styles from './ListProviderComponent.module.css'
-import Image from 'next/image';
 import Link from 'next/link';
-
+import { useEffect, useState } from 'react';
+import { parseISO, format } from 'date-fns';
+import { Provider } from '@/models/ProviderModel';
 
 export default function ListProviderComponent() {
+
+    const [selected, setSelected] = useState<string | null>(null)
+    const [providers, setProviders] = useState<Provider[]>([])
+
+    async function getProviders() {
+        const response = await fetch('http://localhost:8081/api/v1/provider/get', {
+            method: 'PUT',
+        });
+        let providerData: Provider[] = await response.json();
+        setProviders(providerData)
+    }
+    useEffect(() => {
+        getProviders();
+    }, [])
+
+    function isSelected(id:string):boolean{
+        return id == selected;
+    }
+
     return(
-        <div className={styles.listClientBase}>
-            <Image src={'/menu.png'} alt='Icono para indicar la lista de proveedores' width={100} height={100} />
+        <div className={styles.listProviderBase}>
             <p>Lista de Proveedor</p>
             <div className={styles.listDataBase}>
                 <div className={styles.listTitles}>
@@ -14,27 +34,26 @@ export default function ListProviderComponent() {
                     <p>Apodo Proveedor</p>
                     <p>Número de Teléfono</p>
                     <p>Dirección</p>
+                    <p>ID</p>
                 </div>
-                <div className={styles.listData}>
-                    <p>09/08/2023</p>
-                    <p>Joseito</p>
-                    <p>1140460004</p>
-                    <p>Av San Juan 3347</p>
-                </div>
-                <div className={styles.listData}>
-                    <p>07/08/2023</p>
-                    <p>Luisito</p>
-                    <p>1140460021</p>
-                    <p>Av Uriarte 4054</p>
-                </div>
-                <div className={styles.listData}>
-                    <p>10/08/2023</p>
-                    <p>Francesa</p>
-                    <p>1150627585</p>
-                    <p>Flores 2574</p>
+                <div className={styles.dataContainer}>
+                {
+                    providers.map(provider => (
+                        <div className={isSelected(provider.id) ? styles.listDataSelected : styles.listData} key={provider.id} onClick={()=> setSelected(provider.id)}>
+                            <p>{format(parseISO(provider.createdAt!), 'd/MM/yyyy')}</p>
+                            <p>{provider.name}</p>
+                            <p>{provider.phone}</p>
+                            <p>{provider.address}</p>
+                            <p>{provider.id}</p>
+                        </div>
+                    ))
+                }
                 </div>
             </div>
-            <Link href='/provider'>Atrás</Link>
+            <div className={styles.buttonBase}>
+                <Link href='/provider'>Atrás</Link>
+                <Link href={`/provider/update/${selected}`}>Modificar</Link>
+            </div>
         </div>
     )
 }

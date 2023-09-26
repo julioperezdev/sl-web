@@ -13,11 +13,6 @@ export default function ProviderMenuComponent() {
         optionDescription: 'Nuevo proveedor'
       },
       {
-        optionsImage: '/providerUpdate.png',
-        optionHref: '/provider/update',
-        optionDescription: 'Modificar proveedor'
-      },
-      {
         optionsImage: '/menu.png',
         optionHref: '/provider/list',
         optionDescription: 'Lista de proveedores'
