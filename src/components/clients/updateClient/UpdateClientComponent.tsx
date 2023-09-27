@@ -14,6 +14,7 @@ import { useRouter } from 'next/navigation';
 
 export default function UpdateClientComponent(idValue: {idValue:string}) {
     const { register, handleSubmit, reset,setValue , formState: { errors } } = useForm<AddClient>();
+    const [client, setClient] = useState<Client | null>(null)
     const router = useRouter();
     
     const onSubmit = handleSubmit(async (data) => {
@@ -56,9 +57,7 @@ export default function UpdateClientComponent(idValue: {idValue:string}) {
         });
     }
 
-    const [client, setClient] = useState<Client | null>(null)
-
-    async function getClient() {
+    async function getClientById() {
         const response = await fetch(`http://localhost:8081/api/v1/client/get/${idValue.idValue}`,{
             method: 'PUT',
         });
@@ -70,7 +69,7 @@ export default function UpdateClientComponent(idValue: {idValue:string}) {
     }
 
     useEffect(() => {
-        getClient();
+        getClientById();
     }, [])
 
     return (

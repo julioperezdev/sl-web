@@ -13,13 +13,8 @@ export default function NoteMenuComponent() {
         optionDescription: 'Nuevo Recordatorio'
       },
       {
-        optionsImage: '/clipboard.png',
-        optionHref: '/note/add',
-        optionDescription: 'Modificar/Eliminar Recordatorio'
-      },
-      {
         optionsImage: '/menu.png',
-        optionHref: '/note/add',
+        optionHref: '/note/list',
         optionDescription: 'Historial de Recordatorios'
       }
     ]

@@ -8,7 +8,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { ONLY_NUMBERS_ON_STRING, ONLY_LETTERS_ON_STRING } from '@/models/RegexConsts';
 import { useRouter } from 'next/navigation';
 import { sleep } from '@/helper/sleepInMilli/Sleep';
-import { AddSeller, Seller } from '@/models/SellerModel';
+import { AddSeller, AddSellerRequest, Seller } from '@/models/SellerModel';
 
 export default function AddSellerComponent() {
 
@@ -33,7 +33,7 @@ export default function AddSellerComponent() {
     }
     );
 
-    function converFormData(data: AddSeller): Seller {
+    function converFormData(data: AddSeller): AddSellerRequest {
         return {
             id: uuid(),
             name: data.name,
@@ -41,7 +41,7 @@ export default function AddSellerComponent() {
         }
     }
 
-    function sendForm(sellerRequest: Seller) {
+    function sendForm(sellerRequest: AddSellerRequest) {
         return fetch('http://localhost:8081/api/v1/seller/create', {
             method: 'POST',
             body: JSON.stringify(sellerRequest),

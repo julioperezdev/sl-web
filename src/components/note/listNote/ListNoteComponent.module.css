@@ -24,7 +24,7 @@
 
 .listTitles{
     display: grid;
-    grid-template-columns: repeat(6, 16.66%);
+    grid-template-columns: 25% 25% 50%;
     color: rgb(122, 122, 122);
     font-weight: 600;
     font-size: 16px;
@@ -37,7 +37,7 @@
 }
 .listData{
     display: grid;
-    grid-template-columns: repeat(6, 16.66%);
+    grid-template-columns: 25% 25% 50%;
     border-radius: 10px;
     color: rgb(122, 122, 122);
     margin: 5px;
@@ -46,12 +46,13 @@
 
 .listDataSelected{
     display: grid;
-    grid-template-columns: repeat(6, 16.66%);
+    grid-template-columns: 25% 25% 50%;
     border-radius: 10px;
     color: rgb(122, 122, 122);
     background-color: rgba(212, 201, 231, 0.528);
     margin: 5px;
     align-items: center;
+    border: 3px solid rgb(200, 200, 200);
 }
 
 .listDataSelected > p{
@@ -77,5 +78,18 @@
     border-radius: 10px;
     background-color: rgb(64, 178, 239);
     color: rgb(255, 255, 255);
+
+}
+
+.buttonBase > button{
+    min-width: 100px;
+    padding: 10px;
+    font-size: 24px;
+    text-decoration: none;
+    margin: 10px 5px;
+    border-radius: 10px;
+    background-color: rgb(64, 178, 239);
+    color: rgb(255, 255, 255);
+    border: 0;
 
 }

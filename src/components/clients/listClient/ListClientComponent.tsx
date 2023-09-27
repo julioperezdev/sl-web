@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 
 export default function ListClientComponent() {
 
+    const [selected, setSelected] = useState<string | null>(null)
     const [clients, setClients] = useState<Client[]>([])
     const router = useRouter();
 
@@ -29,6 +30,9 @@ export default function ListClientComponent() {
         getClients();
     }, [])
 
+    function isSelected(id:string):boolean{
+        return id == selected;
+    }
     return (
         <div className={styles.listClientBase}>
             <Image src={'/menu.png'} alt='Icono para indicar la lista de clientes' width={70} height={70} />
@@ -44,7 +48,7 @@ export default function ListClientComponent() {
                 </div>
                 <div className={styles.dataContainer} >
                 {clients.length > 0 && clients.map(client => (
-                    <div key={client.id} className={styles.listData} onClick={()=>redirectById(client.id)}>
+                    <div className={isSelected(client.id) ? styles.listDataSelected : styles.listData} key={client.id} onClick={()=> setSelected(client.id)}>
                         <p>{format(parseISO(client.createdAt), 'd/MM/yyyy')}</p>
                         <p>{client.name}</p>
                         <p>{client.phone}</p>
@@ -55,7 +59,10 @@ export default function ListClientComponent() {
                 ))}
                 </div>
             </div>
-            <Link href='/clients'>Atrás</Link>
+            <div className={styles.buttonBase}>
+                <Link href='/clients'>Atrás</Link>
+                <Link href={`/clients/update/${selected}`}>Modificar</Link>
+            </div>
         </div>
     )
 }
