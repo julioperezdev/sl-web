@@ -35,7 +35,7 @@ export default function ListClientComponent() {
     }
     return (
         <div className={styles.listClientBase}>
-            <Image src={'/menu.png'} alt='Icono para indicar la lista de clientes' width={70} height={70} />
+        
             <p>Lista de Clientes</p>
             <div className={styles.listDataBase}>
                 <div className={styles.listTitles}>
