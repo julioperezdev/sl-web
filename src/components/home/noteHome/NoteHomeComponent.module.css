@@ -1,0 +1,77 @@
+.listClientBase > h2{
+    font-size: 38px;
+    margin: 20px auto;
+    font-weight: 600;
+    text-align: center;
+}
+
+.dataContainer{
+    display: grid;
+    grid-template-columns: repeat(3, 33.33%);
+    width: 80%;
+    margin: auto;
+
+}
+.listData{
+    display: grid;
+    grid-template-columns: 1f;
+    border-radius: 10px;
+    color: rgb(122, 122, 122);
+    margin: 20px;
+    height: 120px;
+}
+
+.listDataSelected{
+    display: grid;
+    grid-template-columns: 1f;
+    border-radius: 10px;
+    color: rgb(122, 122, 122);
+    margin: 20px;
+    height: 120px;
+    background-color: rgba(212, 201, 231, 0.528);
+}
+
+.listDataSelected > p{
+    font-size: 18px;
+    padding-left: 50px;
+}
+
+.listData:hover{
+    background-color: rgba(228, 220, 241, 0.528);
+}
+
+.listDataSelected:hover{
+    background-color: rgba(228, 220, 241, 0.528);
+}
+
+.listData > p{
+    font-size: 18px;
+    padding-left: 50px;
+}
+
+.buttonBase > a{
+    width: 100px;
+    padding: 10px;
+    font-size: 24px;
+    text-decoration: none;
+    margin: 10px 5px;
+    border-radius: 10px;
+    background-color: rgb(64, 178, 239);
+    color: rgb(255, 255, 255);
+
+}
+
+.listClientBase > a{
+    display: grid;
+    width: 200px;
+    padding: 10px;
+    font-size: 20px;
+    text-decoration: none;
+    text-align: center;
+    margin: 10px auto;
+    border-radius: 10px;
+    background-color: rgb(64, 178, 239);
+    color: rgb(255, 255, 255);
+    border: 0;
+
+}

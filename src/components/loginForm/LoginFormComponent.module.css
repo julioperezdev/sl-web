@@ -43,3 +43,15 @@
     color: rgb(255, 255, 255);
     text-decoration: none;  
 }
+
+.formBase > a{
+    font-size: 22px;
+    padding: 10px;
+    margin: auto;
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: rgb(64, 178, 239);
+    color: rgb(255, 255, 255);
+    text-decoration: none;  
+}

@@ -1,6 +1,7 @@
 'use client'
 import styles from './CurrencyHomeComponent.module.css'
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { parseISO, format } from 'date-fns';
 import { Currency } from '@/models/CurrencyModel';
@@ -21,21 +22,36 @@ export default function CurrencyHomeComponent() {
     }, [])
 
     return (
-        <div>
-            {!currency ? <p>CARGANDO...</p>:
-            <div className={styles.currencyUsd}>
-            <p>DOLAR GRANDE</p>
+        <div className={styles.currencyHomeBase}>
             <div>
-                <p>${currency?.buyPrice}</p>
-                <p>${currency?.sellPrice}</p>
-            </div>
-            <p>${format(parseISO(currency?.updateAt!), 'd/MM/yyyy')}</p>
-        </div>
-            }
-            <div>
-                <iframe src="https://dolarhoy.com/i/cotizaciones/dolar-blue" frameBorder="0">
-                <style jsx>
-                    {`
+                {!currency ?
+                    <div className={styles.currencyUsd}>
+                        <Image src={'/SL-logo-transparent.png'} alt='fff' width={50} height={50} />
+                        <h3 className={styles.title}>DÓLAR GRANDE</h3>
+                        <div>
+                            <p className={styles.buyPrice}>$000.00</p>
+                            <p className={styles.sellPrice}>$000.00</p>
+                            <p className={styles.currencyDescription}>Compra</p>
+                            <p className={styles.currencyDescription}>Venta</p>
+                        </div>
+                        <p className={styles.dates}>Actualizado: {format(new Date(), 'd/MM/yyyy hh:mm:ss')}</p>
+                    </div> :
+                    <div className={styles.currencyUsd}>
+                        <Image src={'/SL-logo-transparent.png'} alt='fff' width={50} height={50} />
+                        <h3 className={styles.title}>DÓLAR GRANDE</h3>
+                        <div>
+                            <p className={styles.buyPrice}>${currency?.buyPrice}.00</p>
+                            <p className={styles.sellPrice}>${currency?.sellPrice}.00</p>
+                            <p className={styles.currencyDescription}>Compra</p>
+                            <p className={styles.currencyDescription}>Venta</p>
+                        </div>
+                        <p className={styles.dates}>Actualizado: {format(parseISO(currency?.updateAt!), 'd/MM/yyyy hh:mm:ss')}</p>
+                    </div>
+                }
+                <div>
+                    <iframe src="https://dolarhoy.com/i/cotizaciones/dolar-blue">
+                        <style jsx>
+                            {`
                     iframe{
                         width:320px;
                         height:260px;
@@ -46,10 +62,13 @@ export default function CurrencyHomeComponent() {
                         border:1px solid #bcbcbc; 
                     }
                     `}
-                </style>
-                </iframe>
+                        </style>
+                    </iframe>
+                </div>
             </div>
-          
+
+            <Link href={'/currency/update'}>Actualizar Cotización</Link>
+
         </div >
     )
 }

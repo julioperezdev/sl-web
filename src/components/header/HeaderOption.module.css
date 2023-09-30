@@ -3,6 +3,13 @@
     grid-template-columns: 15% 85%;
     align-items: center;
 }
+
+.imageBase > img{
+    background-color: rgb(208, 207, 252);
+    border-radius: 100px;
+    padding: 5px;
+}
+
 .headerOptionBase > div> p {
     padding: 4px;
 }

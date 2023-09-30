@@ -1,11 +1,12 @@
 .headerBase {
     display: grid;
-    grid-template-columns: 10% 60% 15% 15%;
+    grid-template-columns: 10% 70% 10% 10%;
     justify-items: center;
     align-items: center;
     width: 100%;
     height: 100px;
-    background-color: rgba(248, 248, 248, 0.51);
+    background-color: rgb(255, 255, 255);
+    border-bottom: 1px solid rgb(242, 242, 242);
 }
 .headerBase > div {
     text-align: center;
@@ -20,7 +21,8 @@
 
 .headerLinks{
     display: grid;
-    grid-template-columns: repeat(3, 33%);
+    /* grid-template-columns: repeat(3, 33%); */
+    grid-template-columns: repeat(4, 25%);
     width: 80%;
     justify-self: left;
     font-size: 20px;
@@ -33,7 +35,7 @@
     position: relative;
 }
 
-.headerLinks > li > a{
+.headerLinks > li > p{
     display: flex;
     text-decoration: none;
     transition: all 300ms ease;
@@ -42,17 +44,17 @@
     color: rgb(41, 41, 41);
 }
 
-.headerLinks > li > a::after{
+.headerLinks > li > p::after{
     content: '\23F7';
     padding-left: 10px;
 }
 
-.headerLinks > li > a:hover{
+.headerLinks > li > p:hover{
     color: rgb(53, 80, 154);
     font-weight: 600;
 }
 
-.headerLinks > li > a:hover::after{
+.headerLinks > li > p:hover::after{
     content: '\23F6';
     padding-left: 10px;
 }

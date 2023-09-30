@@ -1,3 +1,84 @@
-.currencyUsd{
-    color: black;
+.currencyHomeBase > div{
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    width: 50%;
+    justify-items: center;
+    padding-top: 50px;
+    margin: 0px auto;
+    
+}
+
+.currencyUsd > img{
+    margin: auto;
+}
+.title{
+    color:rgb(156, 156, 156);
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    position: relative;
+    top: 10px;
+}
+
+.currencyUsd {
+    width: 320px;
+    height: 260px;
+    border-radius: 10px;
+    box-shadow: 2px 4px 4px rgb(0 0 0 / 25%);
+    display: flex;
+    justify-content: center;
+    border: 1px solid #bcbcbc;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.currencyUsd > div {
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    text-align: center;
+}
+
+.currencyDescription{
+    color: rgb(103, 103, 103);
+    font-size: 16px;
+    position: relative;
+    bottom: 20px;
+}
+
+.buyPrice{
+    color:green;
+    font-size: 27px;
+    font-weight: 600;
+    position: relative;
+    bottom: 10px;
+}
+
+.sellPrice{
+    color:red;
+    font-size: 27px;
+    font-weight: 600;
+    position: relative;
+    bottom: 10px;
+}
+.dates{
+    text-align: end;
+    font-size: 12px;
+    position: relative;
+    top: 5px;
+    right: 10px;
+    color: rgb(103, 103, 103);
+}
+
+.currencyHomeBase > a{
+    display: grid;
+    width: 200px;
+    height: 30px;
+    margin: 50px auto;
+    text-align: center;
+    align-items: center;
+    text-decoration: none;
+    color: #fafafa;
+    padding: 5px 40px;
+    background-color: rgb(57, 162, 194);
+    border-radius: 5px;
 }

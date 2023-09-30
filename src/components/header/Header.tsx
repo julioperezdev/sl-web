@@ -13,17 +13,22 @@ export default function Header() {
             url: '/',
             image: '/sellerCommission.png',
             title: 'Realizar Compra',
-            description: 'Asignar o modificar las funciones que tendrá un usuario'
+            description: 'Compra de divisas a clientes y proveedores con caja en pesos o con caja deuda oficina.'
         }, {
             url: '/',
             image: '/sellerCommission.png',
             title: 'Realizar Venta',
-            description: 'Lorem ipsum dolor, sit amet consectetur adipisicing'
+            description: 'Venta de divisas a clientes y asigancion de comisión a vendedores.'
         }, {
             url: '/',
             image: '/sellerCommission.png',
             title: 'Operaciones Pendientes',
-            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, sit?'
+            description: 'Visualizar todas las operaciones de compra y venta en espera de ser ejecutadas o canceladas.'
+        }, {
+            url: '/',
+            image: '/sellerCommission.png',
+            title: 'Histórico de Operaciones',
+            description: 'Visualizar todas las operaciones realizadas de compra y venta.'
         }
     ]
     const individualsOptions: HeaderOptionData[] = [
@@ -45,6 +50,30 @@ export default function Header() {
         }
     ]
     const boxesOptions: HeaderOptionData[] = [
+        {
+            url: '/clients',
+            image: '/sellerCommission.png',
+            title: 'Caja en Pesos',
+            description: 'Compra de divisas a clientes y proveedores con caja en pesos o con caja deuda oficina. '
+        }, {
+            url: '/sellers',
+            image: '/sellerCommission.png',
+            title: 'Caja de Divisas',
+            description: 'Visualizar las cajas de todas las divisas: dolar grande, dolar chico y cambio, euro y reales.'
+        }, {
+            url: '/provider',
+            image: '/sellerCommission.png',
+            title: 'Deuda Oficina',
+            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, sit?'
+        }, {
+            url: '/note',
+            image: '/sellerCommission.png',
+            title: 'Ganancias',
+            description: 'Ver caja de Balance, asignación de ganancías a Caja 1 o Caja 2 '
+        }
+    ]
+
+    const othersOptions: HeaderOptionData[] = [
         {
             url: '/clients',
             image: '/sellerCommission.png',
@@ -85,9 +114,9 @@ export default function Header() {
 
     return (
         <nav className={styles.headerBase}>
-            <Image src={'/circle.png'} alt='' width={50} height={50} />
+            <Image src={'/SL-logo-transparent.png'} alt='Icono para indicar login' width={80} height={80} />
             <ul className={styles.headerLinks}>
-                <li><Link href='/'>Operaciones</Link>
+                <li><p>Operaciones</p>
                     <ul>
                         {operationsOptions.map(operations => (
                             <li key={operations.title}>
@@ -96,7 +125,7 @@ export default function Header() {
                         ))}
                     </ul>
                 </li>
-                <li><Link href='/'>Individuos </Link>
+                <li><p>Individuos </p>
                     <ul>
                         {individualsOptions.map(individual => (
                             <li key={individual.title}>
@@ -105,11 +134,20 @@ export default function Header() {
                         ))}
                     </ul>
                 </li>
-                <li><Link href='/'>Todas las Cajas </Link>
+                <li><p>Todas las Cajas </p>
                     <ul>
                         {boxesOptions.map(box => (
                             <li key={box.title}>
                                 <HeaderOption {...box} />
+                            </li>
+                        ))}
+                    </ul>
+                </li>
+                <li><p>Otros</p>
+                    <ul>
+                        {othersOptions.map(other => (
+                            <li key={other.title}>
+                                <HeaderOption {...other} />
                             </li>
                         ))}
                     </ul>
@@ -120,61 +158,6 @@ export default function Header() {
                 <p>Usuario 1</p>
             </div>
             <Link href=''>Cerrar Sesión</Link>
-
-
-
-            {/* 
-            <div className={styles.headerLinks}>
-                <details>
-                    <summary>Operaciones</summary>
-                    <ol>
-                        <li>Realizar Compra</li>
-                        <li>Realizar Venta</li>
-                        <li>Operaciones Pendientes</li>
-                    </ol>
-                </details>
-                <details>
-                    <summary>Individuos</summary>
-                    <ol>
-                        <li>Multicaja</li>
-                        <li>Balance</li>
-                        <li>Deuda Oficina</li>
-                    </ol>
-                </details>
-                <details>
-                    <summary>Todas las Cajas</summary>
-                    <ol>
-                        <li><Link href='/clients'>Clientes</Link></li>
-                        <li><Link href='/sellers'>Vendedores</Link></li>
-                        <li><Link href='/provider'>Proveedores</Link></li>
-                        <li><Link href='/note'>Recordatorios</Link></li>
-                        <li><Link href='/clear'>Borrar Datos</Link></li>
-                        <li><Link href='/currency'>Cotización</Link></li>
-                        <li><Link href='/user'>Usuarios</Link></li>
-                    </ol>
-                </details>
-            </div>
-            <div>
-                <Image src={'/user.png'} alt='' width={50} height={50} />
-                <p>Usuario 1</p>
-            </div>
-            <Link href=''>Cerrar Sesión</Link> */}
         </nav>
-        // <nav className={styles.HeaderBase}>
-        //     <ul>
-        //         <p>Operaciones</p>
-        //         <ul>
-        //             <li>
-        //             <Link href={''}>Realizar Compra</Link>
-        //             </li>
-        //             <li>
-        //             <Link href={''}>Realizar Venta</Link>
-        //             </li>
-        //             <li>
-        //             <Link href={''}>Operaciones Pendientes</Link>
-        //             </li>
-        //         </ul>
-        //     </ul>
-        // </nav>
     )
 }
