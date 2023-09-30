@@ -1,17 +1,14 @@
 'use client'
 import { Client } from '@/models/Client';
 import styles from './ListClientComponent.module.css'
-import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { parseISO, format } from 'date-fns';
-import { useRouter } from 'next/navigation';
 
 export default function ListClientComponent() {
 
     const [selected, setSelected] = useState<string | null>(null)
     const [clients, setClients] = useState<Client[]>([])
-    const router = useRouter();
 
     async function getClients() {
         const response = await fetch('http://localhost:8081/api/v1/client/get', {
@@ -19,11 +16,6 @@ export default function ListClientComponent() {
         });
         let clientsData: Client[] = await response.json();
         setClients(clientsData)
-    }
-
-    function redirectById(id:string){
-        console.log(id)
-        router.replace(`/clients/update/${id}`)
     }
 
     useEffect(() => {
@@ -60,8 +52,8 @@ export default function ListClientComponent() {
                 </div>
             </div>
             <div className={styles.buttonBase}>
-                <Link href='/clients'>Atrás</Link>
-                <Link href={`/clients/update/${selected}`}>Modificar</Link>
+                <Link className={styles.particularLink} href='/clients'>Atrás</Link>
+                <Link className={styles.particularLink} href={`/clients/update/${selected}`}>Modificar</Link>
             </div>
         </div>
     )

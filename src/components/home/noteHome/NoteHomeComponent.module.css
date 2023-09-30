@@ -1,8 +1,10 @@
 .listClientBase > h2{
     font-size: 38px;
-    margin: 20px auto;
+    margin: 20px 0px auto;
     font-weight: 600;
-    text-align: center;
+    position: relative;
+    left: 200px;
+    color: rgba(13, 13, 13, 0.75);
 }
 
 .dataContainer{
@@ -18,29 +20,10 @@
     border-radius: 10px;
     color: rgb(122, 122, 122);
     margin: 20px;
-    height: 120px;
-}
-
-.listDataSelected{
-    display: grid;
-    grid-template-columns: 1f;
-    border-radius: 10px;
-    color: rgb(122, 122, 122);
-    margin: 20px;
-    height: 120px;
-    background-color: rgba(212, 201, 231, 0.528);
-}
-
-.listDataSelected > p{
-    font-size: 18px;
-    padding-left: 50px;
+    height: 150px;
 }
 
 .listData:hover{
-    background-color: rgba(228, 220, 241, 0.528);
-}
-
-.listDataSelected:hover{
     background-color: rgba(228, 220, 241, 0.528);
 }
 
@@ -49,29 +32,26 @@
     padding-left: 50px;
 }
 
-.buttonBase > a{
-    width: 100px;
-    padding: 10px;
-    font-size: 24px;
-    text-decoration: none;
-    margin: 10px 5px;
-    border-radius: 10px;
-    background-color: rgb(64, 178, 239);
-    color: rgb(255, 255, 255);
+.date{
+    padding-top: 20px;
+}
 
+.description{
+    padding-bottom: 20px;
 }
 
 .listClientBase > a{
     display: grid;
-    width: 200px;
+    width: 150px;
     padding: 10px;
-    font-size: 20px;
     text-decoration: none;
     text-align: center;
-    margin: 10px auto;
-    border-radius: 10px;
-    background-color: rgb(64, 178, 239);
-    color: rgb(255, 255, 255);
+    margin: 50px auto;
+    background-color: rgba(0, 140, 255, 1);
+    color: #fafafa;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 5px;
     border: 0;
 
 }

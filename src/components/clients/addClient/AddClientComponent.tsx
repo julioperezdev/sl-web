@@ -56,8 +56,7 @@ export default function AddClientComponent() {
     }
 
     return (
-        <form onSubmit={onSubmit} className={styles.formBase}>
-            <Image src={'/add-user.png'} alt='Icono para indicar un nuevo cliente' width={70} height={70} />
+        <div onSubmit={onSubmit} className={styles.formBase}>
             <p>Nuevo Cliente</p>
             <input type="text" placeholder='Ingrese Apodo' {...register("name", { required: true, pattern: ONLY_LETTERS_ON_STRING })} />
             {errors.name && (errors.name.type === "required" || errors.name.type === "pattern") && (<span>Solo acepta letras y espacios</span>)}
@@ -70,11 +69,11 @@ export default function AddClientComponent() {
             <textarea placeholder='Descripción' className={styles.description} {...register("description", { required: true, maxLength: 100 })} />
             {errors.description && errors.description.type === "required" && (<span>La descripción es obligatoria</span>)}
             {errors.description && errors.description.type === "maxLength" && (<span>Máximo de 100 dígitos</span>)}
-            <div>
-                <button id="formSubmit" type="submit" ><Link href='/clients'>Cancelar</Link></button>
-                <button id="formSubmit" type="submit" >Guardar</button>
+            <div className={styles.linkBase}>
+                <Link href='/clients'>Cancelar</Link>
+                <button onClick={onSubmit} >Guardar</button>
             </div>
             <Toaster />
-        </form>
+        </div>
     )
 }

@@ -89,7 +89,6 @@ export default function AddDifferenceComponent() {
 
     return (
         <div className={styles.formBase}>
-            <Image src={'/add-list.png'} alt='Icono para indicar una nueva diferencia' width={70} height={70} />
             <p>Nueva Diferencia</p>
             <div>
                 <p>{format(new Date(), 'dd/MM/yyyy')}</p>

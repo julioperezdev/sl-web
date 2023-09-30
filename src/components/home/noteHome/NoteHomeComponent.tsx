@@ -7,7 +7,6 @@ import { Note } from '@/models/NoteModel';
 
 export default function NoteHomeComponent() {
 
-    const [selected, setSelected] = useState<string | null>(null)
     const [notes, setNotes] = useState<Note[]>([])
 
     async function getNotes() {
@@ -17,9 +16,6 @@ export default function NoteHomeComponent() {
         let notesData: Note[] = await response.json();
         setNotes(notesData.reverse().slice(0,3));
 
-    }
-    function isSelected(id: string): boolean {
-        return id == selected;
     }
 
     useEffect(() => {
@@ -31,7 +27,7 @@ export default function NoteHomeComponent() {
             <h2>Recordatorios</h2>
             <div className={styles.dataContainer} >
                 {notes.length > 0 && notes.map(note => (
-                    <div key={note.id} className={isSelected(note.id) ? styles.listDataSelected : styles.listData} onClick={() => setSelected(note.id)}>
+                    <div key={note.id} className={styles.listData}>
                         <style jsx>
                             {`
                             div {
@@ -39,8 +35,8 @@ export default function NoteHomeComponent() {
                             }
                             `}
                         </style>
-                        <p>{format(parseISO(note.updatedAt), 'd/MM/yyyy hh:mm:ss')}</p>
-                        <p>{note.description}</p>
+                        <p className={styles.date}>{format(parseISO(note.updatedAt), 'd/MM/yyyy hh:mm:ss')}</p>
+                        <p className={styles.description}>{note.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam, quas.</p> 
                     </div>
                 ))}
             </div>

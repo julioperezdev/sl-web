@@ -8,11 +8,11 @@ import { ONLY_NUMBERS_ON_STRING } from '@/models/RegexConsts';
 import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { sleep } from '@/helper/sleepInMilli/Sleep';
-import { Seller, UpdateSellerRequest } from '@/models/SellerModel';
+import { Seller, UpdateSellerForm, UpdateSellerRequest } from '@/models/SellerModel';
 
-export default function UpdateSellerComponent(idValue: {idValue:string}) {
+export default function UpdateSellerComponent(idValue: { idValue: string }) {
 
-    const { register, handleSubmit, reset,setValue, formState: { errors } } = useForm<{phone:string}>();
+    const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm<UpdateSellerForm>();
 
     const [seller, setSeller] = useState<Seller | null>(null)
     const router = useRouter();
@@ -25,7 +25,7 @@ export default function UpdateSellerComponent(idValue: {idValue:string}) {
             if (response.ok) {
                 reset();
                 toast.success('Se ha actualizado exitosamente el Vendedor')
-                await sleep(2000)
+                await sleep(1000)
                 router.replace(`/sellers`)
             } else {
                 toast.error('Ops... No se pudo actualizar el Vendedor')
@@ -36,10 +36,11 @@ export default function UpdateSellerComponent(idValue: {idValue:string}) {
     }
     );
 
-    function converFormData(data: {phone:string}): UpdateSellerRequest {
+    function converFormData(data: UpdateSellerForm): UpdateSellerRequest {
         return {
             id: seller!.id,
-            phone:data.phone
+            phone: data.phone,
+            description: data.description
         }
     }
 
@@ -57,11 +58,12 @@ export default function UpdateSellerComponent(idValue: {idValue:string}) {
 
 
     async function getSellerById() {
-        const response = await fetch(`http://localhost:8081/api/v1/seller/get/${idValue.idValue}`,{
+        const response = await fetch(`http://localhost:8081/api/v1/seller/get/${idValue.idValue}`, {
             method: 'PUT',
         });
         let sellerData: Seller = await response.json();
         setValue('phone', sellerData.phone)
+        setValue('description', sellerData.description)
         setSeller(sellerData)
     }
 
@@ -70,17 +72,24 @@ export default function UpdateSellerComponent(idValue: {idValue:string}) {
     }, [])
     return (
         <form className={styles.formBase}>
-            <Image src={'/sellerUpdate.png'} alt='Icono para indicar un nuevo vendedor' width={70} height={70} />
-            <p>Modificar Cliente</p>
-            <p className={styles.name}>{seller?.name}</p>
-            <input type="text" placeholder='Número de teléfono' {...register("phone", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength:20})} />
-            {errors.phone && (errors.phone.type === "pattern"|| errors.phone.type === "required") && (<span>Es obligatorio y solo son números</span>)}
+            <h2>Modificar Cliente</h2>
+            <div className={styles.formData}>
+                <p className={styles.descriptionOver}>Apodo Cliente</p>
+                <p className={styles.name}>{seller?.name}</p>
+                <p className={styles.descriptionOver}>Teléfono</p>
+                <input type="text" placeholder='Número de teléfono' {...register("phone", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength: 20 })} />
+                {errors.phone && (errors.phone.type === "pattern" || errors.phone.type === "required") && (<span>Es obligatorio y solo son números</span>)}
                 {errors.phone && errors.phone.type === "maxLength" && (<span>Máximo de 20 dígitos</span>)}
+                <p className={styles.descriptionOver}>Descripción</p>
+                <textarea placeholder='Descripción' className={styles.description} {...register("description", { required: true, maxLength: 100 })} />
+                {errors.description && errors.description.type === "required" && (<span>La descripción es obligatoria</span>)}
+                {errors.description && errors.description.type === "maxLength" && (<span>Máximo de 100 dígitos</span>)}
+            </div>
             <div>
                 <button><Link href='/sellers/list'>Cancelar</Link></button>
                 <button onClick={onClickDifference} >Guardar</button>
             </div>
-            <Toaster/>
+            <Toaster />
         </form>
     )
-  }
+}

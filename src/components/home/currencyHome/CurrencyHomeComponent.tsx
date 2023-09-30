@@ -24,6 +24,8 @@ export default function CurrencyHomeComponent() {
     return (
         <div className={styles.currencyHomeBase}>
             <div>
+            <h2>Página de SL</h2>
+            <h2>Página de Dolar Hoy</h2>
                 {!currency ?
                     <div className={styles.currencyUsd}>
                         <Image src={'/SL-logo-transparent.png'} alt='fff' width={50} height={50} />

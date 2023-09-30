@@ -4,11 +4,11 @@
     height: 450px;
     justify-content: center;
     margin: 90px auto;
-    border: 2px solid rgb(169, 169, 169);
+    border: 2px solid rgb(222, 222, 222);
     border-radius: 20px;
     padding: 30px;
-    box-shadow: 0px 0px 8px rgb(215, 215, 215);
     text-align: center;
+    background-color: rgba(255, 255, 255, 1);
 }
 
 .clientMenuBase > img{
@@ -30,7 +30,7 @@
 }
 
 .clientMenuBase > div > a{
-    color: rgb(68, 68, 68);
+    color: rgba(13, 13, 13, 0.75);
     text-decoration: none;   
 }
 
@@ -39,15 +39,19 @@
 }
 
 .clientMenuBase > a{
-    color: rgb(255, 255, 255);
     text-decoration: none;   
-    font-size: 25px;
     margin-top: 30px;
     width: 40%;
     justify-self: center;
     align-self: center;
     padding: 5px;
-    border-radius: 10px;
-    background-color: rgb(64, 178, 239);
+    margin: 50px auto 0px;
+    background-color: rgba(0, 140, 255, 1);
+    color: #fafafa;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    border: 0;
+    
 }
 

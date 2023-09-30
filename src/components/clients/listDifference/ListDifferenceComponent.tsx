@@ -26,7 +26,6 @@ export default function ListDifferenceComponent() {
     }
     return (
         <div className={styles.listDifferenceBase}>
-            <Image src={'/menu.png'} alt='Icono para indicar la lista de clientes' width={100} height={100} />
             <p>Histórico de Diferencias</p>
             <div className={styles.listDataBase}>
                 <div className={styles.listTitles}>
@@ -55,9 +54,8 @@ export default function ListDifferenceComponent() {
                 </div>
             </div>
             <div className={styles.buttonBase}>
-                <Link href='/clients/difference'>Atrás</Link>
-                <Link href={`/clients/difference/update/${selected}`}>Modificar</Link>
-                <button>Guardar</button>
+                <button><Link className={styles.particularLink} href='/clients/difference'>Atrás</Link></button>
+                <button><Link className={styles.particularLink} href={`/clients/difference/update/${selected}`}>Modificar</Link></button>
             </div>
         </div>
     )

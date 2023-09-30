@@ -3,9 +3,14 @@
     grid-template-columns: repeat(2, 50%);
     width: 50%;
     justify-items: center;
-    padding-top: 50px;
+    padding-top: 150px;
     margin: 0px auto;
     
+}
+.currencyHomeBase > div > h2 {
+    margin-bottom: 10px;
+    color: rgba(13, 13, 13, 0.75);
+    font-weight: 600;
 }
 
 .currencyUsd > img{
@@ -30,6 +35,7 @@
     border: 1px solid #bcbcbc;
     display: grid;
     grid-template-columns: 1fr;
+    background-color: rgb(255, 255, 255);
 }
 
 .currencyUsd > div {
@@ -73,12 +79,14 @@
     display: grid;
     width: 200px;
     height: 30px;
-    margin: 50px auto;
+    margin: 100px auto;
     text-align: center;
     align-items: center;
     text-decoration: none;
     color: #fafafa;
     padding: 5px 40px;
-    background-color: rgb(57, 162, 194);
+    background-color: rgba(0, 140, 255, 1);
+    font-size: 15px;
+    font-weight: 600;
     border-radius: 5px;
 }

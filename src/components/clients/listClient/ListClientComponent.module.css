@@ -20,6 +20,7 @@
 .listDataBase{
     display: grid;
     width: 100%;
+    margin-top: 50px;
 }
 
 .listTitles{
@@ -29,11 +30,12 @@
     font-weight: 600;
     font-size: 16px;
     margin-bottom: 20px;
+    margin: 0px 5px;
 }
 .dataContainer{
     overflow:hidden;
     overflow-y:auto;
-    max-height: 400px;
+    max-height: 600px;
 }
 .listData{
     display: grid;
@@ -67,15 +69,20 @@
     font-size: 18px;
     margin: 10px auto;
 }
-
-.buttonBase > a{
-    width: 100px;
-    padding: 10px;
-    font-size: 24px;
+.buttonBase{
+    height: 100%;
+    margin: 0 auto;
+    margin-top: 40px;
+    
+}
+.particularLink{
+    padding: 5px 50px;
     text-decoration: none;
-    margin: 10px 5px;
-    border-radius: 10px;
-    background-color: rgb(64, 178, 239);
-    color: rgb(255, 255, 255);
-
+    background-color: rgba(0, 140, 255, 1);
+    color: #fafafa;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    border: 0px;
+    margin: 0px 50px;
 }

@@ -1,26 +1,47 @@
 .formBase{
     display: grid;
-    width: 25%;
+    width: 400px;
     height: 600px;
     justify-content: center;
     margin: auto;
+    margin-top: 100px;
     border: 2px solid rgb(169, 169, 169);
     border-radius: 20px;
     padding: 30px;
-    box-shadow: 8px 8px 8px rgb(215, 215, 215);
     text-align: center;
 }
 
 .formBase > img{
     margin: 0 auto;
 }
-.formBase > p{
-    font-size: 38px;
+.formBase > h2{
+    font-size: 30px;
+    margin-top: 30px;
+}
+.formData{
+    width: 400px;
+    height: 400px;
+}
+.descriptionOver{
+    text-align: left;
+    font-size: 12px;
+    margin-top: 8px;
+    color: rgba(108, 108, 108, 1);
 }
 
-.formBase > input{
+.name{
+    font-size: 22px; 
+    height: 40px;
+    border: 1px solid rgb(136, 136, 136);
+    padding-top: 10px;
+    padding-left: 20px;
+    border-radius: 5px;
+    text-align: left;
+    color: rgba(125, 125, 125, 1);
+}
+.formBase > div> input{
     display: grid;
-    width: 300px;
+    width: 355px;
     font-size: 22px;
     align-items: center;
     background-color: rgb(255, 255, 255);
@@ -33,19 +54,40 @@
 
 .name{
     background-color: rgb(232, 232, 232) !important;
+    font-size: 18px;
 }
 
-.formBase > div > button{
+.description{
+    height: 125px;
+    width: 355px;
+    resize: none;
+    outline: none;
     font-size: 22px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(136, 136, 136);
+    border-radius: 5px;
+    padding: 5px 20px;
+    margin-top: 5px;
+    color: rgba(125, 125, 125, 1);
+}
+
+
+.formBase > div > button{
     padding: 10px;
+    width: 150px;
+    height: 40px;
     margin: 5px;
-    border-radius: 10px;
-    background-color: rgb(64, 178, 239);
-    color: rgb(255, 255, 255);
-    text-decoration: none;  
+    margin-top: 80px;
+    border-radius: 5px;
+    background-color: rgba(0, 140, 255, 1);
+    color: #fafafa;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    border: 0px;    
 }
 
 .formBase > div > button > a{
     text-decoration: none;  
-    color: rgb(255, 255, 255);
+    color: #fafafa;
 }

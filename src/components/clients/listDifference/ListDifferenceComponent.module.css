@@ -1,6 +1,6 @@
 .listDifferenceBase{
     display: grid;
-    min-height: 600px;
+    height: 600px;
     margin: auto;
     border-radius: 20px;
     padding: 30px;
@@ -20,6 +20,7 @@
 .listDataBase{
     display: grid;
     width: 100%;
+    margin-top: 50px;
 }
 
 .listTitles{
@@ -29,11 +30,12 @@
     font-weight: 600;
     font-size: 16px;
     margin-bottom: 20px;
+    margin: 0px 5px;
 }
 .dataContainer{
     overflow:hidden;
     overflow-y:auto;
-    max-height: 400px;
+    max-height: 550px;
 }
 
 .listData{
@@ -69,27 +71,26 @@
     margin: 10px auto;
 }
 
-.buttonBase > a{
-    width: 100px;
-    padding: 10px;
-    font-size: 24px;
-    text-decoration: none;
-    margin: 10px 5px;
-    border-radius: 10px;
-    background-color: rgb(64, 178, 239);
-    color: rgb(255, 255, 255);
-
+.buttonBase{
+    height: 100%;
+    margin: 0 auto;
 }
 
 .buttonBase > button{
-    min-width: 100px;
     padding: 10px;
-    font-size: 24px;
-    text-decoration: none;
-    margin: 10px 5px;
-    border-radius: 10px;
-    background-color: rgb(64, 178, 239);
-    color: rgb(255, 255, 255);
-    border: 0;
-
+    width: 150px;
+    height: 40px;
+    margin: 5px;
+    margin-top: 80px;
+    border-radius: 5px;
+    background-color: rgba(0, 140, 255, 1);
+    color: #fafafa;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    border: 0px;    
+}
+.particularLink{
+    text-decoration: none;  
+    color: #fafafa;
 }

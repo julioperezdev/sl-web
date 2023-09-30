@@ -9,6 +9,7 @@ import { ONLY_NUMBERS_ON_STRING, ONLY_LETTERS_ON_STRING } from '@/models/RegexCo
 import { useRouter } from 'next/navigation';
 import { sleep } from '@/helper/sleepInMilli/Sleep';
 import { AddSeller, AddSellerRequest, Seller } from '@/models/SellerModel';
+import { describe } from 'node:test';
 
 export default function AddSellerComponent() {
 
@@ -22,7 +23,7 @@ export default function AddSellerComponent() {
             if (response.status == 201) {
                 reset();
                 toast.success('Se ha guardado exitosamente el Vendedor')
-                await sleep(2000);
+                await sleep(1000);
                 router.replace(`/sellers`)
             } else {
                 toast.error('Ops... No se pudo guardar el Vendedor')
@@ -37,7 +38,8 @@ export default function AddSellerComponent() {
         return {
             id: uuid(),
             name: data.name,
-            phone: data.phone
+            phone: data.phone,
+            description: data.description
         }
     }
 
@@ -53,19 +55,23 @@ export default function AddSellerComponent() {
         });
     }
     return (
-        <form onSubmit={onSubmit} className={styles.formBase}>
-            <Image src={'/sellerNew.png'} alt='Icono para indicar un nuevo vendedor' width={80} height={80} />
+        <div className={styles.formBase}>
             <p>Nuevo Vendedor</p>
-            <input type="text" placeholder='Ingrese Apodo' {...register("name", { required: true, pattern: ONLY_LETTERS_ON_STRING })} />
-            {errors.name && (errors.name.type === "required" || errors.name.type === "pattern") && (<span>Solo acepta letras y espacios</span>)}
-            <input type="text" placeholder='Número de teléfono' {...register("phone", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength: 20 })} />
-            {errors.phone && (errors.phone.type === "required" || errors.phone.type === "pattern") && (<span>Solo acepta números</span>)}
-            {errors.phone && errors.phone.type === "maxLength" && (<span>Máximo de 20 dígitos</span>)}
+            <div className={styles.formData}>
+                <input type="text" placeholder='Ingrese Apodo' {...register("name", { required: true, pattern: ONLY_LETTERS_ON_STRING })} />
+                {errors.name && (errors.name.type === "required" || errors.name.type === "pattern") && (<span>Solo acepta letras y espacios</span>)}
+                <input type="text" placeholder='Número de teléfono' {...register("phone", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength: 20 })} />
+                {errors.phone && (errors.phone.type === "required" || errors.phone.type === "pattern") && (<span>Solo acepta números</span>)}
+                {errors.phone && errors.phone.type === "maxLength" && (<span>Máximo de 20 dígitos</span>)}
+                <textarea placeholder='Descripción' className={styles.description} {...register("description", { required: true, maxLength: 100 })} />
+                {errors.description && errors.description.type === "required" && (<span>La descripción es obligatoria</span>)}
+                {errors.description && errors.description.type === "maxLength" && (<span>Máximo de 100 dígitos</span>)}
+            </div>
             <div>
                 <button><Link href='/sellers'>Cancelar</Link></button>
-                <button id="formSubmit" type="submit" >Guardar</button>
+                <button onClick={onSubmit}>Guardar</button>
             </div>
-            <Toaster/>
-        </form>
+            <Toaster />
+        </div>
     )
 }

@@ -26,13 +26,13 @@ export default function ListSellerComponent() {
     }
     return (
         <div className={styles.listSellerBase}>
-            <Image src={'/menu.png'} alt='Icono para indicar la lista de vendedores' width={70} height={70} />
-            <p>Vendedores</p>
+            <p>Lista de Vendedores</p>
             <div className={styles.listDataBase}>
                 <div className={styles.listTitles}>
                     <p>Fecha Registro</p>
                     <p>Apodo Vendedor</p>
                     <p>Telefono</p>
+                    <p>Descripción</p>
                     <p>ID</p>
                 </div>
                 <div className={styles.dataContainer}>
@@ -42,6 +42,40 @@ export default function ListSellerComponent() {
                             <p>{format(parseISO(seller.createdAt!), 'd/MM/yyyy')}</p>
                             <p>{seller.name}</p>
                             <p>{seller.phone}</p>
+                            <p className={styles.description}>{seller.description}</p>
+                            <p>{seller.id}</p>
+                        </div>
+                    ))
+                }
+                {
+                    sellers.map(seller => (
+                        <div className={isSelected(seller.id) ? styles.listDataSelected : styles.listData} key={seller.id} onClick={()=> setSelected(seller.id)}>
+                            <p>{format(parseISO(seller.createdAt!), 'd/MM/yyyy')}</p>
+                            <p>{seller.name}</p>
+                            <p>{seller.phone}</p>
+                            <p className={styles.description}>{seller.description}</p>
+                            <p>{seller.id}</p>
+                        </div>
+                    ))
+                }
+                {
+                    sellers.map(seller => (
+                        <div className={isSelected(seller.id) ? styles.listDataSelected : styles.listData} key={seller.id} onClick={()=> setSelected(seller.id)}>
+                            <p>{format(parseISO(seller.createdAt!), 'd/MM/yyyy')}</p>
+                            <p>{seller.name}</p>
+                            <p>{seller.phone}</p>
+                            <p className={styles.description}>{seller.description}</p>
+                            <p>{seller.id}</p>
+                        </div>
+                    ))
+                }
+                {
+                    sellers.map(seller => (
+                        <div className={isSelected(seller.id) ? styles.listDataSelected : styles.listData} key={seller.id} onClick={()=> setSelected(seller.id)}>
+                            <p>{format(parseISO(seller.createdAt!), 'd/MM/yyyy')}</p>
+                            <p>{seller.name}</p>
+                            <p>{seller.phone}</p>
+                            <p className={styles.description}>{seller.description}</p>
                             <p>{seller.id}</p>
                         </div>
                     ))
@@ -49,9 +83,8 @@ export default function ListSellerComponent() {
                 </div>
             </div>
             <div className={styles.buttonBase}>
-                <Link href='/sellers'>Atrás</Link>
-                <Link href={`/sellers/update/${selected}`}>Modificar</Link>
-                <button>Guardar</button>
+                <button><Link href='/sellers'>Atrás</Link></button>
+                <button><Link href={`/sellers/update/${selected}`}>Modificar</Link></button>
             </div>
         </div>
     )

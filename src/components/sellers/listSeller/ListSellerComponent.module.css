@@ -2,6 +2,7 @@
     display: grid;
     min-height: 600px;
     margin: auto;
+    margin-top: 40px;
     border-radius: 20px;
     padding: 30px;
     text-align: center;
@@ -12,9 +13,10 @@
     margin: 0 auto;
 }
 .listSellerBase > p{
-    font-size: 38px;
+    font-size: 30px;
     margin: 20px auto;
-    font-weight: 600;
+    font-weight: 500;
+    color: rgba(13, 13, 13, 0.75);
 }
 
 .listDataBase{
@@ -24,21 +26,22 @@
 
 .listTitles{
     display: grid;
-    grid-template-columns: repeat(4, 25%);
+    grid-template-columns: repeat(5, 20%);
     color: rgb(122, 122, 122);
     font-weight: 600;
     font-size: 16px;
     margin-bottom: 20px;
+    margin-top: 50px;
 }
 .dataContainer{
     overflow:hidden;
     overflow-y:auto;
-    max-height: 400px;
+    max-height: 450px;
 }
 
 .listData{
     display: grid;
-    grid-template-columns: repeat(4, 25%);
+    grid-template-columns: repeat(5, 20%);
     border-radius: 10px;
     color: rgb(122, 122, 122);
     margin: 5px;
@@ -47,7 +50,7 @@
 
 .listDataSelected{
     display: grid;
-    grid-template-columns: repeat(4, 25%);
+    grid-template-columns: repeat(5, 20%);
     border-radius: 10px;
     color: rgb(122, 122, 122);
     background-color: rgba(212, 201, 231, 0.528);
@@ -69,27 +72,31 @@
     margin: 10px auto;
 }
 
-.buttonBase > a{
-    width: 100px;
-    padding: 10px;
-    font-size: 24px;
-    text-decoration: none;
-    margin: 10px 5px;
-    border-radius: 10px;
-    background-color: rgb(64, 178, 239);
-    color: rgb(255, 255, 255);
+.description{
+    text-align: left;
+}
 
+.buttonBase{
+    margin-top: 50px;
 }
 
 .buttonBase > button{
     min-width: 100px;
+    height: 42px;
+    width: 150px;
     padding: 10px;
-    font-size: 24px;
+    font-size: 18px;
     text-decoration: none;
     margin: 10px 5px;
-    border-radius: 10px;
-    background-color: rgb(64, 178, 239);
-    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    background-color: rgba(0, 140, 255, 1);
+    color: #fafafa;
     border: 0;
 
+}
+
+.buttonBase > button > a{
+    text-decoration: none;
+    margin: 10px 5px;
+    color: rgb(255, 255, 255);
 }

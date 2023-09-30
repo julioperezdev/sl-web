@@ -1,6 +1,6 @@
 .formBase{
     display: grid;
-    width: 25%;
+    width: 400px;
     height: 500px;
     justify-content: center;
     margin: 100px auto;
@@ -15,34 +15,81 @@
 }
 .formBase > p{
     font-size: 30px;
-    font-weight: 500;
+    font-weight: 600;
+    margin-top: 10px;
+    color: rgba(13, 13, 13, 0.75);
 }
 
-.formBase > input{
+.formData{
+    width: 400px;
+    height: 400px;
+    margin-top: 20px;
+}
+
+.formBase > div > input{
     display: grid;
     width: 300px;
-    height: 50px;
+    height: 40px;
     font-size: 22px;
     align-items: center;
     background-color: rgb(232, 232, 232);
     border: 1px solid rgb(136, 136, 136);
     border-radius: 5px;
     margin: 5px auto;
+
     padding: 5px 20px;
     outline: none;
 }
 
-.formBase > div > button{
+.description{
+    height: 125px;
+    width: 300px;
+    resize: none;
+    outline: none;
     font-size: 22px;
+    background-color: rgb(232, 232, 232);
+    border: 1px solid rgb(136, 136, 136);
+    border-radius: 5px;
+    padding: 5px 20px;
+    margin-top: 5px;
+}
+
+.formBase > div > button{
     padding: 10px;
-    margin: 5px 10px;
-    border-radius: 10px;
-    background-color: rgb(64, 178, 239);
-    color: rgb(255, 255, 255);
-    text-decoration: none;  
+    width: 150px;
+    height: 40px;
+    margin: 5px;
+    border-radius: 5px;
+    background-color: rgba(0, 140, 255, 1);
+    color: #fafafa;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    border: 0px;    
 }
 
 .formBase > div > button > a{
     text-decoration: none;  
-    color: rgb(255, 255, 255);
+    color: #fafafa;
 }
+/* 
+
+.formBase > div > a {
+    text-decoration: none;  
+    color: #fafafa;
+}
+
+.formBase > div > a > button{
+    padding: 10px;
+    width: 150px;
+    height: 40px;
+    margin: 5px;
+    text-decoration: none;  
+    border-radius: 5px;
+    background-color: rgba(0, 140, 255, 1);
+    color: #fafafa;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    border: 0px;   
+} */

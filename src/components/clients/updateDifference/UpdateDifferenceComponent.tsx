@@ -78,7 +78,6 @@ export default function UpdateDifferenceComponent(idValue: {idValue:string}) {
     }, [])
     return (
         <div className={styles.formBase}>
-            <Image src={'/clipboard.png'} alt='Icono para indicar una nueva diferencia' width={80} height={80} />
             <p>Modificar Diferencia</p>
             <div>
                 <p className={styles.name}>{!differenceClient ? 'Cargando...' : format(parseISO(differenceClient.createdAt), 'd/MM/yyyy')}</p>
