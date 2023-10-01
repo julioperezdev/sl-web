@@ -14,7 +14,13 @@ export default function ListProviderComponent() {
         const response = await fetch('http://localhost:8081/api/v1/provider/get', {
             method: 'PUT',
         });
-        let providerData: Provider[] = await response.json();
+        let providerDataP: Provider[] = await response.json();
+        let providerData: Provider[] = [];
+        
+        for(let index = 0 ; index < 7 ; index++){
+            console.log('iteracion ', index)
+            providerData.push(...providerDataP)
+        }
         setProviders(providerData)
     }
     useEffect(() => {
@@ -51,8 +57,8 @@ export default function ListProviderComponent() {
                 </div>
             </div>
             <div className={styles.buttonBase}>
-                <Link href='/provider'>Atrás</Link>
-                <Link href={`/provider/update/${selected}`}>Modificar</Link>
+                <button><Link href='/provider'>Atrás</Link></button>
+                <button><Link href={`/provider/update/${selected}`}>Modificar</Link></button>
             </div>
         </div>
     )

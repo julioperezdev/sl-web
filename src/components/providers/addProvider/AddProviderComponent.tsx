@@ -22,7 +22,7 @@ export default function AddProviderComponent() {
             if (response.status == 201) {
                 reset();
                 toast.success('Se ha guardado exitosamente el Proveedor')
-                await sleep(2000);
+                await sleep(1000);
                 router.replace(`/provider`)
             } else {
                 toast.error('Ops... No se pudo guardar el Proveedor')
@@ -55,22 +55,23 @@ export default function AddProviderComponent() {
     }
 
     return (
-        <form onSubmit={onSubmit} className={styles.formBase}>
-            <Image src={'/sellerNew.png'} alt='Icono para indicar un nuevo proveedor' width={70} height={70} />
+        <div className={styles.formBase}>
             <p>Nuevo Proveedor</p>
-            <input type="text" placeholder='Ingrese Apodo' {...register("name", { required: true, pattern: ONLY_LETTERS_ON_STRING })} />
-            {errors.name && (errors.name.type === "required" || errors.name.type === "pattern") && (<span>Solo acepta letras y espacios</span>)}
-            <input type="text" placeholder='Número de teléfono' {...register("phone", { required: true, pattern: ONLY_NUMBERS_ON_STRING , maxLength: 20})} />
-            {errors.phone && (errors.phone.type === "required" || errors.phone.type === "pattern") && (<span>Solo acepta números</span>)}
-            {errors.phone && errors.phone.type === "maxLength" && (<span>Máximo de 20 dígitos</span>)}
-            <input type="text" placeholder='Dirección' {...register("address", { required: true , maxLength: 50})} />
-            {errors.address && errors.address.type === "required" && (<span>La direccion es obligatoria</span>)}
-            {errors.address && errors.address.type === "maxLength" && (<span>Máximo de 50 dígitos</span>)}
+            <div className={styles.formData}>
+                <input type="text" placeholder='Ingrese Apodo' {...register("name", { required: true, pattern: ONLY_LETTERS_ON_STRING })} />
+                {errors.name && (errors.name.type === "required" || errors.name.type === "pattern") && (<span>Solo acepta letras y espacios</span>)}
+                <input type="text" placeholder='Número de teléfono' {...register("phone", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength: 20 })} />
+                {errors.phone && (errors.phone.type === "required" || errors.phone.type === "pattern") && (<span>Solo acepta números</span>)}
+                {errors.phone && errors.phone.type === "maxLength" && (<span>Máximo de 20 dígitos</span>)}
+                <input type="text" placeholder='Dirección' {...register("address", { required: true, maxLength: 50 })} />
+                {errors.address && errors.address.type === "required" && (<span>La direccion es obligatoria</span>)}
+                {errors.address && errors.address.type === "maxLength" && (<span>Máximo de 50 dígitos</span>)}
+            </div>
             <div>
                 <button ><Link href='/provider'>Atras</Link></button>
-                <button id="formSubmit" type="submit" >Guardar</button>
+                <button onClick={onSubmit} >Guardar</button>
             </div>
-            <Toaster/>
-        </form>
+            <Toaster />
+        </div>
     )
-  }
+}

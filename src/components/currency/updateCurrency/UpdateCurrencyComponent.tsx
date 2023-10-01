@@ -115,12 +115,10 @@ export default function UpdateCurrencyComponent() {
                             <input className={styles.priceToSell} type="text" placeholder='Importe' {...register("sellPrice", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength: 20 })} />
                             {errors.sellPrice && (errors.sellPrice.type === "pattern" || errors.sellPrice.type === "required") && (<span>Es obligatorio y solo son números</span>)}
                             {errors.sellPrice && errors.sellPrice.type === "maxLength" && (<span>Máximo de 20 dígitos</span>)}
-                            {/* <p className={styles.priceToBuy}>$780</p>
-                            <p className={styles.priceToSell}>$787</p> */}
                         </div></>
             }
-            <div>
-                <Link href='/currency'>Cancelar</Link>
+            <div className={styles.buttonBase}>
+                <button><Link href='/currency'>Cancelar</Link></button>
                 <button onClick={onClickDifference}>Guardar</button>
             </div>
             <Toaster />

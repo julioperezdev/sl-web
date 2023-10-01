@@ -9,10 +9,11 @@ import { useRouter } from 'next/navigation';
 import { sleep } from '@/helper/sleepInMilli/Sleep';
 import { Note, NoteRequestForm, UpdateNoteRequest } from '@/models/NoteModel';
 import { useEffect, useState } from 'react';
+import { format } from 'date-fns'
 
-export default function UpdateNoteComponent(idValue: {idValue:string}) {
+export default function UpdateNoteComponent(idValue: { idValue: string }) {
 
-    const { register, handleSubmit, reset,setValue, formState: { errors } } = useForm<NoteRequestForm>();
+    const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm<NoteRequestForm>();
     const [note, setNote] = useState<Note | null>(null)
 
     const router = useRouter();
@@ -56,7 +57,7 @@ export default function UpdateNoteComponent(idValue: {idValue:string}) {
     }
 
     async function getNoteById() {
-        const response = await fetch(`http://localhost:8081/api/v1/note/get/${idValue.idValue}`,{
+        const response = await fetch(`http://localhost:8081/api/v1/note/get/${idValue.idValue}`, {
             method: 'PUT',
         });
         let noteData: Note = await response.json();
@@ -70,23 +71,28 @@ export default function UpdateNoteComponent(idValue: {idValue:string}) {
     }, [])
 
     return (
-        <form onSubmit={onSubmit} className={styles.formBase}>
-            <Image src={'/add-post.png'} alt='Icono para indicar una modificacion del recordatorio' width={70} height={70} />
+        <div className={styles.formBase}>
             <p>Modificar Recordatorio</p>
-            <input type="text" placeholder='Detalle' {...register("description", { required: true, maxLength: 30 })} />
-            {errors.description && errors.description.type === "required" && (<span>La descripción es obligatoria</span>)}
-            {errors.description && errors.description.type === "maxLength" && (<span>Máximo de 30 dígitos</span>)}
-            <select {...register("color", { required: true })}>
-                <option value="#f2f2f2">Blanco</option>
-                <option value="#e3ebff">Azul</option>
-                <option value="#ffe3e3">Rojo</option>
-                <option value="#fcfcde">Amarillo</option>
-            </select>
             <div>
-                <Link href='/note/list'>Atras</Link>
-                <button id="formSubmit" type="submit" >Guardar</button>
+                <p className={styles.descriptionOver}>Fecha</p>
+                <p>{format(new Date(), 'd/MM/yyyy')}</p>
+                <p className={styles.descriptionOver}>Asignar Color</p>
+                <select {...register("color", { required: true })}>
+                    <option value="#f2f2f2">Blanco</option>
+                    <option value="#e3ebff">Azul</option>
+                    <option value="#ffe3e3">Rojo</option>
+                    <option value="#fcfcde">Amarillo</option>
+                </select>
+                <p className={styles.descriptionOver}>Detalle</p>
+                <input type="text" placeholder='Detalle' {...register("description", { required: true, maxLength: 30 })} />
+                {errors.description && errors.description.type === "required" && (<span>La descripción es obligatoria</span>)}
+                {errors.description && errors.description.type === "maxLength" && (<span>Máximo de 30 dígitos</span>)}
+            </div>
+            <div className={styles.buttonBase}>
+                <button><Link href='/note/list'>Atras</Link></button>
+                <button onClick={onSubmit}>Guardar</button>
             </div>
             <Toaster />
-        </form>
+        </div>
     )
 }

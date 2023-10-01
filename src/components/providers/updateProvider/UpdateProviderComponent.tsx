@@ -75,15 +75,19 @@ export default function UpdateProviderComponent(idValue: { idValue: string }) {
     }, [])
     return (
         <form onSubmit={onClickProvider} className={styles.formBase}>
-            <Image src={'/sellerUpdate.png'} alt='Icono para indicar un nuevo vendedor' width={80} height={80} />
             <p>Modificar Proveedor</p>
-            <p className={styles.name}>{provider?.name}</p>
-            <input type="text" placeholder='Número de teléfono' {...register("phone", { required: true, pattern: ONLY_NUMBERS_ON_STRING })} />
-            {errors.phone && (errors.phone.type === "pattern" || errors.phone.type === "required") && (<span>Es obligatorio y solo son números</span>)}
-            {errors.phone && errors.phone.type === "maxLength" && (<span>Máximo de 20 dígitos</span>)}
-            <input type="text" placeholder='Dirección' {...register("address", { required: true, maxLength: 50 })} />
-            {errors.address && errors.address.type === "required" && (<span>La direccion es obligatoria</span>)}
-            {errors.address && errors.address.type === "maxLength" && (<span>Máximo de 50 dígitos</span>)}
+            <div className={styles.formData}>
+                <p className={styles.descriptionOver}>Apodo Proveedor</p>
+                <p className={styles.name}>{provider?.name}</p>
+                <p className={styles.descriptionOver}>Teléfono</p>
+                <input type="text" placeholder='Número de teléfono' {...register("phone", { required: true, pattern: ONLY_NUMBERS_ON_STRING })} />
+                {errors.phone && (errors.phone.type === "pattern" || errors.phone.type === "required") && (<span>Es obligatorio y solo son números</span>)}
+                {errors.phone && errors.phone.type === "maxLength" && (<span>Máximo de 20 dígitos</span>)}
+                <p className={styles.descriptionOver}>Dirección</p>
+                <input type="text" placeholder='Dirección' {...register("address", { required: true, maxLength: 50 })} />
+                {errors.address && errors.address.type === "required" && (<span>La direccion es obligatoria</span>)}
+                {errors.address && errors.address.type === "maxLength" && (<span>Máximo de 50 dígitos</span>)}
+            </div>
             <div>
                 <button><Link href='/provider'>Cancelar</Link></button>
                 <button id="formSubmit" type="submit" >Guardar</button>

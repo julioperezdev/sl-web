@@ -6,15 +6,17 @@
     padding: 30px;
     text-align: center;
     font-size: 24px;
+    margin-top: 100px;
 }
 
 .listClientBase > img{
     margin: 0 auto;
 }
 .listClientBase > p{
-    font-size: 38px;
+    font-size: 30px;
     margin: 20px auto;
     font-weight: 600;
+    color: rgba(13, 13, 13, 0.75);
 }
 
 .listDataBase{
@@ -57,7 +59,7 @@
 
 .listDataSelected > p{
     font-size: 18px;
-    margin: 10px auto;
+    margin: 10px 0;
 }
 
 .listData:hover{
@@ -66,30 +68,35 @@
 
 .listData > p{
     font-size: 18px;
-    margin: 10px auto;
+    margin: 10px 0;
+}
+.description{
+    text-align: left !important;
 }
 
-.buttonBase > a{
-    width: 100px;
-    padding: 10px;
-    font-size: 24px;
-    text-decoration: none;
-    margin: 10px 5px;
-    border-radius: 10px;
-    background-color: rgb(64, 178, 239);
-    color: rgb(255, 255, 255);
-
+.descriptionText{
+    /* position: relative;
+    left: -35%; */
+    text-align: left;
+    
 }
 
 .buttonBase > button{
-    min-width: 100px;
     padding: 10px;
-    font-size: 24px;
-    text-decoration: none;
-    margin: 10px 5px;
-    border-radius: 10px;
-    background-color: rgb(64, 178, 239);
-    color: rgb(255, 255, 255);
-    border: 0;
+    width: 150px;
+    height: 40px;
+    margin: 5px;
+    margin-top: 80px;
+    border-radius: 5px;
+    background-color: rgba(0, 140, 255, 1);
+    color: #fafafa;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    border: 0px;    
+}
 
+.buttonBase > button > a{
+    text-decoration: none;  
+    color: #fafafa;
 }

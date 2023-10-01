@@ -29,13 +29,12 @@ export default function ListNoteComponent() {
 
     return (
         <div className={styles.listClientBase}>
-            <Image src={'/menu.png'} alt='Icono para indicar la lista de recordatorios' width={70} height={70} />
-            <p>Lista de Recordatorios</p>
+            <p>Histórico de Recordatorios</p>
             <div className={styles.listDataBase}>
                 <div className={styles.listTitles}>
                     <p>Fecha Registro</p>
                     <p>Fecha Actualizada</p>
-                    <p>Detalle</p>
+                    <p className={styles.description}>Detalle</p>
                 </div>
                 <div className={styles.dataContainer} >
                 {notes.length > 0 && notes.map(note => (
@@ -49,14 +48,14 @@ export default function ListNoteComponent() {
                         </style>
                         <p>{format(parseISO(note.createdAt), 'd/MM/yyyy')}</p>
                         <p>{format(parseISO(note.updatedAt), 'd/MM/yyyy')}</p>
-                        <p>{note.description}</p>
+                        <p className={styles.descriptionText}>{note.description}</p>
                     </div>
                 ))}
                 </div>
             </div>
             <div className={styles.buttonBase}>
-                <Link href='/note'>Atrás</Link>
-                <Link href={`/note/update/${selected}`}>Modificar</Link>
+                <button><Link href='/note'>Atrás</Link></button>
+                <button><Link href={`/note/update/${selected}`}>Modificar</Link></button>
             </div>
         </div>
     )

@@ -1,24 +1,30 @@
 .formBase{
     display: grid;
-    width: 25%;
-    height: 600px;
+    width: 350px;
+    height: 500px;
     justify-content: center;
     margin: auto;
-    border: 2px solid rgb(169, 169, 169);
+    border: 2px solid rgb(208, 208, 208);
     border-radius: 20px;
     padding: 30px;
-    box-shadow: 8px 8px 8px rgb(215, 215, 215);
     text-align: center;
+    margin-top: 100px;
 }
 
 .formBase > img{
     margin: 0 auto;
 }
 .formBase > p{
-    font-size: 38px;
+    font-size: 30px;
+    font-weight: 600;
+    margin-top: 40px;
+    color: rgba(13, 13, 13, 0.75);
 }
 
-.formBase > input{
+.formData{
+
+}
+.formBase > div>  input{
     display: grid;
     width: 300px;
     font-size: 22px;
@@ -27,21 +33,28 @@
     border: 1px solid rgb(136, 136, 136);
     border-radius: 5px;
     margin: 5px auto;
+    margin-bottom: 10px;
+
     padding: 5px 20px;
     outline: none;
 }
 
 .formBase > div > button{
-    font-size: 22px;
     padding: 10px;
+    width: 150px;
+    height: 40px;
     margin: 5px;
-    border-radius: 10px;
-    background-color: rgb(64, 178, 239);
-    color: rgb(255, 255, 255);
-    text-decoration: none;  
+    margin-top: 80px;
+    border-radius: 5px;
+    background-color: rgba(0, 140, 255, 1);
+    color: #fafafa;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    border: 0px;    
 }
 
 .formBase > div > button > a{
     text-decoration: none;  
-    color: rgb(255, 255, 255);
+    color: #fafafa;
 }

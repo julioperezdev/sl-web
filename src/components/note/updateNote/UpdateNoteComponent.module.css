@@ -13,15 +13,33 @@
 .formBase > img{
     margin: 0 auto;
 }
+
 .formBase > p{
     font-size: 30px;
     font-weight: 500;
+    margin-top: 50px;
+    color: rgba(13, 13, 13, 0.75);
 }
 
-.formBase > select{
+.formBase > div > p {
+    width: 300px;
+    height: 35px;
+    font-size: 22px;
+    align-items: center;
+    background-color: rgb(232, 232, 232);
+    border: 1px solid rgb(136, 136, 136);
+    border-radius: 5px;
+    margin: 5px auto;
+    padding: 5px 20px;
+    outline: none;
+    color: #7D7D7D;
+    text-align: left;
+}
+
+.formBase > div > select{
     
     width: 340px;
-    height: 50px;
+    height: 40px;
     font-size: 22px;
     align-items: center;
     background-color: rgb(232, 232, 232);
@@ -30,12 +48,13 @@
     margin: 5px auto;
     padding: 5px 20px;
     outline: none;
+    color: #7D7D7D;
 }
 
-.formBase > input{
+.formBase > div > input{
     display: grid;
     width: 300px;
-    height: 50px;
+    height: 40px;
     font-size: 22px;
     align-items: center;
     background-color: rgb(232, 232, 232);
@@ -44,27 +63,32 @@
     margin: 5px auto;
     padding: 5px 20px;
     outline: none;
+    color: #7D7D7D;
 }
 
-.formBase > div > button{
-    font-size: 22px;
+.descriptionOver{
+    text-align: left !important;
+    font-size: 12px !important;
+    background-color: transparent !important;
+    border: 0 !important;
+    height: 10px !important;
+}
+.buttonBase > button{
     padding: 10px;
-    margin: 5px 10px;
-    border-radius: 10px;
-    border:1px solid rgb(64, 178, 239);
-    background-color: rgb(64, 178, 239);
-    color: rgb(255, 255, 255);
-    text-decoration: none;  
+    width: 150px;
+    height: 40px;
+    margin: 5px;
+    margin-top: 40px;
+    border-radius: 5px;
+    background-color: rgba(0, 140, 255, 1);
+    color: #fafafa;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    border: 0px;    
 }
 
-.formBase > div > a{
-    font-size: 22px;
-    padding: 10px;
-    margin: 5px 10px;
-    border-radius: 10px;
-    background-color: rgb(64, 178, 239);
-    color: rgb(255, 255, 255);
+.buttonBase > button > a{
     text-decoration: none;  
-    text-decoration: none;  
-    color: rgb(255, 255, 255);
+    color: #fafafa;
 }

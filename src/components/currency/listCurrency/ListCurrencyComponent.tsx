@@ -21,10 +21,10 @@ export default function ListCurrencyComponent() {
         getCurrencies();
     }, [])
 
-    function isSelected(id:string):boolean{
+    function isSelected(id: string): boolean {
         return id == selected;
     }
-    return(
+    return (
         <div className={styles.listClientBase}>
             <p>Historico de Actualizaciones</p>
             <div className={styles.listDataBase}>
@@ -34,18 +34,22 @@ export default function ListCurrencyComponent() {
                     <p>Precio de Compra</p>
                     <p>Precio Venta</p>
                 </div>
-                {
-                    currencies.map(currency => (
-                        <div className={isSelected(currency.id) ? styles.listDataSelected : styles.listData} key={currency.id} onClick={()=> setSelected(currency.id)}>
-                            <p>{format(parseISO(currency.updateAt), 'd/MM/yyyy hh:mm:ss')}</p>
-                            <p>{currency.name}</p>
-                            <p>${currency.buyPrice}</p>
-                            <p>${currency.sellPrice}</p>
-                        </div>
-                    ))
-                }
+                <div className={styles.dataContainer}>
+                    {
+                        currencies.map(currency => (
+                            <div className={isSelected(currency.id) ? styles.listDataSelected : styles.listData} key={currency.id} onClick={() => setSelected(currency.id)}>
+                                <p>{format(parseISO(currency.updateAt), 'd/MM/yyyy hh:mm:ss')}</p>
+                                <p>{currency.name}</p>
+                                <p>${currency.buyPrice}</p>
+                                <p>${currency.sellPrice}</p>
+                            </div>
+                        ))
+                    }
+                </div>
             </div>
-            <Link href='/currency'>Atrás</Link>
+            <div className={styles.buttonBase}>
+                <button><Link href='/currency'>Atrás</Link></button>
+            </div>
         </div>
     )
 }

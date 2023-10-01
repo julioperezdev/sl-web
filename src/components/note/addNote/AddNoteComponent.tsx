@@ -8,6 +8,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { sleep } from '@/helper/sleepInMilli/Sleep';
 import { AddNoteRequest, NoteRequestForm } from '@/models/NoteModel';
+import { format } from 'date-fns'
 
 export default function AddNoteComponent() {
 
@@ -54,23 +55,25 @@ export default function AddNoteComponent() {
     }
 
     return (
-        <form onSubmit={onSubmit} className={styles.formBase}>
-            <Image src={'/add-post.png'} alt='Icono para indicar un nuevo recordatorio' width={70} height={70} />
+        <div className={styles.formBase}>
             <p>Nuevo Recordatorio</p>
-            <input type="text" placeholder='Detalle' {...register("description", { required: true, maxLength:30 })} />
-            {errors.description && errors.description.type === "required" && (<span>La descripción es obligatoria</span>)}
-            {errors.description && errors.description.type === "maxLength" && (<span>Máximo de 30 dígitos</span>)}
-            <select {...register("color", { required: true })}>
+            <div>
+                <p>{format(new Date(), 'd/MM/yyyy')}</p>
+                <select {...register("color", { required: true })}>
                     <option value="#f2f2f2">Blanco</option>
                     <option value="#e3ebff">Azul</option>
                     <option value="#ffe3e3">Rojo</option>
                     <option value="#fcfcde">Amarillo</option>
                 </select>
+                <input type="text" placeholder='Detalle' {...register("description", { required: true, maxLength: 30 })} />
+                {errors.description && errors.description.type === "required" && (<span>La descripción es obligatoria</span>)}
+                {errors.description && errors.description.type === "maxLength" && (<span>Máximo de 30 dígitos</span>)}
+            </div>
             <div>
                 <button><Link href='/note'>Atras</Link></button>
-                <button id="formSubmit" type="submit" >Guardar</button>
+                <button onClick={onSubmit} >Guardar</button>
             </div>
-            <Toaster/>
-        </form>
+            <Toaster />
+        </div>
     )
-  }
+}

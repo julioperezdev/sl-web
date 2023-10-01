@@ -1,19 +1,19 @@
 .listClientBase{
     display: grid;
-    height: 600px;
+    min-height: 600px;
     margin: auto;
+    margin-top: 40px;
     border-radius: 20px;
     padding: 30px;
     text-align: center;
     font-size: 24px;
 }
 
-.listClientBase > img{
-    margin: 0 auto;
-}
 .listClientBase > p{
-    font-size: 38px;
-    margin: 0;
+    font-size: 30px;
+    margin: 20px auto;
+    font-weight: 500;
+    color: rgba(13, 13, 13, 0.75);
 }
 
 .listDataBase{
@@ -25,15 +25,25 @@
     display: grid;
     grid-template-columns: repeat(4, 25%);
     color: rgb(122, 122, 122);
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 20px;
+    margin-top: 50px;
+}
+
+.dataContainer{
+    overflow:hidden;
+    overflow-y:auto;
+    max-height: 400px;
 }
 
 .listData{
     display: grid;
     grid-template-columns: repeat(4, 25%);
     border-radius: 10px;
-    background-color: rgba(228, 220, 241, 0.528);
     color: rgb(122, 122, 122);
     margin: 5px;
+    align-items: center;
 }
 
 .listDataSelected{
@@ -59,14 +69,28 @@
     font-size: 18px;
     margin: 10px auto;
 }
-.listClientBase > a{
-    width: 100px;
-    padding: 10px;
-    font-size: 24px;
-    text-decoration: none;
-    margin: 10px auto;
-    border-radius: 10px;
-    background-color: rgb(64, 178, 239);
-    color: rgb(255, 255, 255);
 
+.buttonBase{
+    margin-top: 80px;
+}
+
+.buttonBase > button{
+    min-width: 100px;
+    height: 42px;
+    width: 150px;
+    padding: 10px;
+    font-size: 18px;
+    text-decoration: none;
+    margin: 10px 5px;
+    border-radius: 5px;
+    background-color: rgba(0, 140, 255, 1);
+    color: #fafafa;
+    border: 0;
+
+}
+
+.buttonBase > button > a{
+    text-decoration: none;
+    margin: 10px 5px;
+    color: rgb(255, 255, 255);
 }

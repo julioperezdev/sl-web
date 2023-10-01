@@ -8,19 +8,21 @@ export default function ClearComponent() {
     const { register, handleSubmit, reset, formState: { errors } } = useForm<any>();
 
     const onSubmit = handleSubmit(async (data) => {
-        
-      });
+
+    });
 
     return (
-        <form onSubmit={onSubmit} className={styles.formBase}>
+        <div onSubmit={onSubmit} className={styles.formBase}>
             <Image src={'/trash.png'} alt='Icono para indicar un nuevo vendedor' width={80} height={80} />
             <p>Borrar Datos</p>
-            <input type="text" placeholder='Confirme Usuario' {...register("name", { required: true, pattern: /^[A-Za-z ]+$/i })} />
-            <input type="text" placeholder='Confirme Contraseña' {...register("phone", { required: true, pattern: /^[0-9]{0,20}/i })} />
             <div>
-                <button id="formSubmit" type="submit" ><Link href='/'>Cancelar</Link></button>
-                <button id="formSubmit" type="submit" >Guardar</button>
+                <input type="text" placeholder='Confirme Usuario' {...register("name", { required: true, pattern: /^[A-Za-z ]+$/i })} />
+                <input type="text" placeholder='Confirme Contraseña' {...register("phone", { required: true, pattern: /^[0-9]{0,20}/i })} />
             </div>
-        </form>
+            <div className={styles.buttonBase}>
+                <button><Link href='/'>Cancelar</Link></button>
+                <button>Guardar</button>
+            </div>
+        </div>
     )
 }

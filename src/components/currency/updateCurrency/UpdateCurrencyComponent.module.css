@@ -1,36 +1,42 @@
 .formBase{
     display: grid;
-    width: 25%;
-    height: 600px;
+    width: 350px;
+    height: 400px;
     justify-content: center;
     margin: auto;
     border: 2px solid rgb(169, 169, 169);
     border-radius: 20px;
     padding: 30px;
-    box-shadow: 8px 8px 8px rgb(215, 215, 215);
+    background-color: rgba(199, 227, 250, 1);
     text-align: center;
+    margin-top: 100px;
 }
 
 .formBase > img{
     margin: 0 auto;
 }
 .formBase > p{
-    font-size: 38px;
+    font-size: 30px;
+    font-weight: 600;
+    margin-top: 50px;
+    color: rgba(13, 13, 13, 0.75);
 }
 
 .formBase > select{
     display: grid;
     width: 300px;
-    height: 50px;
+    height: 40px;
     font-size: 22px;
     align-items: center;
-    background-color: rgb(232, 232, 232);
+    background-color: white;
     border: 1px solid rgb(136, 136, 136);
     border-radius: 5px;
     margin: 5px auto;
     padding: 5px 20px;
     outline: none;
     text-align: center;
+    color: rgba(125, 125, 125, 1);
+    
 }
 
 .formBase > select > option{
@@ -70,23 +76,22 @@
     color: red;
 }
 
-.formBase > div > button{
-    font-size: 22px;
+.buttonBase > button{
     padding: 10px;
+    width: 150px;
+    height: 40px;
     margin: 5px;
-    border-radius: 10px;
-    border: 1px solid rgb(64, 178, 239);
-    background-color: rgb(64, 178, 239);
-    color: rgb(255, 255, 255);
-    text-decoration: none;  
+    margin-top: 40px;
+    border-radius: 5px;
+    background-color: rgba(0, 140, 255, 1);
+    color: #fafafa;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    border: 0px;    
 }
 
-.formBase > div > a{
-    font-size: 22px;
-    padding: 10px;
-    margin: 5px;
-    border-radius: 10px;
-    background-color: rgb(64, 178, 239);
-    color: rgb(255, 255, 255);
+.buttonBase > button > a{
     text-decoration: none;  
+    color: #fafafa;
 }

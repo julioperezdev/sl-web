@@ -2,6 +2,7 @@
     display: grid;
     min-height: 600px;
     margin: auto;
+    margin-top: 40px;
     border-radius: 20px;
     padding: 30px;
     text-align: center;
@@ -9,9 +10,10 @@
 }
 
 .listProviderBase > p{
-    font-size: 38px;
+    font-size: 30px;
     margin: 20px auto;
-    font-weight: 600;
+    font-weight: 500;
+    color: rgba(13, 13, 13, 0.75);
 }
 
 .listDataBase{
@@ -26,6 +28,7 @@
     font-weight: 600;
     font-size: 16px;
     margin-bottom: 20px;
+    margin-top: 50px;
 }
 .dataContainer{
     overflow:hidden;
@@ -66,14 +69,27 @@
     margin: 10px auto;
 }
 
-.buttonBase > a{
-    width: 100px;
+.buttonBase{
+    margin-top: 80px;
+}
+
+.buttonBase > button{
+    min-width: 100px;
+    height: 42px;
+    width: 150px;
     padding: 10px;
-    font-size: 24px;
+    font-size: 18px;
     text-decoration: none;
     margin: 10px 5px;
-    border-radius: 10px;
-    background-color: rgb(64, 178, 239);
-    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    background-color: rgba(0, 140, 255, 1);
+    color: #fafafa;
+    border: 0;
 
+}
+
+.buttonBase > button > a{
+    text-decoration: none;
+    margin: 10px 5px;
+    color: rgb(255, 255, 255);
 }
