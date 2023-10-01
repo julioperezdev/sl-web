@@ -57,7 +57,7 @@ export default function UpdateCurrencyComponent() {
     }
 
     function sendForm(updateCurrencyRequest: CurrencyRequest) {
-        return fetch('http://localhost:8081/api/v1/currency/update', {
+        return fetch(process.env.apiUrl + '/v1/currency/update', {
             method: 'PUT',
             body: JSON.stringify(updateCurrencyRequest),
             headers: {

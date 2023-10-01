@@ -104,12 +104,13 @@ export default function Header() {
             image: '/sellerCommission.png',
             title: 'Cotización',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, sit?'
-        }, {
-            url: '/user',
-            image: '/sellerCommission.png',
-            title: 'Usuarios',
-            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, sit?'
-        }
+        }, 
+        // {
+        //     url: '/user',
+        //     image: '/sellerCommission.png',
+        //     title: 'Usuarios',
+        //     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, sit?'
+        // }
     ]
 
     return (

@@ -45,7 +45,7 @@ export default function UpdateSellerComponent(idValue: { idValue: string }) {
     }
 
     function sendForm(updateSellerRequest: UpdateSellerRequest) {
-        return fetch('http://localhost:8081/api/v1/seller/update', {
+        return fetch(process.env.apiUrl + '/v1/seller/update', {
             method: 'PUT',
             body: JSON.stringify(updateSellerRequest),
             headers: {

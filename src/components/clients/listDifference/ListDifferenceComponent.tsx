@@ -1,5 +1,5 @@
 'use client'
-import { DifferenceClient } from '@/models/DifferenceClient';
+import { DifferenceClient, DifferenceClientDtoResponse } from '@/models/DifferenceClient';
 import styles from './ListDifferenceComponent.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,13 +8,13 @@ import { parseISO, format } from 'date-fns';
 
 export default function ListDifferenceComponent() {
     const [selected, setSelected] = useState<string | null>(null)
-    const [differences, setDifferences] = useState<DifferenceClient[]>([])
+    const [differences, setDifferences] = useState<DifferenceClientDtoResponse[]>([])
 
     async function getDifferenceClients() {
-        const response = await fetch('http://localhost:8081/api/v1/client/difference/get', {
+        const response = await fetch(process.env.apiUrl + '/v1/client/difference/get', {
             method: 'POST',
         });
-        let differenceData: DifferenceClient[] = await response.json();
+        let differenceData: DifferenceClientDtoResponse[] = await response.json();
         setDifferences(differenceData)
     }
     useEffect(() => {
@@ -42,7 +42,7 @@ export default function ListDifferenceComponent() {
                     differences.map(difference => (
                         <div className={isSelected(difference.id) ? styles.listDataSelected : styles.listData} key={difference.id} onClick={()=> setSelected(difference.id)}>
                             <p>{format(parseISO(difference.createdAt), 'd/MM/yyyy')}</p>
-                            <p>{difference.clientId}</p>
+                            <p>{difference.clientName}</p>
                             <p>{difference.differenceType}</p>
                             <p>${difference.amount}</p>
                             <p>{difference.description}</p>

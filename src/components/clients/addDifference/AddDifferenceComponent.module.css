@@ -1,32 +1,37 @@
 .formBase{
     display: grid;
-    width: 55%;
+    width: 750px;
     height: 500px;
     margin: auto;
-    border: 2px solid rgb(169, 169, 169);
+    border: 2px solid rgb(219, 219, 219);
     border-radius: 20px;
     padding: 30px;
-    box-shadow: 8px 8px 8px rgb(215, 215, 215);
     text-align: center;
+    margin-top: 100px;
+    background-color: white;
 }
 
 .formBase > img{
     margin: 0 auto;
 }
+.date{
+    text-align: left;
+    color: #7D7D7D;
+}
 .formBase > p{
-    font-size: 38px;
-    margin: 0;
+    font-size: 30px;
+    margin-top: 50px;
+    font-weight: 600;
+    color: rgba(13, 13, 13, 0.75);
+
 }
 
-.formBase > div{
+.formBase > div > div{
     display: grid;
     grid-template-columns: repeat(2, 50%);
-    width: 80%;
-    justify-self: center;
-
 }
 
-.formBase > div > input{
+.formBase > div > div > input{
     display: grid;
     width: 300px;
     font-size: 22px;
@@ -37,9 +42,10 @@
     margin: 5px auto;
     padding: 5px 20px;
     outline: none;
+    color: #7D7D7D;
 }
 
-.formBase > div > p{
+.formBase > div > div > p{
     display: grid;
     width: 300px;
     font-size: 22px;
@@ -50,9 +56,10 @@
     margin: 5px auto;
     padding: 5px 20px;
     outline: none;
+    color: #7D7D7D;
 }
 
-.formBase > div > select{
+.formBase > div > div > select{
     
     width: 340px;
     font-size: 22px;
@@ -63,9 +70,10 @@
     margin: 5px auto;
     padding: 5px 20px;
     outline: none;
+    color: #7D7D7D;
 }
 
-.formBase > div > span{
+.formBase > div > div > span{
     position: relative;
     left:100%;
 }
@@ -82,21 +90,26 @@
     margin-top: 5px;
     width: 670px;
     justify-self: center;
+    color: #7D7D7D;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .formBase > div > button{
-    font-size: 22px;
     padding: 10px;
-    margin: 5px auto;
-    border-radius: 10px;
-    background-color: rgb(64, 178, 239);
-    color: rgb(255, 255, 255);
-    text-decoration: none;  
     width: 150px;
-    height: 50px;
+    height: 40px;
+    margin: 5px;
+    margin-top: 80px;
+    border-radius: 5px;
+    background-color: rgba(0, 140, 255, 1);
+    color: #fafafa;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    border: 0px;    
 }
 
 .formBase > div > button > a{
     text-decoration: none;  
-    color: rgb(255, 255, 255);
+    color: #fafafa;
 }

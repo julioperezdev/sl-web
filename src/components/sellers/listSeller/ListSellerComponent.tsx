@@ -11,7 +11,7 @@ export default function ListSellerComponent() {
     const [sellers, setSellers] = useState<Seller[]>([])
 
     async function getSellers() {
-        const response = await fetch('http://localhost:8081/api/v1/seller/get', {
+        const response = await fetch(process.env.apiUrl + '/v1/seller/get', {
             method: 'POST',
         });
         let sellerData: Seller[] = await response.json();

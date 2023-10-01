@@ -4,7 +4,7 @@
     height: 400px;
     justify-content: center;
     margin: auto;
-    border: 2px solid rgb(169, 169, 169);
+    border: 2px solid rgb(230, 230, 230);
     border-radius: 20px;
     padding: 30px;
     text-align: center;
@@ -14,10 +14,19 @@
 .formBase > img{
     margin: 0 auto;
 }
+
 .formBase > p{
-    font-size: 38px;
+    font-size: 30px;
+    font-weight: 600;
+    color: rgba(13, 13, 13, 0.75);
 }
 
+.descriptionOver{
+    text-align: left;
+    font-size: 12px;
+    margin-top: 8px;
+    color: rgba(108, 108, 108, 1);
+}
 .formBase > div > input{
     display: grid;
     width: 300px;

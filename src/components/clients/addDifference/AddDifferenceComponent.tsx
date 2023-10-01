@@ -42,12 +42,12 @@ export default function AddDifferenceComponent() {
             clientId: client?.id!,
             amount: data.amount,
             description: data.description,
-            differenceType:data.differenceType
+            differenceType: data.differenceType
         }
     }
 
     function sendForm(addDifferenceRequest: AddDifference) {
-        return fetch('http://localhost:8081/api/v1/client/difference/create', {
+        return fetch(process.env.apiUrl + '/v1/client/difference/create', {
             method: 'POST',
             body: JSON.stringify(addDifferenceRequest),
             headers: {
@@ -61,56 +61,58 @@ export default function AddDifferenceComponent() {
     const [client, setClient] = useState<Client | null>(null)
     const [clientName, setClientName] = useState<string | null>(null)
 
-    async function getClientByName(name:string) {
-        const response = await fetch(`http://localhost:8081/api/v1/client/get/name/${name}`,{
+    async function getClientByName(name: string) {
+        const response = await fetch(`http://localhost:8081/api/v1/client/get/name/${name}`, {
             method: 'PUT',
         });
         if (response.status == 204) {
             toast.error('Ops... No se pudo encontrar un cliente con ese nombre')
-            return 
-        } else if(response.status == 302){
+            return
+        } else if (response.status == 302) {
             toast.success('Se encontró el cliente, falta completar los otros datos')
         }
         let clientData: Client = await response.json();
         setClient(clientData)
     }
 
-    const handleKeyDown = (event:any) => {
+    const handleKeyDown = (event: any) => {
         if (event.key === 'Enter' && clientName != null && clientName?.trim() != "") {
             getClientByName(clientName!)
         }
     }
-    const onChangeName = (event:any) => {
-        if(client!= null){
+    const onChangeName = (event: any) => {
+        if (client != null) {
             setClient(null)
         }
-        setClientName(event.target.value);        
+        setClientName(event.target.value);
     }
 
     return (
         <div className={styles.formBase}>
             <p>Nueva Diferencia</p>
             <div>
-                <p>{format(new Date(), 'dd/MM/yyyy')}</p>
-                <input type="text" onKeyDown={handleKeyDown} placeholder='Apodo Cliente' onChange={onChangeName} />
-                <select {...register("differenceType", { required: true })}>
-                    <option value="falta">Faltante</option>
-                    <option value="sobra">Sobrante</option>
-                </select>
-                <input type="text" placeholder='Importe' {...register("amount", { required: true, pattern:ONLY_NUMBERS_ON_STRING, maxLength:40 })} />
-                {errors.amount && (errors.amount.type === "pattern"|| errors.amount.type === "required") && (<span>Es obligatorio y solo son números</span>)}
-                {errors.amount && errors.amount.type === "maxLength" && (<span>Máximo de 40 dígitos</span>)}
+                <div>
+                    <p className={styles.date}>{format(new Date(), 'dd/MM/yyyy')}</p>
+                    <input type="text" onKeyDown={handleKeyDown} placeholder='Apodo Cliente' onChange={onChangeName} />
+                    <select {...register("differenceType", { required: true })}>
+                        <option value="falta">Faltante</option>
+                        <option value="sobra">Sobrante</option>
+                    </select>
+                    <input type="text" placeholder='Importe' {...register("amount", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength: 40 })} />
+                    {errors.amount && (errors.amount.type === "pattern" || errors.amount.type === "required") && (<span>Es obligatorio y solo son números</span>)}
+                    {errors.amount && errors.amount.type === "maxLength" && (<span>Máximo de 40 dígitos</span>)}
+                </div>
+                <textarea placeholder='Detalle Inconveniente' className={styles.description} {...register("description", { required: true, maxLength: 30 })} />
+                {errors.description && errors.description.type === "required" && (<span>La descripción es obligatoria</span>)}
+                {errors.description && errors.description.type === "maxLength" && (<span>Máximo de 30 dígitos</span>)}
             </div>
-            <textarea placeholder='Detalle Inconveniente' className={styles.description} {...register("description", { required: true, maxLength:30 })} />
-            {errors.description && errors.description.type === "required" && (<span>La descripción es obligatoria</span>)}
-            {errors.description && errors.description.type === "maxLength" && (<span>Máximo de 30 dígitos</span>)}
             <div>
                 <button ><Link href='/clients/difference'>Cancelar</Link></button>
                 <button onClick={onClickDiffernece} >Guardar</button>
             </div>
             <Toaster
-            position="bottom-left"
-            reverseOrder={false}/>
+                position="bottom-left"
+                reverseOrder={false} />
         </div>
     )
 }

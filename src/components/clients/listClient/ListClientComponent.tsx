@@ -11,7 +11,7 @@ export default function ListClientComponent() {
     const [clients, setClients] = useState<Client[]>([])
 
     async function getClients() {
-        const response = await fetch('http://localhost:8081/api/v1/client/get', {
+        const response = await fetch(`${process.env.apiUrl}/v1/client/get`, {
             method: 'POST',
         });
         let clientsData: Client[] = await response.json();
@@ -52,8 +52,8 @@ export default function ListClientComponent() {
                 </div>
             </div>
             <div className={styles.buttonBase}>
-                <Link className={styles.particularLink} href='/clients'>Atrás</Link>
-                <Link className={styles.particularLink} href={`/clients/update/${selected}`}>Modificar</Link>
+                <button><Link className={styles.particularLink} href='/clients'>Atrás</Link></button>
+                <button><Link className={styles.particularLink} href={`/clients/update/${selected}`}>Modificar</Link></button>
             </div>
         </div>
     )

@@ -4,7 +4,7 @@ import styles from './UpdateDifferenceComponent.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useForm } from "react-hook-form";
-import { DifferenceClient } from '@/models/DifferenceClient';
+import { DifferenceClient, DifferenceClientDtoResponse, DifferenceClientUpdateRequest } from '@/models/DifferenceClient';
 import { useEffect, useState } from 'react';
 import { ONLY_NUMBERS_ON_STRING } from '@/models/RegexConsts';
 import toast, { Toaster } from 'react-hot-toast';
@@ -14,7 +14,7 @@ import { parseISO, format } from 'date-fns';
 
 export default function UpdateDifferenceComponent(idValue: {idValue:string}) {
     const { register, handleSubmit, reset,setValue, formState: { errors } } = useForm<AddDifference>();
-    const [differenceClient, setDifferenceClient] = useState<DifferenceClient | null>(null)
+    const [differenceClient, setDifferenceClient] = useState<DifferenceClientDtoResponse | null>(null)
     const router = useRouter();
 
 
@@ -37,20 +37,18 @@ export default function UpdateDifferenceComponent(idValue: {idValue:string}) {
     );
 
 
-    function converFormData(data: AddDifference): DifferenceClient {
+    function converFormData(data: AddDifference): DifferenceClientUpdateRequest {
         return {
             id: differenceClient!.id,
-            clientId: differenceClient!.clientId,
             differenceStatus:differenceClient!.differenceStatus,
-            createdAt: differenceClient!.createdAt,
             differenceType: data.differenceType,
             description: data.description,
             amount:data.amount
         }
     }
 
-    function sendForm(updateDifferenceClientRequest: DifferenceClient) {
-        return fetch('http://localhost:8081/api/v1/client/difference/update', {
+    function sendForm(updateDifferenceClientRequest: DifferenceClientUpdateRequest) {
+        return fetch(process.env.apiUrl + '/v1/client/difference/update', {
             method: 'PUT',
             body: JSON.stringify(updateDifferenceClientRequest),
             headers: {
@@ -66,7 +64,7 @@ export default function UpdateDifferenceComponent(idValue: {idValue:string}) {
         const response = await fetch(`http://localhost:8081/api/v1/client/difference/get/${idValue.idValue}`,{
             method: 'PUT',
         });
-        let differenceData: DifferenceClient = await response.json();
+        let differenceData: DifferenceClientDtoResponse = await response.json();
         setValue('differenceType', differenceData.differenceType)
         setValue('amount', differenceData.amount)
         setValue('description', differenceData.description)
@@ -79,9 +77,14 @@ export default function UpdateDifferenceComponent(idValue: {idValue:string}) {
     return (
         <div className={styles.formBase}>
             <p>Modificar Diferencia</p>
+            <div className={styles.data}>
             <div>
+            <p className={styles.dataOver}>Fecha de modificación</p>
+            <p className={styles.dataOver}>Apodo Cliente</p>
                 <p className={styles.name}>{!differenceClient ? 'Cargando...' : format(parseISO(differenceClient.createdAt), 'd/MM/yyyy')}</p>
-                <p className={styles.name}>{!differenceClient ? 'Cargando...' : differenceClient.clientId}</p>
+                <p className={styles.name}>{!differenceClient ? 'Cargando...' : differenceClient.clientName}</p>
+                <p className={styles.dataOver}>Faltante / Sobrante</p>
+                <p className={styles.dataOver}>Importe</p>  
                 <select {...register("differenceType", { required: true })}>
                     <option value="falta">Faltante</option>
                     <option value="sobra">Sobrante</option>
@@ -90,11 +93,13 @@ export default function UpdateDifferenceComponent(idValue: {idValue:string}) {
                 {errors.amount && (errors.amount.type === "pattern"|| errors.amount.type === "required") && (<span>Es obligatorio y solo son números</span>)}
                 {errors.amount && errors.amount.type === "maxLength" && (<span>Máximo de 40 dígitos</span>)}
             </div>
+            <p className={styles.descriptionOver}>Descripción</p>
             <textarea placeholder='Detalle Inconveniente' className={styles.description} {...register("description", { required: true, maxLength:30 })} />
             {errors.description && errors.description.type === "required" && (<span>La descripción es obligatoria</span>)}
             {errors.description && errors.description.type === "maxLength" && (<span>Máximo de 30 dígitos</span>)}
+            </div>
             <div>
-                <button ><Link href='/clients/difference'>Cancelar</Link></button>
+                <button ><Link href='/clients/difference/list'>Cancelar</Link></button>
                 <button onClick={onClickDifference} >Guardar</button>
             </div>
             <Toaster/>

@@ -10,7 +10,7 @@ export default function NoteHomeComponent() {
     const [notes, setNotes] = useState<Note[]>([])
 
     async function getNotes() {
-        const response = await fetch('http://localhost:8081/api/v1/note/get', {
+        const response = await fetch(process.env.apiUrl + '/v1/note/get', {
             method: 'PUT',
         });
         let notesData: Note[] = await response.json();

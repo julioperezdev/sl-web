@@ -19,3 +19,6 @@ https://www.youtube.com/watch?v=D05ptoe7brY
 
 "@react-pdf/renderer": "^3.1.12",
 <li><Link href='/operation'>Ticket</Link></li>
+
+
+sweetalert2

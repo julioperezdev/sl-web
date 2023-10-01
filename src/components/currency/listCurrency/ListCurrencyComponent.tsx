@@ -10,7 +10,7 @@ export default function ListCurrencyComponent() {
     const [currencies, setCurrencies] = useState<Currency[]>([])
 
     async function getCurrencies() {
-        const response = await fetch('http://localhost:8081/api/v1/currency/get', {
+        const response = await fetch(process.env.apiUrl + '/v1/currency/get', {
             method: 'PUT',
         });
         let currenciesData: Currency[] = await response.json();

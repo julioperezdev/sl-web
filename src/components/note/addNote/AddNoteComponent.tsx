@@ -43,7 +43,7 @@ export default function AddNoteComponent() {
     }
 
     function sendForm(addNodeRequest: AddNoteRequest) {
-        return fetch('http://localhost:8081/api/v1/note/create', {
+        return fetch(process.env.apiUrl + '/v1/note/create', {
             method: 'PUT',
             body: JSON.stringify(addNodeRequest),
             headers: {

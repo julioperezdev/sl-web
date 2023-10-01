@@ -44,7 +44,7 @@ export default function AddSellerComponent() {
     }
 
     function sendForm(sellerRequest: AddSellerRequest) {
-        return fetch('http://localhost:8081/api/v1/seller/create', {
+        return fetch(process.env.apiUrl + '/v1/seller/create', {
             method: 'POST',
             body: JSON.stringify(sellerRequest),
             headers: {

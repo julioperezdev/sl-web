@@ -11,7 +11,7 @@ export default function ListProviderComponent() {
     const [providers, setProviders] = useState<Provider[]>([])
 
     async function getProviders() {
-        const response = await fetch('http://localhost:8081/api/v1/provider/get', {
+        const response = await fetch(process.env.apiUrl + '/v1/provider/get', {
             method: 'PUT',
         });
         let providerDataP: Provider[] = await response.json();

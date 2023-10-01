@@ -45,7 +45,7 @@ export default function UpdateNoteComponent(idValue: { idValue: string }) {
     }
 
     function sendForm(updateNodeRequest: UpdateNoteRequest) {
-        return fetch('http://localhost:8081/api/v1/note/update', {
+        return fetch(process.env.apiUrl + '/v1/note/update', {
             method: 'PUT',
             body: JSON.stringify(updateNodeRequest),
             headers: {
