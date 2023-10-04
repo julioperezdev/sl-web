@@ -56,7 +56,7 @@ export default function UpdateProviderComponent(idValue: { idValue: string }) {
 
 
     async function getProviderById() {
-        const response = await fetch(`http://localhost:8081/api/v1/provider/get/${idValue.idValue}`, {
+        const response = await fetch(`${process.env.apiUrl}/v1/provider/get/${idValue.idValue}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

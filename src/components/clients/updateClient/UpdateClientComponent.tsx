@@ -1,8 +1,6 @@
 'use client'
-import { Client } from '@/models/Client';
+import { UpdateClientRequest, UpdateClientForm, Client} from '@/models/ClientModel'
 import styles from './UpdateClientComponent.module.css';
-import { AddClient } from '@/models/AddClient';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
@@ -14,7 +12,7 @@ import { sleep } from '@/helper/sleepInMilli/Sleep';
 
 
 export default function UpdateClientComponent(idValue: {idValue:string}) {
-    const { register, handleSubmit, reset,setValue , formState: { errors } } = useForm<AddClient>();
+    const { register, handleSubmit, reset,setValue , formState: { errors } } = useForm<UpdateClientForm>();
     const [client, setClient] = useState<Client | null>(null)
     const router = useRouter();
     
@@ -36,18 +34,16 @@ export default function UpdateClientComponent(idValue: {idValue:string}) {
     }
     );
 
-    function converFormData(data: AddClient): Client {
+    function converFormData(data: UpdateClientForm): UpdateClientRequest {
         return {
             id: client!.id,
-            name: client!.name,
-            createdAt: client!.createdAt,
             phone: data.phone,
             address: data.address,
             description: data.description
         }
     }
 
-    function sendForm(updateClientRequest: Client) {
+    function sendForm(updateClientRequest: UpdateClientRequest) {
         return fetch(process.env.apiUrl + '/v1/client/update', {
             method: 'PUT',
             body: JSON.stringify(updateClientRequest),
@@ -60,7 +56,7 @@ export default function UpdateClientComponent(idValue: {idValue:string}) {
     }
 
     async function getClientById() {
-        const response = await fetch(`http://localhost:8081/api/v1/client/get/${idValue.idValue}`,{
+        const response = await fetch(`${process.env.apiUrl}/v1/client/get/${idValue.idValue}`,{
             method: 'PUT',
         });
         let clientsData: Client = await response.json();

@@ -37,7 +37,7 @@ export default function ListNoteComponent() {
                     <p className={styles.description}>Detalle</p>
                 </div>
                 <div className={styles.dataContainer} >
-                {notes.length > 0 && notes.map(note => (
+                {notes.length > 0 ? notes.map(note => (
                     <div key={note.id} className={isSelected(note.id) ? styles.listDataSelected : styles.listData} onClick={()=> setSelected(note.id)}>
                         <style jsx>
                             {`
@@ -50,7 +50,7 @@ export default function ListNoteComponent() {
                         <p>{format(parseISO(note.updatedAt), 'd/MM/yyyy')}</p>
                         <p className={styles.descriptionText}>{note.description}</p>
                     </div>
-                ))}
+                )) : <p>NO HAY DATOS</p>}
                 </div>
             </div>
             <div className={styles.buttonBase}>

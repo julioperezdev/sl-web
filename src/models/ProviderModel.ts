@@ -4,6 +4,7 @@ export interface Provider{
     phone:string;
     address:string;
     createdAt:string;
+    updatedAt:string;
 }
 export interface AddProviderRequest{
     id:string;

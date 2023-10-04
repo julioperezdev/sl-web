@@ -43,7 +43,7 @@ export default function AddProviderComponent() {
     }
 
     function sendForm(addProviderRequest: AddProviderRequest) {
-        return fetch('http://localhost:8081/api/v1/provider/create', {
+        return fetch(`${process.env.apiUrl}/v1/provider/create`, {
             method: 'PUT',
             body: JSON.stringify(addProviderRequest),
             headers: {

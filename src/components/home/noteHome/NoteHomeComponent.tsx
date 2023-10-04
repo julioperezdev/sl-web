@@ -26,7 +26,7 @@ export default function NoteHomeComponent() {
         <div className={styles.listClientBase}>
             <h2>Recordatorios</h2>
             <div className={styles.dataContainer} >
-                {notes.length > 0 && notes.map(note => (
+                {notes.length > 0 ? notes.map(note => (
                     <div key={note.id} className={styles.listData}>
                         <style jsx>
                             {`
@@ -38,7 +38,7 @@ export default function NoteHomeComponent() {
                         <p className={styles.date}>{format(parseISO(note.updatedAt), 'd/MM/yyyy hh:mm:ss')}</p>
                         <p className={styles.description}>{note.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam, quas.</p> 
                     </div>
-                ))}
+                )) : <p>NO HAY DATOS</p>}
             </div>
             <Link href={`/note/list`}>Ver más</Link>
         </div>

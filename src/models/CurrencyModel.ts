@@ -1,6 +1,6 @@
 export interface Currency{
     id:string;
-    updateAt:string;
+    updatedAt:string;
     name:string;
     buyPrice:number;
     sellPrice:number;

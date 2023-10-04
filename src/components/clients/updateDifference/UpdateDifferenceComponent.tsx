@@ -1,10 +1,8 @@
 'use client'
-import { AddDifference } from '@/models/AddDifference';
 import styles from './UpdateDifferenceComponent.module.css';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useForm } from "react-hook-form";
-import { DifferenceClient, DifferenceClientDtoResponse, DifferenceClientUpdateRequest } from '@/models/DifferenceClient';
+import { DifferenceClientUpdateForm, DifferenceClientDtoResponse, DifferenceClientUpdateRequest } from '@/models/DifferenceClientModel';
 import { useEffect, useState } from 'react';
 import { ONLY_NUMBERS_ON_STRING } from '@/models/RegexConsts';
 import toast, { Toaster } from 'react-hot-toast';
@@ -13,7 +11,7 @@ import { sleep } from '@/helper/sleepInMilli/Sleep';
 import { parseISO, format } from 'date-fns';
 
 export default function UpdateDifferenceComponent(idValue: {idValue:string}) {
-    const { register, handleSubmit, reset,setValue, formState: { errors } } = useForm<AddDifference>();
+    const { register, handleSubmit, reset,setValue, formState: { errors } } = useForm<DifferenceClientUpdateForm>();
     const [differenceClient, setDifferenceClient] = useState<DifferenceClientDtoResponse | null>(null)
     const router = useRouter();
 
@@ -25,7 +23,7 @@ export default function UpdateDifferenceComponent(idValue: {idValue:string}) {
             if (response.ok) {
                 reset();
                 toast.success('Se ha actualizado exitosamente la Diferencia de Cliente')
-                await sleep(3000)
+                await sleep(1500)
                 router.replace(`/clients/difference`)
             } else {
                 toast.error('Ops... No se pudo actualizar a Diferencia de Cliente')
@@ -37,7 +35,7 @@ export default function UpdateDifferenceComponent(idValue: {idValue:string}) {
     );
 
 
-    function converFormData(data: AddDifference): DifferenceClientUpdateRequest {
+    function converFormData(data: DifferenceClientUpdateForm): DifferenceClientUpdateRequest {
         return {
             id: differenceClient!.id,
             differenceStatus:differenceClient!.differenceStatus,
@@ -61,7 +59,7 @@ export default function UpdateDifferenceComponent(idValue: {idValue:string}) {
 
 
     async function getDifferenceClientById() {
-        const response = await fetch(`http://localhost:8081/api/v1/client/difference/get/${idValue.idValue}`,{
+        const response = await fetch(`${process.env.apiUrl}/v1/client/difference/get/${idValue.idValue}`,{
             method: 'PUT',
         });
         let differenceData: DifferenceClientDtoResponse = await response.json();

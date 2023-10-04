@@ -1,5 +1,5 @@
 'use client'
-import { DifferenceClient, DifferenceClientDtoResponse } from '@/models/DifferenceClient';
+import { DifferenceClient, DifferenceClientDtoResponse } from '@/models/DifferenceClientModel';
 import styles from './ListDifferenceComponent.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -14,7 +14,12 @@ export default function ListDifferenceComponent() {
         const response = await fetch(process.env.apiUrl + '/v1/client/difference/get', {
             method: 'POST',
         });
-        let differenceData: DifferenceClientDtoResponse[] = await response.json();
+        if(response.status == 204){
+            console.log('No hay datos')
+            return 
+        }
+        let responseValue = await response.json();
+        let differenceData: DifferenceClientDtoResponse[] = responseValue;
         setDifferences(differenceData)
     }
     useEffect(() => {
@@ -30,6 +35,7 @@ export default function ListDifferenceComponent() {
             <div className={styles.listDataBase}>
                 <div className={styles.listTitles}>
                     <p>Fecha Registro</p>
+                    <p>Fecha Modificacion</p>
                     <p>Apodo Cliente</p>
                     <p>Faltante / Sobrante</p>
                     <p>Importe</p>
@@ -39,9 +45,10 @@ export default function ListDifferenceComponent() {
                 </div>
                 <div className={styles.dataContainer}>
                 {
-                    differences.map(difference => (
+                    differences.length > 0 ? differences.map(difference => (
                         <div className={isSelected(difference.id) ? styles.listDataSelected : styles.listData} key={difference.id} onClick={()=> setSelected(difference.id)}>
                             <p>{format(parseISO(difference.createdAt), 'd/MM/yyyy')}</p>
+                            <p>{format(parseISO(difference.updatedAt), 'd/MM/yyyy')}</p>
                             <p>{difference.clientName}</p>
                             <p>{difference.differenceType}</p>
                             <p>${difference.amount}</p>
@@ -50,6 +57,7 @@ export default function ListDifferenceComponent() {
                             <p>{difference.id}</p>
                         </div>
                     ))
+                    : <p>No hay datos</p>
                 }
                 </div>
             </div>

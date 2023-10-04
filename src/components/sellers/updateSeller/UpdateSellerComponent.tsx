@@ -58,7 +58,7 @@ export default function UpdateSellerComponent(idValue: { idValue: string }) {
 
 
     async function getSellerById() {
-        const response = await fetch(`http://localhost:8081/api/v1/seller/get/${idValue.idValue}`, {
+        const response = await fetch(`${process.env.apiUrl}/v1/seller/get/${idValue.idValue}`, {
             method: 'PUT',
         });
         let sellerData: Seller = await response.json();

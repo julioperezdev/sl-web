@@ -1,12 +1,11 @@
 'use client'
-import { AddDifference } from '@/models/AddDifference';
+import { AddDifferenceForm, AddDifferenceRequest } from '@/models/DifferenceClientModel';
 import styles from './AddDifferenceComponent.module.css';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useForm } from "react-hook-form";
 import { v4 as uuid } from 'uuid'
 import toast, { Toaster } from 'react-hot-toast';
-import { Client } from '@/models/Client';
+import { Client } from '@/models/ClientModel';
 import { useState } from 'react';
 import { format } from 'date-fns';
 import { ONLY_NUMBERS_ON_STRING } from '@/models/RegexConsts';
@@ -15,11 +14,10 @@ import { sleep } from '@/helper/sleepInMilli/Sleep';
 
 export default function AddDifferenceComponent() {
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm<AddDifference>();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<AddDifferenceForm>();
     const router = useRouter();
     const onClickDiffernece = handleSubmit(async (data) => {
         try {
-            console.log('entra onsubmit')
             const dataValidated = converFormData(data);
             const response = await sendForm(dataValidated);
             if (response.status == 201) {
@@ -36,7 +34,7 @@ export default function AddDifferenceComponent() {
     }
     );
 
-    function converFormData(data: AddDifference): AddDifference {
+    function converFormData(data: AddDifferenceForm): AddDifferenceRequest {
         return {
             id: uuid(),
             clientId: client?.id!,
@@ -46,7 +44,7 @@ export default function AddDifferenceComponent() {
         }
     }
 
-    function sendForm(addDifferenceRequest: AddDifference) {
+    function sendForm(addDifferenceRequest: AddDifferenceRequest) {
         return fetch(process.env.apiUrl + '/v1/client/difference/create', {
             method: 'POST',
             body: JSON.stringify(addDifferenceRequest),
@@ -62,7 +60,7 @@ export default function AddDifferenceComponent() {
     const [clientName, setClientName] = useState<string | null>(null)
 
     async function getClientByName(name: string) {
-        const response = await fetch(`http://localhost:8081/api/v1/client/get/name/${name}`, {
+        const response = await fetch(`${process.env.apiUrl}/v1/client/get/name/${name}`, {
             method: 'PUT',
         });
         if (response.status == 204) {

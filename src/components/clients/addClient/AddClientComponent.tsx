@@ -1,7 +1,6 @@
 'use client'
-import { AddClient, AddClientRequest } from '@/models/AddClient';
+import { AddClientForm, AddClientRequest } from '@/models/ClientModel';
 import styles from './AddClientComponent.module.css'
-import Image from 'next/image';
 import Link from 'next/link';
 import { useForm } from "react-hook-form";
 import { v4 as uuid } from 'uuid'
@@ -12,7 +11,7 @@ import { sleep } from '@/helper/sleepInMilli/Sleep';
 
 
 export default function AddClientComponent() {
-    const { register, handleSubmit, reset, formState: { errors } } = useForm<AddClient>();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<AddClientForm>();
     const router = useRouter();
 
     const onSubmit = handleSubmit(async (data) => {
@@ -22,7 +21,7 @@ export default function AddClientComponent() {
             if (response.status == 201) {
                 reset();
                 toast.success('Se ha guardado exitosamente el Cliente')
-                await sleep(2000);
+                await sleep(1500);
                 router.replace(`/clients`)
             } else {
                 toast.error('Ops... No se pudo guardar el Cliente')
@@ -33,7 +32,7 @@ export default function AddClientComponent() {
     }
     );
 
-    function converFormData(data: AddClient): AddClientRequest {
+    function converFormData(data: AddClientForm): AddClientRequest {
         return {
             id: uuid(),
             name: data.name,

@@ -7,6 +7,7 @@ export interface AddSeller{
 export interface Seller{
     id:string;
     createdAt:string;
+    updatedAt:string;
     name:string;
     phone:string;
     description:string;

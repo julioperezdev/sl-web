@@ -2,8 +2,8 @@
 const nextConfig = {
     output:'standalone',
     env: {
-        //apiUrl: 'sl-api:18081/api',
-        apiUrl: 'http://localhost:8081/api',
+        //apiUrl: 'http://sl-api:8081/api',
+        apiUrl: 'http://localhost:18081/api',
       },
 }
 

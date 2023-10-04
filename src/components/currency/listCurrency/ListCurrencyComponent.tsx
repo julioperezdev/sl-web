@@ -14,7 +14,6 @@ export default function ListCurrencyComponent() {
             method: 'PUT',
         });
         let currenciesData: Currency[] = await response.json();
-        console.log(currenciesData)
         setCurrencies(currenciesData)
     }
     useEffect(() => {
@@ -38,7 +37,7 @@ export default function ListCurrencyComponent() {
                     {
                         currencies.map(currency => (
                             <div className={isSelected(currency.id) ? styles.listDataSelected : styles.listData} key={currency.id} onClick={() => setSelected(currency.id)}>
-                                <p>{format(parseISO(currency.updateAt), 'd/MM/yyyy hh:mm:ss')}</p>
+                                <p>{format(parseISO(currency.updatedAt), 'd/MM/yyyy hh:mm:ss')}</p>
                                 <p>{currency.name}</p>
                                 <p>${currency.buyPrice}</p>
                                 <p>${currency.sellPrice}</p>

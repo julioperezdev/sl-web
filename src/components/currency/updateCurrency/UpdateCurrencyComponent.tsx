@@ -70,11 +70,10 @@ export default function UpdateCurrencyComponent() {
 
 
     async function getLasUpdatedCurrencies() {
-        const response = await fetch(`http://localhost:8081/api/v1/currency/get/last-updated`, {
+        const response = await fetch(`${process.env.apiUrl}/v1/currency/get/last-updated`, {
             method: 'PUT',
         });
         let currenciesData: Currency[] = await response.json();
-        console.log(currenciesData)
         setCurrencySelected(currenciesData[0].name)
         setValue('name', currenciesData[0].name)
         setValue('buyPrice', currenciesData[0].buyPrice)
@@ -85,7 +84,6 @@ export default function UpdateCurrencyComponent() {
 
     const handleChange = (event: { target: { value: string; }; }):any => {
         const currencyEvent :string = event.target.value;
-        console.log(currencyEvent);
         setCurrencySelected(currencyEvent);
         let currencyFiltered:Currency = currencies?.find(particular => particular.name == currencyEvent)!
         setValue('name', currencyFiltered.name)

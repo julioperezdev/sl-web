@@ -57,7 +57,7 @@ export default function UpdateNoteComponent(idValue: { idValue: string }) {
     }
 
     async function getNoteById() {
-        const response = await fetch(`http://localhost:8081/api/v1/note/get/${idValue.idValue}`, {
+        const response = await fetch(`${process.env.apiUrl}/v1/note/get/${idValue.idValue}`, {
             method: 'PUT',
         });
         let noteData: Note = await response.json();

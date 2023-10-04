@@ -25,7 +25,7 @@
 
 .listTitles{
     display: grid;
-    grid-template-columns: repeat(6, 16.66%);
+    grid-template-columns: repeat(7, 14.28%);
     color: rgb(122, 122, 122);
     font-weight: 600;
     font-size: 16px;
@@ -39,7 +39,7 @@
 }
 .listData{
     display: grid;
-    grid-template-columns: repeat(6, 16.66%);
+    grid-template-columns: repeat(7, 14.28%);
     border-radius: 10px;
     color: rgb(122, 122, 122);
     margin: 5px;
@@ -48,7 +48,7 @@
 
 .listDataSelected{
     display: grid;
-    grid-template-columns: repeat(6, 16.66%);
+    grid-template-columns: repeat(7, 14.28%);
     border-radius: 10px;
     color: rgb(122, 122, 122);
     background-color: rgba(212, 201, 231, 0.528);

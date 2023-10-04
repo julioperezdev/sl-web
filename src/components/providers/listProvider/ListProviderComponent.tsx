@@ -14,11 +14,15 @@ export default function ListProviderComponent() {
         const response = await fetch(process.env.apiUrl + '/v1/provider/get', {
             method: 'PUT',
         });
-        let providerDataP: Provider[] = await response.json();
+        if(response.status == 204){
+            console.log('No hay datos')
+            return 
+        }
+        let responseValue = await response.json();
+        let providerDataP: Provider[] = responseValue;
         let providerData: Provider[] = [];
         
         for(let index = 0 ; index < 7 ; index++){
-            console.log('iteracion ', index)
             providerData.push(...providerDataP)
         }
         setProviders(providerData)
@@ -37,6 +41,7 @@ export default function ListProviderComponent() {
             <div className={styles.listDataBase}>
                 <div className={styles.listTitles}>
                     <p>Fecha R.</p>
+                    <p>Fecha Modificacion</p>
                     <p>Apodo Proveedor</p>
                     <p>Número de Teléfono</p>
                     <p>Dirección</p>
@@ -44,15 +49,17 @@ export default function ListProviderComponent() {
                 </div>
                 <div className={styles.dataContainer}>
                 {
-                    providers.map(provider => (
+                    providers.length > 0 ?  providers.map(provider => (
                         <div className={isSelected(provider.id) ? styles.listDataSelected : styles.listData} key={provider.id} onClick={()=> setSelected(provider.id)}>
                             <p>{format(parseISO(provider.createdAt!), 'd/MM/yyyy')}</p>
+                            <p>{format(parseISO(provider.updatedAt!), 'd/MM/yyyy')}</p>
                             <p>{provider.name}</p>
                             <p>{provider.phone}</p>
                             <p>{provider.address}</p>
                             <p>{provider.id}</p>
                         </div>
                     ))
+                    : <p>NO HAY DATOS</p>
                 }
                 </div>
             </div>

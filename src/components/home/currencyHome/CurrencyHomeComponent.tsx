@@ -10,11 +10,10 @@ export default function CurrencyHomeComponent() {
     const [currency, setCurrency] = useState<Currency | null>(null)
 
     async function getCurrencyByName() {
-        const response = await fetch(`http://localhost:8081/api/v1/currency/get/name/usd`, {
+        const response = await fetch(`${process.env.apiUrl}/v1/currency/get/name/usd`, {
             method: 'PUT',
         });
         let currenciesData: Currency = await response.json();
-        console.log(currenciesData)
         setCurrency(currenciesData)
     }
     useEffect(() => {
@@ -47,7 +46,7 @@ export default function CurrencyHomeComponent() {
                             <p className={styles.currencyDescription}>Compra</p>
                             <p className={styles.currencyDescription}>Venta</p>
                         </div>
-                        <p className={styles.dates}>Actualizado: {format(parseISO(currency?.updateAt!), 'd/MM/yyyy hh:mm:ss')}</p>
+                        <p className={styles.dates}>Actualizado: {format(parseISO(currency?.updatedAt!), 'd/MM/yyyy hh:mm:ss')}</p>
                     </div>
                 }
                 <div>
