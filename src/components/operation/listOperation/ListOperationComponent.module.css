@@ -1,0 +1,102 @@
+.listSellerBase{
+    display: grid;
+    min-height: 600px;
+    margin: auto;
+    margin-top: 40px;
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    font-size: 24px;
+}
+
+.listSellerBase > img{
+    margin: 0 auto;
+}
+.listSellerBase > p{
+    font-size: 30px;
+    margin: 20px auto;
+    font-weight: 500;
+    color: rgba(13, 13, 13, 0.75);
+}
+
+.listDataBase{
+    display: grid;
+    width: 100%;
+}
+
+.listTitles{
+    display: grid;
+    grid-template-columns: repeat(7, 14.28%);
+    color: rgb(122, 122, 122);
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 20px;
+    margin-top: 50px;
+}
+.dataContainer{
+    overflow:hidden;
+    overflow-y:auto;
+    max-height: 450px;
+}
+
+.listData{
+    display: grid;
+    grid-template-columns: repeat(7, 14.28%);
+    border-radius: 10px;
+    color: rgb(122, 122, 122);
+    margin: 5px;
+    align-items: center;
+}
+
+.listDataSelected{
+    display: grid;
+    grid-template-columns: repeat(7, 14.28%);
+    border-radius: 10px;
+    color: rgb(122, 122, 122);
+    background-color: rgba(212, 201, 231, 0.528);
+    margin: 5px;
+    align-items: center;
+}
+
+.listDataSelected > p{
+    font-size: 18px;
+    margin: 10px auto;
+}
+
+.listData:hover{
+    background-color: #29BD6D4D;
+}
+
+.listData > p{
+    font-size: 18px;
+    margin: 10px auto;
+}
+
+.description{
+    text-align: left;
+}
+
+.buttonBase{
+    margin-top: 50px;
+}
+
+.buttonBase > button{
+    min-width: 100px;
+    height: 42px;
+    width: 150px;
+    padding: 10px;
+    font-size: 18px;
+    text-decoration: none;
+    margin: 10px 5px;
+    border-radius: 5px;
+    background-color: rgba(0, 140, 255, 1);
+    color: #fafafa;
+    border: 0;
+
+}
+
+.buttonBase > button > a{
+    text-decoration: none;
+    margin: 10px 5px;
+    color: rgb(255, 255, 255);
+}

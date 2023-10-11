@@ -1,0 +1,219 @@
+'use client'
+import styles from "./AddBuyOperationComponent.module.css";
+import Link from 'next/link';
+import { useForm } from "react-hook-form";
+import { v4 as uuid } from 'uuid'
+import toast, { Toaster } from 'react-hot-toast';
+import { useState, useEffect } from 'react';
+import { format } from 'date-fns';
+import { ONLY_NUMBERS_ON_STRING } from '@/models/RegexConsts';
+import { useRouter } from 'next/navigation';
+import { sleep } from '@/helper/sleepInMilli/Sleep';
+import { Currency } from "@/models/CurrencyModel";
+import { Client } from "@/models/ClientModel";
+import { BuyOperationForm, BuyOperationRequest } from "@/models/OperationModel";
+
+export default function AddBuyOperationComponent() {
+
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<BuyOperationForm>();
+    const [isOfficeCheck, setIsOfficeCheck] = useState<boolean>(false);
+    const [currencies, setCurrencies] = useState<Currency[] | null>(null)
+    const [currencyNameSelected, setCurrencyNameSelected] = useState<string>('')
+    const [currencySelected, setCurrencySelected] = useState<Currency | null>(null)
+    const [clientSelected, setClientSelected] = useState<Client | null>(null)
+    // const [client, setClient] = useState<any | null>(null)
+    const [clientName, setClientName] = useState<string | null>(null)
+
+    const router = useRouter();
+
+    const onClickBuyOperation = handleSubmit(async (data) => {
+        try {
+            const dataValidated = converFormData(data);
+            const response = await sendForm(dataValidated);
+            if (response.status == 201) {
+                reset();
+                toast.success('Se ha guardado exitosamente la diferencia del cliente')
+                await sleep(1500)
+                router.replace(`/`)
+            } else {
+                toast.error('Ops... No se pudo guardar la diferencia del cliente')
+            }
+        } catch (error: any) {
+            toast.error('Ops... No se pudo guardar la diferencia del cliente')
+        }
+    }
+    );
+
+    function converFormData(data: BuyOperationForm): BuyOperationRequest {
+        return {
+            id: uuid(),
+            hasOfficeCheck: isOfficeCheck,
+            clientId: clientSelected!.id,
+            buyOperationData: [{
+                operationType: "comprar",
+                currencyMultiBox: data.currencyMultiBox,
+                buyPrice: data.buyPriceForm,
+                quantity: data.quantity,
+                percent: data.percent
+            }]
+        }
+    }
+
+    function sendForm(buyOperationRequest: BuyOperationRequest) {
+        return fetch(process.env.apiUrl + '/v1/operation/create/buy', {
+            method: 'PUT',
+            body: JSON.stringify(buyOperationRequest),
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS'
+            }
+        });
+    }
+
+    async function getClientByName(name: string) {
+        const response = await fetch(`${process.env.apiUrl}/v1/client/get/name/${name}`, {
+            method: 'PUT',
+        });
+        if (response.status == 204) {
+            toast.error('Ops... No se pudo encontrar un cliente con ese nombre')
+            setClientSelected(null)
+            return
+        } else if (response.status == 302) {
+            toast.success('Se encontró el cliente, falta completar los otros datos')
+        }
+        let clientData: any = await response.json();
+        setClientSelected(clientData)
+    }
+
+    const handleKeyDown = (event: any) => {
+        if (event.key === 'Enter' && clientName != null && clientName?.trim() != "") {
+            getClientByName(clientName!)
+        }
+    }
+
+    async function getLasUpdatedCurrencies() {
+        const response = await fetch(`${process.env.apiUrl}/v1/currency/get/last-updated`, {
+            method: 'PUT',
+        });
+        let currenciesData: Currency[] = await response.json();
+        let dolarHigh = currenciesData.filter(particular => particular.name === 'Dolar grande')
+        setCurrencySelected(dolarHigh[0])
+        setCurrencyNameSelected(dolarHigh[0].name)
+        setCurrencies(currenciesData)
+
+    }
+
+    const handleChange = (event: { target: { value: string; }; }): any => {
+        const currencyEvent: string = event.target.value;
+        setCurrencyNameSelected(currencyEvent);
+        let currencyFiltered: Currency = currencies?.find(particular => particular.name == currencyEvent)!
+        setCurrencySelected(currencyFiltered)
+    };
+
+    function isDolarSmall() {
+        return currencyNameSelected != null && currencyNameSelected === 'Dolar chico';
+    }
+
+    const onChangeName = (event: any) => {
+        if (clientSelected != null) {
+            setClientSelected(null)
+            //setClient(null)
+        }
+        setClientName(event.target.value);
+    }
+
+    useEffect(() => {
+        getLasUpdatedCurrencies();
+    }, [])
+
+    return (
+        <div>
+            <div className={styles.operationCurrencyBase}>
+                <p className={styles.operationCurrencyTitle}>Dolar chico y Cambio</p>
+                <div>
+                    <p className={styles.operationCurrencyDescription}>Precio Compra</p>
+                    <p className={styles.priceToBuy}>${!currencySelected ? '000' : currencySelected.buyPrice}</p>
+                </div>
+                <div>
+                    <p className={styles.operationCurrencyDescription}>Precio Venta</p>
+                    <p className={styles.priceToSell}>${!currencySelected ? '000' : currencySelected.sellPrice}</p>
+                </div>
+            </div>
+            <div className={styles.formBase}>
+                <div className={styles.topData}>
+                    <p>Fecha {format(new Date(), 'dd/MM/yyyy')}</p>
+                    <div className={styles.officeCheck} onClick={() => setIsOfficeCheck(!isOfficeCheck)}>
+                        <p>Check Oficina</p>
+                        <input type="checkbox" checked={isOfficeCheck} />
+                    </div>
+                </div>
+                <div className={styles.operationFormBase}>
+                    <h3>Realizar Compra</h3>
+                    <div className={styles.operationStringData}>
+                        <div>
+                            <p className={styles.descriptionOver}>Apodo Cliente</p>
+                            <input className={styles.operationStringParagragh} type="text" onKeyDown={handleKeyDown} onChange={onChangeName} />
+                        </div>
+                        <div>
+                            <p className={styles.descriptionOver}>Número de Teléfono</p>
+                            <p className={styles.operationStringParagragh}>{!clientSelected ? "" : clientSelected.phone}</p>
+                        </div>
+                        <div>
+                            <p className={styles.descriptionOver}>Tipo de Divisa</p>
+                            <select {...register("currencyMultiBox", { required: true })} onChange={handleChange} value={currencyNameSelected!} className={styles.operationStringSelect}>
+                                {!currencies ? <option value={'cargando'}>Cargando...</option>
+                                    : currencies.map(currency => (
+                                        <option key={currency.id} value={currency.name}>{currency.name}</option>
+                                    ))}
+                            </select>
+                        </div>
+                    </div>
+                    <div className={styles.operationNumberData}>
+                        <div className={styles.inputsPrices}>
+                            <div>
+                                <p className={styles.descriptionOver}>Precio Compra</p>
+                                <input type="text" {...register("buyPriceForm", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength: 40 })} />
+                                {errors.buyPriceForm && (errors.buyPriceForm.type === "pattern" || errors.buyPriceForm.type === "required") && (<span>Es obligatorio y solo son números</span>)}
+                                {errors.buyPriceForm && errors.buyPriceForm.type === "maxLength" && (<span>Máximo de 40 dígitos</span>)}
+                            </div>
+                            <div>
+                                <p className={styles.descriptionOver}>Cantidad a Comprar</p>
+                                <input type="text" {...register("quantity", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength: 40 })} />
+                                {errors.quantity && (errors.quantity.type === "pattern" || errors.quantity.type === "required") && (<span>Es obligatorio y solo son números</span>)}
+                                {errors.quantity && errors.quantity.type === "maxLength" && (<span>Máximo de 40 dígitos</span>)}
+                            </div>
+                        </div>
+                        {isDolarSmall()
+                            ? <div className={styles.inputsPrices}>
+                                <div>
+                                    <p className={styles.descriptionOver}>Valor a tomar</p>
+                                    <p className={styles.inputsPricesParagraph}>$ 472.115</p>
+                                </div>
+                                <div>
+                                    <p className={styles.descriptionOver}>Ingrese porcentaje</p>
+                                    <input type="text" {...register("percent", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength: 40 })} />
+                                    {errors.percent && (errors.percent!.type === "pattern" || errors.percent!.type === "required") && (<span>Es obligatorio y solo son números</span>)}
+                                    {errors.percent && errors.percent!.type === "maxLength" && (<span>Máximo de 40 dígitos</span>)}
+                                </div>
+                            </div>
+                            : null
+                        }
+                    </div>
+                </div>
+                <div className={styles.totaToPay}>
+                    <p className={styles.descriptionOverTotal}>Total pesos a pagar</p>
+                    <p className={styles.totaToPayDescription}>$ {11200}</p>
+                </div>
+                <div className={styles.buttonBase}>
+                    <button onClick={onClickBuyOperation} >Continuar</button>
+                    <button onClick={onClickBuyOperation} >Ejecutar</button>
+                    <button ><Link href='/'>Cancelar</Link></button>
+                </div>
+                <Toaster
+                    position="bottom-left"
+                    reverseOrder={false} />
+            </div>
+        </div>
+    )
+}

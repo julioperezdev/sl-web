@@ -10,17 +10,17 @@ import { HeaderOptionData } from '@/models/HeaderOptionData';
 export default function Header() {
     const operationsOptions: HeaderOptionData[] = [
         {
-            url: '/',
+            url: '/operation/buy',
             image: '/sellerCommission.png',
             title: 'Realizar Compra',
             description: 'Compra de divisas a clientes y proveedores con caja en pesos o con caja deuda oficina.'
         }, {
-            url: '/',
+            url: '/operation/sell',
             image: '/sellerCommission.png',
             title: 'Realizar Venta',
             description: 'Venta de divisas a clientes y asigancion de comisión a vendedores.'
         }, {
-            url: '/',
+            url: '/operation/pending',
             image: '/sellerCommission.png',
             title: 'Operaciones Pendientes',
             description: 'Visualizar todas las operaciones de compra y venta en espera de ser ejecutadas o canceladas.'
@@ -35,40 +35,45 @@ export default function Header() {
         {
             url: '/',
             image: '/sellerCommission.png',
-            title: 'Multicaja',
-            description: 'Asignar o modificar las funciones que tendrá un usuario'
+            title: 'Clientes',
+            description: 'Crear, modificar y ver clientes'
         }, {
             url: '/',
             image: '/sellerCommission.png',
-            title: 'Balance',
-            description: 'Lorem ipsum dolor, sit amet consectetur adipisicing'
+            title: 'Vendedores',
+            description: 'Crear vendedores, modificar, visualizar lista de vendedoreas'
         }, {
             url: '/',
             image: '/sellerCommission.png',
-            title: 'Deuda Oficina',
-            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, sit?'
+            title: 'Proveedores',
+            description: 'Crear proveedor, modificar y visualizar'
         }
     ]
     const boxesOptions: HeaderOptionData[] = [
         {
-            url: '/clients',
+            url: '/multibox/list/PESO',
             image: '/sellerCommission.png',
             title: 'Caja en Pesos',
             description: 'Compra de divisas a clientes y proveedores con caja en pesos o con caja deuda oficina. '
         }, {
-            url: '/sellers',
+            url: '/multibox/foreign-currency',
             image: '/sellerCommission.png',
             title: 'Caja de Divisas',
             description: 'Visualizar las cajas de todas las divisas: dolar grande, dolar chico y cambio, euro y reales.'
         }, {
-            url: '/provider',
+            url: '//multibox/list/PESOS_OFFICE',
             image: '/sellerCommission.png',
             title: 'Deuda Oficina',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, sit?'
         }, {
-            url: '/note',
+            url: '//multibox/list/PESO',//cambiar la URL cuando exista la iformacion
             image: '/sellerCommission.png',
             title: 'Ganancias',
+            description: 'Ver caja de Balance, asignación de ganancías a Caja 1 o Caja 2 '
+        }, {
+            url: '//multibox/list/PESO',//cambiar la URL cuando exista la iformacion
+            image: '/sellerCommission.png',
+            title: 'Cajas',
             description: 'Ver caja de Balance, asignación de ganancías a Caja 1 o Caja 2 '
         }
     ]
