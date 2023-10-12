@@ -19,12 +19,7 @@ export default function ListProviderComponent() {
             return 
         }
         let responseValue = await response.json();
-        let providerDataP: Provider[] = responseValue;
-        let providerData: Provider[] = [];
-        
-        for(let index = 0 ; index < 7 ; index++){
-            providerData.push(...providerDataP)
-        }
+        let providerData: Provider[] = responseValue;
         setProviders(providerData)
     }
     useEffect(() => {
