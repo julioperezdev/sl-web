@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import { ONLY_NUMBERS_ON_STRING } from '@/models/RegexConsts';
 import { useRouter } from 'next/navigation';
-import { sleep } from '@/helper/sleepInMilli/Sleep';
+import { ONE_SECOUND, sleep } from '@/helper/sleepInMilli/Sleep';
 import { Currency } from "@/models/CurrencyModel";
 import { Client } from "@/models/ClientModel";
 import { BuyOperationForm, BuyOperationRequest } from "@/models/OperationModel";
@@ -33,8 +33,8 @@ export default function AddBuyOperationComponent() {
             if (response.status == 201) {
                 reset();
                 toast.success('Se ha guardado exitosamente la diferencia del cliente')
-                await sleep(1500)
-                router.replace(`/`)
+                await sleep(ONE_SECOUND)
+                router.replace(`/operation`)
             } else {
                 toast.error('Ops... No se pudo guardar la diferencia del cliente')
             }
@@ -208,7 +208,7 @@ export default function AddBuyOperationComponent() {
                 <div className={styles.buttonBase}>
                     <button onClick={onClickBuyOperation} >Continuar</button>
                     <button onClick={onClickBuyOperation} >Ejecutar</button>
-                    <button ><Link href='/'>Cancelar</Link></button>
+                    <button ><Link href='/operation'>Cancelar</Link></button>
                 </div>
                 <Toaster
                     position="bottom-left"

@@ -1,7 +1,7 @@
 .formBase{
     display: grid;
     width: 350px;
-    height: 500px;
+    height: 520px;
     justify-content: center;
     margin: auto;
     border: 2px solid rgb(208, 208, 208);
@@ -22,7 +22,7 @@
 }
 
 .formData{
-
+    height: 280px;
 }
 .formBase > div>  input{
     display: grid;

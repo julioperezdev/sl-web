@@ -39,14 +39,13 @@
 .formBase > div > p{ 
     
     width: 300px;
-    height: 40px;
+    height: 35px;
     font-size: 22px;
-    align-items: center;
     background-color: rgb(232, 232, 232);
     border: 1px solid rgb(136, 136, 136);
     border-radius: 5px;
-    margin: 5px auto;
-    padding: 5px 20px;
+    margin: auto;
+    padding: 10px 20px 0px;
     outline: none;
     text-align: left;
     color: #7D7D7D;
@@ -85,4 +84,18 @@
 .formBase > div > button > a{
     text-decoration: none;  
     color: #fafafa;
+}
+
+.description{
+    width: 300px;
+    height: 125px;
+    resize: none;
+    outline: none;
+    font-size: 22px;
+    background-color: rgb(232, 232, 232);
+    border: 1px solid rgb(136, 136, 136);
+    border-radius: 5px;
+    padding: 5px 20px;
+    margin-top: 5px;
+    color: #7D7D7D;
 }

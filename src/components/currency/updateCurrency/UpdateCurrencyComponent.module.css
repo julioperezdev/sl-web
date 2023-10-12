@@ -1,6 +1,6 @@
 .formBase{
     display: grid;
-    width: 350px;
+    width: 400px;
     height: 400px;
     justify-content: center;
     margin: auto;
@@ -59,7 +59,7 @@
     align-items: center;
     border-radius: 5px;
     height: 50px;
-    margin: 5px 20px;
+    margin: 0px 20px;
     font-size: 25px;
     text-align: center;
 }
@@ -94,4 +94,11 @@
 .buttonBase > button > a{
     text-decoration: none;  
     color: #fafafa;
+}
+.descriptionOver{
+    text-align: left;
+    font-size: 15px;
+    margin-top: 8px;
+    color: rgba(108, 108, 108, 1);
+    padding-left: 20px;
 }

@@ -27,7 +27,7 @@ export default function CurrencyHomeComponent() {
             <h2>Página de Dolar Hoy</h2>
                 {!currency ?
                     <div className={styles.currencyUsd}>
-                        <Image src={'/SL-logo-transparent.png'} alt='fff' width={50} height={50} />
+                        <Image src={'/images/Icono_de_SL.png'} alt='fff' width={50} height={50} />
                         <h3 className={styles.title}>DÓLAR GRANDE</h3>
                         <div>
                             <p className={styles.buyPrice}>$000.00</p>
@@ -38,7 +38,7 @@ export default function CurrencyHomeComponent() {
                         <p className={styles.dates}>Actualizado: {format(new Date(), 'd/MM/yyyy hh:mm:ss')}</p>
                     </div> :
                     <div className={styles.currencyUsd}>
-                        <Image src={'/SL-logo-transparent.png'} alt='fff' width={50} height={50} />
+                        <Image src={'/images/Icono_de_SL.png'} alt='fff' width={50} height={50} />
                         <h3 className={styles.title}>DÓLAR GRANDE</h3>
                         <div>
                             <p className={styles.buyPrice}>${currency?.buyPrice}.00</p>

@@ -61,7 +61,7 @@ export default function ListOperationComponent() {
                 </div>
             </div>
             <div className={styles.buttonBase}>
-                <button><Link href='/'>Atrás</Link></button>
+                <button><Link href='/operation'>Atrás</Link></button>
                 {/* <button><Link href={`/sellers/update/${selected}`}>Modificar</Link></button> */}
                 <button><Link href={`/`}>Ejecutar</Link></button>
             </div>

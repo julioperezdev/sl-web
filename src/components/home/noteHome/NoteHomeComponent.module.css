@@ -4,7 +4,7 @@
     font-weight: 600;
     position: relative;
     left: 200px;
-    color: rgba(13, 13, 13, 0.75);
+    color: #0D0D0DBF;
 }
 
 .dataContainer{
@@ -12,6 +12,7 @@
     grid-template-columns: repeat(3, 33.33%);
     width: 80%;
     margin: auto;
+    padding-top: 20px;
 
 }
 .listData{
@@ -20,7 +21,7 @@
     border-radius: 10px;
     color: rgb(122, 122, 122);
     margin: 20px;
-    height: 150px;
+    height: 170px;
 }
 
 .listData:hover{
@@ -38,6 +39,11 @@
 
 .description{
     padding-bottom: 20px;
+    width: 80%;
+    height: 100px;
+    
+    
+
 }
 
 .listClientBase > a{

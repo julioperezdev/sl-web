@@ -35,7 +35,7 @@
 .dataContainer{
     overflow:hidden;
     overflow-y:auto;
-    max-height: 400px;
+    max-height: 530px;
 }
 
 .listData{

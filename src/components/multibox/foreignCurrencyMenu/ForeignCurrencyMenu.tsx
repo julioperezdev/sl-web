@@ -3,27 +3,27 @@ import { MenuFormData } from '@/models/MenuFormData';
 
 export default function ForeignCurrencyMenuComponent() {
   const foreignCurrencyMenuData:MenuFormData = {
-    imageName:'/clientMenu.png',
+    imageName:'/images/image_37.png',
     title:'Cajas de Divisas',
     returnUrl:'/multibox',
     options:[
       {
-        optionsImage: '/add-user.png',
+        optionsImage: '/images/image_40.png',
         optionHref: '/multibox/foreign-currency/USD HIGH',
         optionDescription: 'Dólares Grandes'
       },
       {
-        optionsImage: '/add-user.png',
+        optionsImage: '/images/image_41.png',
         optionHref: '/multibox/foreign-currency/USD LOW',
         optionDescription: 'Dólar Chico y Cambio'
       },
       {
-        optionsImage: '/add-user.png',
+        optionsImage: '/images/image_39.png',
         optionHref: '/multibox/foreign-currency/EURO',
         optionDescription: 'Euros'
       },
       {
-        optionsImage: '/add-user.png',
+        optionsImage: '/images/image_38.png',
         optionHref: '/multibox/foreign-currency/REAL',
         optionDescription: 'Reales'
       }

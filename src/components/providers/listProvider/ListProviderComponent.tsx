@@ -37,7 +37,7 @@ export default function ListProviderComponent() {
 
     return(
         <div className={styles.listProviderBase}>
-            <p>Lista de Proveedor</p>
+            <p>Lista de Proveedores</p>
             <div className={styles.listDataBase}>
                 <div className={styles.listTitles}>
                     <p>Fecha R.</p>

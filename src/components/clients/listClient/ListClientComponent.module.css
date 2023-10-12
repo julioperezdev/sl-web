@@ -15,6 +15,7 @@
     font-size: 38px;
     margin: 20px auto;
     font-weight: 600;
+    color: rgba(13, 13, 13, 0.75);
 }
 
 .listDataBase{
@@ -26,16 +27,17 @@
 .listTitles{
     display: grid;
     grid-template-columns: repeat(7, 14.28%);
-    color: rgb(122, 122, 122);
+    color: #6C6C6CCC;
     font-weight: 600;
     font-size: 16px;
     margin-bottom: 20px;
-    margin: 0px 5px;
+    margin: 10px 0;
+    text-align: center;
 }
 .dataContainer{
     overflow:hidden;
     overflow-y:auto;
-    max-height: 400px;
+    max-height: 530px;
 }
 .listData{
     display: grid;
@@ -58,7 +60,8 @@
 
 .listDataSelected > p{
     font-size: 18px;
-    margin: 10px auto;
+    margin: 10px 0;
+    text-align: center;
 }
 
 .listData:hover{
@@ -67,7 +70,8 @@
 
 .listData > p{
     font-size: 18px;
-    margin: 10px auto;
+    margin: 10px 0;
+    text-align: center;
 }
 .buttonBase{
     height: 100%;

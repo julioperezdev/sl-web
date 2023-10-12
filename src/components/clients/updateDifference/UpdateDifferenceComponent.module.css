@@ -1,6 +1,6 @@
 .formBase{
     display: grid;
-    width: 700px;
+    width: 750px;
     height: 500px;
     margin: auto;
     border: 2px solid rgb(169, 169, 169);
@@ -17,11 +17,11 @@
     font-size: 30px;
     font-weight: 600;
     color: rgba(13, 13, 13, 0.75);
-    margin-top: 40px;
+    margin-top: 50px;
 
 }
 .data{
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
 
@@ -29,20 +29,22 @@
     display: grid;
     grid-template-columns: repeat(2, 50%);
     width: 700px;
+    margin: auto;
 }
 
 .dataOver{
     text-align: left;
-    font-size: 12px;
+    font-size: 15px;
     margin-top: 8px;
-    margin-left: 20px;
+    margin-bottom: 3px;
+    margin-left: 15px;
     color: rgba(108, 108, 108, 1);
 }
 .descriptionOver{
     text-align: left;
-    font-size: 12px;
+    font-size: 15px;
     margin-top: 8px;
-    margin-left: 20px;
+    margin-left: 40px;
     color: rgba(108, 108, 108, 1);
 }
 .name{
@@ -50,7 +52,7 @@
     justify-self: center;
     align-items: center;
     font-size: 18px !important; 
-    height: 40px;
+    height: 35px;
     border: 1px solid rgb(136, 136, 136);
     padding-top: 10px;
     width: 280px;
@@ -65,6 +67,7 @@
 .data > div > select{
     justify-self: center;
     width: 320px;
+    height: 45px;
     font-size: 22px;
     background-color: rgba(255, 255, 255, 1);
     border: 1px solid rgb(136, 136, 136);
@@ -74,9 +77,10 @@
     color: #7D7D7D;
 }
 
-.data > div > input{
+.data > div > div > input{
     justify-self: center;
     width: 280px;
+    height: 35px;
     font-size: 22px;
     background-color: rgba(255, 255, 255, 1);
     border: 1px solid rgb(136, 136, 136);

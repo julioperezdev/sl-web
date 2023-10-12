@@ -7,7 +7,7 @@ import { v4 as uuid } from 'uuid'
 import toast, { Toaster } from 'react-hot-toast';
 import { ONLY_NUMBERS_ON_STRING, ONLY_LETTERS_ON_STRING } from '@/models/RegexConsts';
 import { useRouter } from 'next/navigation';
-import { sleep } from '@/helper/sleepInMilli/Sleep';
+import { ONE_SECOUND, sleep } from '@/helper/sleepInMilli/Sleep';
 
 
 export default function AddClientComponent() {
@@ -21,7 +21,7 @@ export default function AddClientComponent() {
             if (response.status == 201) {
                 reset();
                 toast.success('Se ha guardado exitosamente el Cliente')
-                await sleep(1500);
+                await sleep(ONE_SECOUND);
                 router.replace(`/clients`)
             } else {
                 toast.error('Ops... No se pudo guardar el Cliente')
@@ -58,20 +58,21 @@ export default function AddClientComponent() {
         <div onSubmit={onSubmit} className={styles.formBase}>
             <p>Nuevo Cliente</p>
             <div className={styles.data}>
-                <input type="text" placeholder='Ingrese Apodo' {...register("name", { required: true, pattern: ONLY_LETTERS_ON_STRING })} />
+                <input type="text" placeholder='Ingrese Apodo' {...register("name", { required: true, pattern: ONLY_LETTERS_ON_STRING , maxLength: 25 })} />
                 {errors.name && (errors.name.type === "required" || errors.name.type === "pattern") && (<span>Solo acepta letras y espacios</span>)}
-                <input type="text" placeholder='Número de teléfono' {...register("phone", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength: 20 })} />
+                {errors.name && errors.name.type === "maxLength" && (<span>Máximo de 25 dígitos</span>)}
+                <input type="text" placeholder='Número de teléfono' {...register("phone", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength: 25 })} />
                 {errors.phone && (errors.phone.type === "required" || errors.phone.type === "pattern") && (<span>Solo acepta números</span>)}
-                {errors.phone && errors.phone.type === "maxLength" && (<span>Máximo de 20 dígitos</span>)}
-                <input type="text" placeholder='Dirección' {...register("address", { required: true, maxLength: 50 })} />
+                {errors.phone && errors.phone.type === "maxLength" && (<span>Máximo de 25 dígitos</span>)}
+                <input type="text" placeholder='Dirección' {...register("address", { required: true, maxLength: 60 })} />
                 {errors.address && errors.address.type === "required" && (<span>La direccion es obligatoria</span>)}
-                {errors.address && errors.address.type === "maxLength" && (<span>Máximo de 50 dígitos</span>)}
+                {errors.address && errors.address.type === "maxLength" && (<span>Máximo de 60 dígitos</span>)}
                 <textarea placeholder='Descripción' className={styles.description} {...register("description", { required: true, maxLength: 100 })} />
                 {errors.description && errors.description.type === "required" && (<span>La descripción es obligatoria</span>)}
                 {errors.description && errors.description.type === "maxLength" && (<span>Máximo de 100 dígitos</span>)}
             </div>
             <div className={styles.linkBase}>
-                <Link href='/clients'>Cancelar</Link>
+                <button><Link href='/clients'>Cancelar</Link></button>
                 <button onClick={onSubmit} >Guardar</button>
             </div>
             <Toaster />

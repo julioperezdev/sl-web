@@ -3,19 +3,19 @@ import MenuFormComponent from '@/components/common/menuForm/MenuFormComponent';
 
 export default function NoteMenuComponent() {
   const clientMenuData:MenuFormData = {
-    imageName:'/notes.png',
+    imageName:'/images/Recordatorios.png',
     title:'Recordatorios',
     returnUrl:'/',
     options:[
       {
-        optionsImage: '/add-post.png',
+        optionsImage: '/images/Nuevo_Recordatorio.png',
         optionHref: '/note/add',
         optionDescription: 'Nuevo Recordatorio'
       },
       {
-        optionsImage: '/menu.png',
+        optionsImage: '/images/Historico_de_recordatorios.png',
         optionHref: '/note/list',
-        optionDescription: 'Historial de Recordatorios'
+        optionDescription: 'Histórial de Recordatorios'
       }
     ]
   }

@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { v4 as uuid } from 'uuid'
 import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
-import { sleep } from '@/helper/sleepInMilli/Sleep';
+import { ONE_SECOUND, sleep } from '@/helper/sleepInMilli/Sleep';
 import { Note, NoteRequestForm, UpdateNoteRequest } from '@/models/NoteModel';
 import { useEffect, useState } from 'react';
 import { format } from 'date-fns'
@@ -25,7 +25,7 @@ export default function UpdateNoteComponent(idValue: { idValue: string }) {
             if (response.ok) {
                 reset();
                 toast.success('Se ha actualizado exitosamente el Recordatorio')
-                await sleep(2000);
+                await sleep(ONE_SECOUND);
                 router.replace(`/note/list`)
             } else {
                 toast.error('Ops... No se pudo actualizar el Recordatorio')

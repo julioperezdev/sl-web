@@ -3,17 +3,17 @@ import MenuFormComponent from '@/components/common/menuForm/MenuFormComponent';
 
 export default function ProviderMenuComponent() {
   const clientMenuData:MenuFormData = {
-    imageName:'/providerMenu.png',
-    title:'Proveedor',
+    imageName:'/images/image_33.png',
+    title:'Proveedores',
     returnUrl:'/',
     options:[
       {
-        optionsImage: '/sellerNew.png',
+        optionsImage: '/images/image_34.png',
         optionHref: '/provider/add',
         optionDescription: 'Nuevo proveedor'
       },
       {
-        optionsImage: '/menu.png',
+        optionsImage: '/images/image_35.png',
         optionHref: '/provider/list',
         optionDescription: 'Lista de proveedores'
       }

@@ -5,7 +5,6 @@ import Link from 'next/link';
 export default function SellerCommissionComponent() {
     return (
         <div className={styles.listDifferenceBase}>
-            <Image src={'/sellerCommission.png'} alt='Icono para indicar la lista de comisiones del vendedor' width={100} height={100} />
             <p>Comisiones</p>
             <div className={styles.listDataBase}>
                 <div className={styles.listTitles}>

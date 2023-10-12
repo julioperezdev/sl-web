@@ -10,7 +10,7 @@ import { useState } from 'react';
 import { format } from 'date-fns';
 import { ONLY_NUMBERS_ON_STRING } from '@/models/RegexConsts';
 import { useRouter } from 'next/navigation';
-import { sleep } from '@/helper/sleepInMilli/Sleep';
+import { ONE_SECOUND, sleep } from '@/helper/sleepInMilli/Sleep';
 
 export default function AddDifferenceComponent() {
 
@@ -23,7 +23,7 @@ export default function AddDifferenceComponent() {
             if (response.status == 201) {
                 reset();
                 toast.success('Se ha guardado exitosamente la diferencia del cliente')
-                await sleep(1500)
+                await sleep(ONE_SECOUND)
                 router.replace(`/clients/difference`)
             } else {
                 toast.error('Ops... No se pudo guardar la diferencia del cliente')
@@ -93,24 +93,23 @@ export default function AddDifferenceComponent() {
                     <p className={styles.date}>{format(new Date(), 'dd/MM/yyyy')}</p>
                     <input type="text" onKeyDown={handleKeyDown} placeholder='Apodo Cliente' onChange={onChangeName} />
                     <select {...register("differenceType", { required: true })}>
-                        <option value="falta">Faltante</option>
-                        <option value="sobra">Sobrante</option>
+                        <option value="Faltante">Faltante</option>
+                        <option value="Sobrante">Sobrante</option>
                     </select>
                     <input type="text" placeholder='Importe' {...register("amount", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength: 40 })} />
                     {errors.amount && (errors.amount.type === "pattern" || errors.amount.type === "required") && (<span>Es obligatorio y solo son números</span>)}
                     {errors.amount && errors.amount.type === "maxLength" && (<span>Máximo de 40 dígitos</span>)}
                 </div>
-                <textarea placeholder='Detalle Inconveniente' className={styles.description} {...register("description", { required: true, maxLength: 30 })} />
+                <textarea placeholder='Detalle Inconveniente' className={styles.description} {...register("description", { required: true, maxLength: 100 })} />
+                <br />
                 {errors.description && errors.description.type === "required" && (<span>La descripción es obligatoria</span>)}
-                {errors.description && errors.description.type === "maxLength" && (<span>Máximo de 30 dígitos</span>)}
+                {errors.description && errors.description.type === "maxLength" && (<span>Máximo de 100 dígitos</span>)}
             </div>
             <div>
                 <button ><Link href='/clients/difference'>Cancelar</Link></button>
                 <button onClick={onClickDiffernece} >Guardar</button>
             </div>
-            <Toaster
-                position="bottom-left"
-                reverseOrder={false} />
+            <Toaster/>
         </div>
     )
 }

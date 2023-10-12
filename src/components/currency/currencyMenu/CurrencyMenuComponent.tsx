@@ -3,17 +3,17 @@ import { MenuFormData } from '@/models/MenuFormData';
 
 export default function CurrencyMenuComponent() {
   const clientMenuData:MenuFormData = {
-    imageName:'/currency.png',
+    imageName:'/images/Cotizacion.png',
     title:'Cotización',
     returnUrl:'/',
     options:[
       {
-        optionsImage: '/notes.png',
+        optionsImage: '/images/Actualizar_Cotizacion.png',
         optionHref: '/currency/update',
         optionDescription: 'Actualizar Cotización'
       },
       {
-        optionsImage: '/menu.png',
+        optionsImage: '/images/Historico_de_Actualizaciones.png',
         optionHref: '/currency/list',
         optionDescription: 'Historico de Actualizaciones'
       }

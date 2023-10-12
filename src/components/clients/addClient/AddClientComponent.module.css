@@ -13,7 +13,6 @@
 .formBase > p{
     font-size: 30px;
     font-weight: 600;
-    margin-top: 50px;
     color: rgba(13, 13, 13, 0.75);
 }
 
@@ -21,7 +20,7 @@
     margin-top: 20px;
 }
 .data > span{
-    color: red;
+    /* color: red; */
 }
 
 .data > input{
@@ -33,10 +32,11 @@
     background-color: rgb(232, 232, 232);
     border: 1px solid rgb(136, 136, 136);
     border-radius: 5px;
-    margin: 5px;
     padding: 2px 15px;
     outline: none;
     color: #7D7D7D;
+    margin: auto;
+    margin-top: 10px;
 }
 
 .description{
@@ -49,14 +49,15 @@
     border: 1px solid rgb(136, 136, 136);
     border-radius: 5px;
     padding: 5px 20px;
-    margin-top: 5px;
+    margin-top: 10px;
     color: #7D7D7D;
+    
 }
 
 .linkBase{
     height: 100px;
     margin: 0px auto;
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
 .linkBase > button{
@@ -69,11 +70,11 @@
     border: 0px;
     text-decoration: none;  
     height: 42px;
-    width: 100px;
-    margin: 3px;
+    width: 140px;
+    margin: 3px 15px;
 }
 
-.linkBase > a{
+.linkBase > button> a{
     text-decoration: none;  
     padding: 10px;
     background-color: rgba(0, 140, 255, 1);
@@ -82,5 +83,5 @@
     font-weight: 600;
     border-radius: 5px;
     border: 0px;
-    margin: 3px;
+    margin: 3px 15px;
 }

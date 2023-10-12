@@ -14,7 +14,7 @@ export default function NoteHomeComponent() {
             method: 'PUT',
         });
         let notesData: Note[] = await response.json();
-        setNotes(notesData.reverse().slice(0,3));
+        setNotes(notesData.reverse().slice(0,6));
 
     }
 
@@ -36,7 +36,7 @@ export default function NoteHomeComponent() {
                             `}
                         </style>
                         <p className={styles.date}>{format(parseISO(note.updatedAt), 'd/MM/yyyy hh:mm:ss')}</p>
-                        <p className={styles.description}>{note.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam, quas.</p> 
+                        <p className={styles.description}>{note.description}</p> 
                     </div>
                 )) : <p>NO HAY DATOS</p>}
             </div>

@@ -3,13 +3,13 @@
     grid-template-columns: repeat(2, 50%);
     width: 50%;
     justify-items: center;
-    padding-top: 150px;
+    padding-top: 100px;
     margin: 0px auto;
     
 }
 .currencyHomeBase > div > h2 {
     margin-bottom: 10px;
-    color: rgba(13, 13, 13, 0.75);
+    color: #0D0D0DBF;
     font-weight: 600;
 }
 
@@ -52,7 +52,7 @@
 }
 
 .buyPrice{
-    color:green;
+    color:#29BD6D;
     font-size: 27px;
     font-weight: 600;
     position: relative;
@@ -60,7 +60,7 @@
 }
 
 .sellPrice{
-    color:red;
+    color:#FB0000;
     font-size: 27px;
     font-weight: 600;
     position: relative;

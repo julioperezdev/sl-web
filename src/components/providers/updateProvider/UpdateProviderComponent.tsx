@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { ONLY_NUMBERS_ON_STRING } from '@/models/RegexConsts';
 import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
-import { sleep } from '@/helper/sleepInMilli/Sleep';
+import { ONE_SECOUND, sleep } from '@/helper/sleepInMilli/Sleep';
 import { Provider, UpdateProviderForm, UpdateProviderRequest } from '@/models/ProviderModel';
 
 export default function UpdateProviderComponent(idValue: { idValue: string }) {
@@ -23,7 +23,7 @@ export default function UpdateProviderComponent(idValue: { idValue: string }) {
             if (response.ok) {
                 reset();
                 toast.success('Se ha actualizado exitosamente el Vendedor')
-                await sleep(2000)
+                await sleep(ONE_SECOUND)
                 router.replace(`/provider/list`)
             } else {
                 toast.error('Ops... No se pudo actualizar el Vendedor')

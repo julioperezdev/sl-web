@@ -31,7 +31,7 @@ export default function ClearComponent() {
 
     return (
         <div onSubmit={onSubmit} className={styles.formBase}>
-            <Image src={'/trash.png'} alt='Icono para indicar un nuevo vendedor' width={80} height={80} />
+            <Image src={'/images/Borrar_Datos.png'} alt='Icono para indicar un nuevo vendedor' width={80} height={80} />
             <p>Borrar Datos</p>
             <div>
                 <p className={styles.descriptionOver}>Confirme Usuario</p>

@@ -3,22 +3,22 @@ import { MenuFormData } from '@/models/MenuFormData';
 
 export default function ClientsMenuComponent() {
   const clientMenuData:MenuFormData = {
-    imageName:'/clientMenu.png',
+    imageName:'/images/image_29.png',
     title:'Clientes',
     returnUrl:'/',
     options:[
       {
-        optionsImage: '/add-user.png',
+        optionsImage: '/images/image_28.png',
         optionHref: '/clients/add',
         optionDescription: 'Nuevo cliente'
       },
       {
-        optionsImage: '/menu.png',
+        optionsImage: '/images/image_30.png',
         optionHref: '/clients/list',
         optionDescription: 'Lista de clientes'
       },
       {
-        optionsImage: '/difference-user.png',
+        optionsImage: '/images/image_26.png',
         optionHref: '/clients/difference',
         optionDescription: 'Diferencia de clientes'
       },

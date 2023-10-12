@@ -1,12 +1,11 @@
 'use client'
 import styles from './AddNoteComponent.module.css'
-import Image from 'next/image';
 import Link from 'next/link';
 import { useForm } from "react-hook-form";
 import { v4 as uuid } from 'uuid'
 import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
-import { sleep } from '@/helper/sleepInMilli/Sleep';
+import { ONE_SECOUND, sleep } from '@/helper/sleepInMilli/Sleep';
 import { AddNoteRequest, NoteRequestForm } from '@/models/NoteModel';
 import { format } from 'date-fns'
 
@@ -23,7 +22,7 @@ export default function AddNoteComponent() {
             if (response.status == 201) {
                 reset();
                 toast.success('Se ha guardado exitosamente el Recordatorio')
-                await sleep(2000);
+                await sleep(ONE_SECOUND);
                 router.replace(`/note`)
             } else {
                 toast.error('Ops... No se pudo guardar el Recordatorio')
@@ -65,9 +64,9 @@ export default function AddNoteComponent() {
                     <option value="#ffe3e3">Rojo</option>
                     <option value="#fcfcde">Amarillo</option>
                 </select>
-                <input type="text" placeholder='Detalle' {...register("description", { required: true, maxLength: 30 })} />
+                <textarea placeholder='Detalle' className={styles.description} {...register("description", { required: true, maxLength: 150 })} />
                 {errors.description && errors.description.type === "required" && (<span>La descripción es obligatoria</span>)}
-                {errors.description && errors.description.type === "maxLength" && (<span>Máximo de 30 dígitos</span>)}
+                {errors.description && errors.description.type === "maxLength" && (<span>Máximo de 150 dígitos</span>)}
             </div>
             <div>
                 <button><Link href='/note'>Atras</Link></button>

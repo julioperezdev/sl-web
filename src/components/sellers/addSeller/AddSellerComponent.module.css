@@ -1,7 +1,7 @@
 .formBase{
     display: grid;
-    width: 400px;
-    height: 500px;
+    width: 350px;
+    height: 520px;
     justify-content: center;
     margin: 100px auto;
     border: 2px solid rgb(169, 169, 169);
@@ -29,13 +29,14 @@
 .formBase > div > input{
     display: grid;
     width: 300px;
-    height: 40px;
+    height: 35px;
     font-size: 22px;
     align-items: center;
     background-color: rgb(232, 232, 232);
     border: 1px solid rgb(136, 136, 136);
     border-radius: 5px;
     margin: 5px auto;
+    margin-top: 10px;
 
     padding: 5px 20px;
     outline: none;

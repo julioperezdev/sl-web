@@ -3,17 +3,17 @@ import { MenuFormData } from '@/models/MenuFormData';
 
 export default function DifferenceMenuComponent() {
     const clientMenuData:MenuFormData = {
-        imageName:'/difference-user.png',
+        imageName:'/images/image_26.png',
         title:'Diferencia de Clientes',
         returnUrl:'/clients',
         options:[
           {
-            optionsImage: '/add-list.png',
+            optionsImage: '/images/image_45.png',
             optionHref: '/clients/difference/add',
             optionDescription: 'Nueva diferencia'
           },
           {
-            optionsImage: '/menu.png',
+            optionsImage: '/images/image_46.png',
             optionHref: '/clients/difference/list',
             optionDescription: 'Histórico de Diferencias'
           }

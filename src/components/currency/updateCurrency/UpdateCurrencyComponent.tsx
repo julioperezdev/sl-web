@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { Currency, CurrencyForm, CurrencyRequest } from '@/models/CurrencyModel';
 import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
-import { sleep } from '@/helper/sleepInMilli/Sleep';
+import { ONE_SECOUND, sleep } from '@/helper/sleepInMilli/Sleep';
 import { v4 as uuid } from 'uuid'
 import { ONLY_NUMBERS_ON_STRING } from '@/models/RegexConsts';
 
@@ -30,7 +30,7 @@ export default function UpdateCurrencyComponent() {
             if (response.ok) {
                 reset();
                 toast.success('Se ha actualizado exitosamente la Diferencia de Cliente')
-                await sleep(3000)
+                await sleep(ONE_SECOUND)
                 router.replace(`/currency`)
             } else {
                 toast.error('Ops... No se pudo actualizar a Diferencia de Cliente')
@@ -107,6 +107,8 @@ export default function UpdateCurrencyComponent() {
                             ))}
                         </select>
                         <div className={styles.priceBase}>
+                            <p className={styles.descriptionOver}>Precio Compra</p>
+                            <p className={styles.descriptionOver}>Precio Venta</p>
                             <input className={styles.priceToBuy} type="text" placeholder='Importe' {...register("buyPrice", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength: 20 })} />
                             {errors.buyPrice && (errors.buyPrice.type === "pattern" || errors.buyPrice.type === "required") && (<span>Es obligatorio y solo son números</span>)}
                             {errors.buyPrice && errors.buyPrice.type === "maxLength" && (<span>Máximo de 20 dígitos</span>)}

@@ -13,7 +13,7 @@ export default function MultiboxMenuComponent() {
         optionDescription: 'Caja en Pesos'
       },
       {
-        optionsImage: '/menu.png',
+        optionsImage: '/images/image_37.png',
         optionHref: '/multibox/foreign-currency',
         optionDescription: 'Cajas de Divisas'
       },

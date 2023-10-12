@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { ONLY_NUMBERS_ON_STRING } from '@/models/RegexConsts';
 import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
-import { sleep } from '@/helper/sleepInMilli/Sleep';
+import { ONE_SECOUND, sleep } from '@/helper/sleepInMilli/Sleep';
 import { Seller, UpdateSellerForm, UpdateSellerRequest } from '@/models/SellerModel';
 
 export default function UpdateSellerComponent(idValue: { idValue: string }) {
@@ -25,7 +25,7 @@ export default function UpdateSellerComponent(idValue: { idValue: string }) {
             if (response.ok) {
                 reset();
                 toast.success('Se ha actualizado exitosamente el Vendedor')
-                await sleep(1000)
+                await sleep(ONE_SECOUND)
                 router.replace(`/sellers`)
             } else {
                 toast.error('Ops... No se pudo actualizar el Vendedor')
@@ -82,6 +82,7 @@ export default function UpdateSellerComponent(idValue: { idValue: string }) {
                 {errors.phone && errors.phone.type === "maxLength" && (<span>Máximo de 20 dígitos</span>)}
                 <p className={styles.descriptionOver}>Descripción</p>
                 <textarea placeholder='Descripción' className={styles.description} {...register("description", { required: true, maxLength: 100 })} />
+                <br />
                 {errors.description && errors.description.type === "required" && (<span>La descripción es obligatoria</span>)}
                 {errors.description && errors.description.type === "maxLength" && (<span>Máximo de 100 dígitos</span>)}
             </div>

@@ -1,9 +1,9 @@
 .clientMenuBase{
     display: grid;
-    width: 20%;
+    width: 300px;
     height: 450px;
     justify-content: center;
-    margin: 90px auto;
+    margin: 60px auto;
     border: 2px solid rgb(222, 222, 222);
     border-radius: 20px;
     padding: 30px;
@@ -13,10 +13,14 @@
 
 .clientMenuBase > img{
     margin: 0 auto;
+    padding: 0;
 }
 .clientMenuBase > p{
     font-size: 28px;
     font-weight: 600;
+    color: #0D0D0DBF;
+    margin: 0;
+    padding: 0;
 }
 
 .clientMenuBase > div{
@@ -29,6 +33,9 @@
     
 }
 
+.particularOption:hover{
+    background-color: rgba(228, 220, 241, 0.528);
+}
 .clientMenuBase > div > a{
     color: rgba(13, 13, 13, 0.75);
     text-decoration: none;   

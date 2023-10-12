@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useForm } from "react-hook-form";
 import { useRouter } from 'next/navigation';
-import { sleep } from '@/helper/sleepInMilli/Sleep';
+import { ONE_SECOUND, sleep } from '@/helper/sleepInMilli/Sleep';
 import { v4 as uuid } from 'uuid'
 import toast, { Toaster } from 'react-hot-toast';
 import { AddProviderRequest } from '@/models/ProviderModel';
@@ -22,7 +22,7 @@ export default function AddProviderComponent() {
             if (response.status == 201) {
                 reset();
                 toast.success('Se ha guardado exitosamente el Proveedor')
-                await sleep(1000);
+                await sleep(ONE_SECOUND);
                 router.replace(`/provider`)
             } else {
                 toast.error('Ops... No se pudo guardar el Proveedor')
