@@ -9,12 +9,12 @@ export default function ForeignCurrencyMenuComponent() {
     options:[
       {
         optionsImage: '/images/image_40.png',
-        optionHref: '/multibox/foreign-currency/USD HIGH',
+        optionHref: '/multibox/foreign-currency/USD_HIGH',
         optionDescription: 'Dólares Grandes'
       },
       {
         optionsImage: '/images/image_41.png',
-        optionHref: '/multibox/foreign-currency/USD LOW',
+        optionHref: '/multibox/foreign-currency/USD_LOW',
         optionDescription: 'Dólar Chico y Cambio'
       },
       {

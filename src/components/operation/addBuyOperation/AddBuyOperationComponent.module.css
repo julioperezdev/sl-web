@@ -127,6 +127,15 @@
     outline: none;
     color: #7D7D7D;
 }
+.waitingCurrencyType{
+    width: 240px;
+    height: 38px;
+    background-color: rgba(255, 255, 255, 0);
+    border: 1px solid rgb(136, 136, 136);
+    border-radius: 5px;
+    margin: 5px auto;   
+    outline: none;
+}
 .operationStringSelect{
     width: 240px;
     height: 38px;

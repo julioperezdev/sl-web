@@ -30,3 +30,14 @@ export interface BuyOperation{
     total:number;
     updatedAt:string;
 }
+
+export interface BuyOperationResponse{
+    id:string;
+    hasOfficeCheck:boolean;
+    clientName:string;
+    currencyMultiBox: string ;
+    price:number;
+    quantity:number;
+    total:number;
+    updatedAt:string;
+}

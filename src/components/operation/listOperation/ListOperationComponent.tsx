@@ -3,11 +3,11 @@ import styles from './ListOperationComponent.module.css';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { parseISO, format } from 'date-fns';
-import { BuyOperation } from '@/models/OperationModel';
+import { BuyOperation, BuyOperationResponse } from '@/models/OperationModel';
 
 export default function ListOperationComponent() {
     const [selected, setSelected] = useState<string | null>(null)
-    const [operations, setOperations] = useState<BuyOperation[]>([])
+    const [operations, setOperations] = useState<BuyOperationResponse[]>([])
 
     async function getOperations() {
         const response = await fetch(process.env.apiUrl + '/v1/operation/get', {
@@ -19,7 +19,7 @@ export default function ListOperationComponent() {
         }
         let responseValue = await response.json();
         console.log(responseValue)
-        let buyOperationData: BuyOperation[] = responseValue;
+        let buyOperationData: BuyOperationResponse[] = responseValue;
         setOperations(buyOperationData)
     }
     useEffect(() => {
@@ -49,7 +49,7 @@ export default function ListOperationComponent() {
                         <div className={isSelected(operation.id) ? styles.listDataSelected : styles.listData} key={operation.id} onClick={()=> setSelected(operation.id)}>
                             <p>{format(parseISO(operation.updatedAt!), 'd/MM/yyyy')}</p>
                             <p>{format(parseISO(operation.updatedAt!), 'hh:mm:ss')}</p>
-                            <p>{operation.clientId}</p>
+                            <p>{operation.clientName}</p>
                             <p>{operation.currencyMultiBox}</p>
                             <p>{operation.price}</p>
                             <p>{operation.quantity}</p>

@@ -73,7 +73,7 @@ export default function Header() {
             title: 'Caja de Divisas',
             description: 'Visualizar las cajas de todas las divisas: dolar grande, dolar chico y cambio, euro y reales, realizar ingresos y egresos.'
         }, {
-            url: '/multibox/list/PESOS_OFFICE',
+            url: '/multibox/list/PESO_OFFICE',
             image: '/images/image_40.png',
             title: 'Deuda Oficina',
             description: 'Ver detalle del saldo acumulado y pagar el total de la deuda.'

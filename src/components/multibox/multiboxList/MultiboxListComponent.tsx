@@ -27,17 +27,54 @@ export default function MultiboxListComponent(multiboxName: { multiboxName: stri
         getMultiboxByName();
     }, [])
 
+    function titleMultibox(currencyBox:string):string{
+        let title = 'Caja en ...';
+        if(currencyBox === 'USD_HIGH') return 'Caja en Dolar Grande'
+        else if(currencyBox === 'USD_LOW') return 'Caja en Dolar Chico y Cambio'
+        else if(currencyBox === 'EURO') return 'Caja en Euros'
+        else if(currencyBox === 'REAL') return 'Caja en Reales'
+        else if(currencyBox === 'PESO') return 'Caja en Pesos'
+        else if(currencyBox === 'PESO_OFFICE') return 'Deuda Oficina'
+        return title;
+
+    }
     function isSelected(id:string):boolean{
         return id == selected;
     }
     function isForeignCurrency():boolean{
-        const foreignCurrencyAvailables:string[] = ['USD HIGH','USD LOW','EURO','REAL'];
+        const foreignCurrencyAvailables:string[] = ['USD_HIGH','USD_LOW','EURO','REAL'];
         let foreignCurrencyFiltered = foreignCurrencyAvailables.filter(particular => multiboxName.multiboxName == particular);
-        return foreignCurrencyFiltered.length > 1;
+        return foreignCurrencyFiltered.length === 1;
+    }
+
+    function isForeignCurrencyByName(currencyNameToValidate:string):boolean{
+        const foreignCurrencyAvailables:string[] = ['USD_HIGH','USD_LOW','EURO','REAL'];
+        let foreignCurrencyFiltered = foreignCurrencyAvailables.filter(particular => currencyNameToValidate == particular);
+        return foreignCurrencyFiltered.length === 1;
+    }
+
+    function isPesosCurrencyByName(currencyNameToValidate:string):boolean{
+        const pesosCurrencyAvailables:string[] = ['PESO','PESO_OFFICE'];
+        let pesosCurrencyFiltered = pesosCurrencyAvailables.filter(particular => currencyNameToValidate == particular);
+        return pesosCurrencyFiltered.length === 1;
+    }
+    function isIngressOrEgressOperation(currencyNameToValidate:string, operationType:string){
+        if(isForeignCurrencyByName(currencyNameToValidate)){
+            if(operationType === 'comprar' || operationType === 'ingreso efectivo') return true;
+            else if(operationType === 'vender') return false;
+        }else if(isPesosCurrencyByName(currencyNameToValidate)){
+            if(currencyNameToValidate === 'PESO'){
+                if(operationType === 'vender' || operationType === 'ingreso efectivo') return true;
+                else if(operationType === 'comprar' || operationType === 'pago deuda') return false;
+            }else if(currencyNameToValidate == 'PESO_OFFICE'){
+                if(operationType === 'comprar') return true;
+                else if(operationType === 'pago deuda') return true;
+            }
+        }
     }
     return (
         <div className={styles.listSellerBase}>
-            <p>Caja en {multiboxName.multiboxName}</p>
+            <p>{titleMultibox(multiboxName.multiboxName)}</p>
             <div className={styles.listDataBase}>
                 <div className={styles.listTitles}>
                     <p>Fecha</p>
@@ -54,8 +91,8 @@ export default function MultiboxListComponent(multiboxName: { multiboxName: stri
                             <p>{format(parseISO(box.updatedAt!), 'd/MM/yyyy')}</p>
                             <p>{format(parseISO(box.updatedAt!), 'hh:mm:ss')}</p>
                             <p>{box.operationType}</p>
-                            <p>{box.operationType === 'comprar' ? '-' : box.quantityOperation}</p>
-                            <p>{box.operationType === 'vender' ? '-' : box.quantityOperation}</p>
+                            <p>{isIngressOrEgressOperation(multiboxName.multiboxName, box.operationType) ? box.quantityOperation : '-'}</p>
+                            <p>{isIngressOrEgressOperation(multiboxName.multiboxName, box.operationType) ? '-' : box.quantityOperation}</p>
                             <p>{box.quantity}</p>
                         </div>
                     ))
