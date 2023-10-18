@@ -23,7 +23,14 @@ export default function ListReserveComponent(props:ReserveOfBuyOperationProps) {
             return;
         }
         props.setPanelScreen(1)
+    }
 
+    function onClickCancelListReserve(){
+        if(selected || props.reserveOperation){
+            setSelected(null);
+            props.setReserveOperationSelected(null);
+            props.setPanelScreen(1)
+        }
     }
 
     return(
@@ -51,7 +58,7 @@ export default function ListReserveComponent(props:ReserveOfBuyOperationProps) {
                 </div>
             </div>
             <div className={styles.buttonBase}>
-                <button>Atrás</button>
+                <button onClick={()=>onClickCancelListReserve()}>Atrás</button>
                 {!selected
                 ? <button>Seleccionar</button>
                 : <button onClick={()=>onClickReserveOperation()}>Aceptar</button>}

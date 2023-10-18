@@ -21,6 +21,9 @@ export interface ReserveOfBuyOperation{
 
 
 export interface SellOperationData{
+    hasSeller:boolean;
+    sellerId?:string;
+    sellerCommission:number;
     operationType :string;
     currencyMultiBox: string 
     buyPrice:number;
@@ -32,9 +35,6 @@ export interface SellOperationData{
 export interface SellOperationRequest{
     id:string;
     clientId:string;
-    hasSeller:boolean;
-    sellerId?:string;
-    sellerCommission:number;
     sellOperationData: SellOperationData[];
 }
 

@@ -11,92 +11,76 @@ import { useRouter } from 'next/navigation';
 import { ONE_SECOUND, sleep } from '@/helper/sleepInMilli/Sleep';
 import { Currency } from "@/models/CurrencyModel";
 import { Client } from "@/models/ClientModel";
-import { BuyOperationForm, BuyOperationRequest, BuyOperationResponse } from "@/models/OperationModel";
-import AddSellerOperation from "./AddSellerOperation";
 import { Seller } from '@/models/SellerModel';
-import { ReserveOfBuyOperation, SellOperationForm } from '@/models/SellOperationModel';
+import { ReserveOfBuyOperation, SellOperationForm, SellOperationRequest } from '@/models/SellOperationModel';
 
 interface SellOperationFormProps {
-    sellerSelected: Seller|null;
+    sellerSelected: Seller | null;
     setSellerSelected: Dispatch<SetStateAction<Seller | null>>;
-    setAssignSellerCommission: Dispatch<SetStateAction<boolean>>;
-    setSellerProfit:Dispatch<SetStateAction<number>>;
-    sellerProfit:number;
-    setPanelScreen:Dispatch<SetStateAction<number>>;
-    setReserveOperation:Dispatch<ReserveOfBuyOperation[] |null>;
+    setSellerProfit: Dispatch<SetStateAction<number>>;
+    sellerProfit: number;
+    setPanelScreen: Dispatch<SetStateAction<number>>;
+    setReserveOperation: Dispatch<ReserveOfBuyOperation[] | null>;
     reserveOperationSelected: ReserveOfBuyOperation | null;
-    quantityToSell:number;
-    setQuantityToSell:Dispatch<SetStateAction<number>>;
-    clientSelected:Client | null;
-    setClientSelected:Dispatch<SetStateAction<Client | null>>;
-  }
-export default function SellOperationFormComponent(props:SellOperationFormProps) {
-    const { register, handleSubmit, reset, setValue,watch, formState: { errors } } = useForm<SellOperationForm>();
-    const [isSellerCommission, setIsSellerCommission] = useState<boolean>(false);
+    quantityToSell: number;
+    setQuantityToSell: Dispatch<SetStateAction<number>>;
+    clientSelected: Client | null;
+    setClientSelected: Dispatch<SetStateAction<Client | null>>;
+}
+export default function SellOperationFormComponent(props: SellOperationFormProps) {
+    const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm<SellOperationForm>();
     const [currencies, setCurrencies] = useState<Currency[] | null>(null)
     const [currencyNameSelected, setCurrencyNameSelected] = useState<string>('')
     const [currencySelected, setCurrencySelected] = useState<Currency | null>(null)
-    //const [clientSelected, setClientSelected] = useState<Client | null>(null)
     const [clientName, setClientName] = useState<string | null>(null)
-    //const [sellerSelected, setSellerSelected] = useState<Client | null>(null)
-    const [sellerName, setSellerName] = useState<string | null>(null)
-    const [showSellerForm, setSellerForm] = useState(false);
     const [profitIncludingSeller, setProfitIncludingSeller] = useState<number>(0);
-
-    // const [quantityToSell, setQuantityToSell] = useState<number>(0)
-    const [buyPrice, setBuyPrice] = useState<number>(0)
-    const [quantityToBuy, setQuantityToBuy] = useState<number>(0)
-    const [percentDolarSmall, setPercentDolarSmall] = useState<number>(0)
-    const [amountToDolarSmall, setAmountToDolarSmall] = useState<number>(0)
     const [totalProfit, setTotalProfit] = useState<number>(0)
     const [totalToPay, setTotalToPay] = useState<number>(0)
     const router = useRouter();
 
 
-    function assignFunctionToTrue(){
-        if(props.quantityToSell <= 0){
-            toast.loading('Debes colocar la cantidad a vender primero',{duration:1500})
+    function assignFunctionToTrue() {
+        if (props.quantityToSell <= 0) {
+            toast.loading('Debes colocar la cantidad a vender primero', { duration: 1500 })
             return;
         }
         props.setPanelScreen(3)
     }
 
-    function deleteSellerAssigned(){
+    function deleteSellerAssigned() {
         props.setSellerProfit(0)
         props.setSellerSelected(null)
     }
 
-    function validateIfFormIsComplete(data: SellOperationForm){
+    function validateIfFormIsComplete(data: SellOperationForm) {
         if (props.clientSelected == null) {
             toast.error('Se debe seleccionar un Cliente para realizar la operacion')
-            return;
+            return false;
         }
-        if(props.reserveOperationSelected == null){
+        if (props.reserveOperationSelected == null) {
             toast.error('Se debe seleccionar una reserva para realizar la operacion')
-            return;
+            return false;
         }
-        if(props.reserveOperationSelected.reserve < data.quantity){
+        if (props.reserveOperationSelected.reserve < data.quantity) {
             toast.error('Debes colocar una cantidad menor a la reserva seleccionada')
-            return;
+            return false;
         }
-        console.log('sp',props.sellerProfit)
-        console.log('ss',props.sellerSelected)
-        if(props.sellerProfit == 0 && props.sellerSelected != null){
+        if (props.sellerProfit == 0 && props.sellerSelected != null) {
             toast.error('Hay un error al asignar los datos del vendedor')
-            return;
+            return false;
         }
         toast.success('llegó')
+        return true;
     }
     const onClickBuyOperation = handleSubmit(async (data) => {
         try {
-            validateIfFormIsComplete(data);
-            let totalToPayData = props.quantityToSell * data.sellPrice
-            setTotalToPay(totalToPayData)
+            let valid = validateIfFormIsComplete(data);
+            if (!valid) return;
+            let totalToPayData = props.quantityToSell * data.sellPrice;
+            setTotalToPay(totalToPayData);
             let totalBuyPrice = props.quantityToSell * props.reserveOperationSelected?.buyPrice!;
-            console.log('totalBuyPrice',totalBuyPrice)
-            setTotalProfit(totalToPayData - totalBuyPrice)
-            setProfitIncludingSeller(totalToPayData - totalBuyPrice - props.sellerProfit)
-            return ;
+            setTotalProfit(totalToPayData - totalBuyPrice);
+            setProfitIncludingSeller(totalToPayData - totalBuyPrice - props.sellerProfit);
             const dataValidated = converFormData(data);
             const response = await sendForm(dataValidated);
             if (response.status == 201) {
@@ -112,6 +96,25 @@ export default function SellOperationFormComponent(props:SellOperationFormProps)
         }
     }
     );
+
+    function converFormData(data: SellOperationForm): SellOperationRequest {
+        let sellerIsPresent = props.sellerSelected != null;
+        return {
+            id: uuid(),
+            clientId: props.clientSelected!.id,
+            sellOperationData: [{
+                hasSeller: sellerIsPresent,
+                sellerId: sellerIsPresent ? props.sellerSelected?.id : undefined,
+                sellerCommission: sellerIsPresent ? props.sellerProfit : 0,
+                operationType: "vender",
+                currencyMultiBox: convertCurrencyNameToCurrencyMultiboxValue(data.currencyMultiBox),
+                buyPrice: props.reserveOperationSelected?.buyPrice!,
+                buyOperationId: props.reserveOperationSelected?.id!,
+                sellPrice: data.sellPrice,
+                quantityToSell: data.quantity
+            }]
+        }
+    }
 
     function convertCurrencyNameToCurrencyMultiboxValue(currencyNameToConvert: string): string {
         let result;
@@ -132,25 +135,10 @@ export default function SellOperationFormComponent(props:SellOperationFormProps)
         else if (resultOfFiltered === 'Real') result = 'REAL'
         return result!;
     }
-    function converFormData(data: SellOperationForm): any {
-        return {
-            id: uuid(),
-            hasOfficeCheck: isSellerCommission,
-            clientId: props.clientSelected!.id,
-            buyOperationData: [{
-                operationType: "comprar",
-                //currencyMultiBox: convertCurrencyNameToCurrencyMultiboxValue(data.currencyMultiBox),
-               // buyPrice: data.buyPriceForm,
-                //quantity: data.quantity,
-                //percent: data.percent
-            }]
-        }
-    }
-
-    function sendForm(buyOperationRequest: BuyOperationRequest) {
-        return fetch(process.env.apiUrl + '/v1/operation/create/buy', {
+    function sendForm(sellOperationRequest: SellOperationRequest) {
+        return fetch(process.env.apiUrl + '/v1/operation/create/sell', {
             method: 'PUT',
-            body: JSON.stringify(buyOperationRequest),
+            body: JSON.stringify(sellOperationRequest),
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
@@ -201,48 +189,16 @@ export default function SellOperationFormComponent(props:SellOperationFormProps)
 
     const onChangeClientName = (event: any) => {
         if (props.clientSelected != null) {
-            toast.loading('Haz cambiado del Cliente, debes confirmar uno nuevo',{
+            toast.loading('Haz cambiado del Cliente, debes confirmar uno nuevo', {
                 duration: 2500,
-              })
-              props.setClientSelected(null)
+            })
+            props.setClientSelected(null)
         }
         setClientName(event.target.value);
     }
 
-    async function eventToCalculateTotalToPay(event: any) {
-        console.log(event.target.name)
-        let attributeName = event.target.name;
-        let value = event.target.value;
-        const regexToValidateNumber = /^[0-9]+$/
-        if (!regexToValidateNumber.test(value)) {
-            toast.error('solo se aceptan numero en el formulario')
-        } else {
-            let valueTyped: number = value;
-            if (attributeName == 'buyPriceForm') setBuyPrice(valueTyped);
-            if (attributeName == 'quantity') setQuantityToBuy(valueTyped);
-            if (attributeName == 'percent' && percentDolarSmall > 100) {
-                toast.error('tiene un maximo de 100%')
-            } else {
-                setPercentDolarSmall(valueTyped);
-            }
-            if (buyPrice != 0 && quantityToBuy != 0) {
-                calculateTotalToPay(buyPrice, quantityToBuy, percentDolarSmall);
-            }
-        }
-    }
-
-    function calculateTotalToPay(buyPrice: number, quantity: number, percent: number) {
-        let result = buyPrice * quantity;
-        if (percent > 0) {
-            let newBuyPrice = buyPrice - ((buyPrice * percent) / 100);
-            setAmountToDolarSmall(newBuyPrice);
-            result = newBuyPrice * quantity
-        }
-        setTotalToPay(result);
-    }
-
-    function changeCurrencyName(){
-        let result:string;
+    function changeCurrencyName() {
+        let result: string;
         if (currencyNameSelected === 'Dolar Grande') result = 'USD_HIGH'
         else if (currencyNameSelected === 'Dolar Chico y Cambio') result = 'USD_LOW'
         else if (currencyNameSelected === 'Euro') result = 'EURO'
@@ -250,30 +206,25 @@ export default function SellOperationFormComponent(props:SellOperationFormProps)
         return result!;
     }
 
-    async function showListReserveByCurrencyExchange(event:any){
+    async function showListReserveByCurrencyExchange(event: any) {
         let currencyToFindDoneOperationsByName = changeCurrencyName();
         const response = await fetch(`${process.env.apiUrl}/v1/operation/get/done/${currencyToFindDoneOperationsByName}`, {
             method: 'PUT',
         });
         if (response.status == 204) {
-            console.log('No hay datos')
             return
         }
         let responseValue = await response.json();
-        console.log(responseValue)
         let buyOperationData: ReserveOfBuyOperation[] = responseValue;
         props.setReserveOperation(buyOperationData)
         props.setPanelScreen(2);
     }
+
     useEffect(() => {
         getLasUpdatedCurrencies();
-        if(props.quantityToSell != 0){
+        if (props.quantityToSell != 0) {
             setValue('quantity', props.quantityToSell)
         }
-        if(props.clientSelected != null){
-            
-        }
-        
     }, [])
 
     const onChangeQuantityToSell = (event: any) => {
@@ -297,17 +248,15 @@ export default function SellOperationFormComponent(props:SellOperationFormProps)
                 <div className={styles.topData}>
                     <p>Fecha {format(new Date(), 'dd/MM/yyyy')}</p>
                     {props.sellerSelected == null
-                    ?<button className={styles.sellerButton} onClick={() => assignFunctionToTrue()}>{'Asignar Vendedor'}</button>
-                    :<button className={styles.sellerButton} onClick={() => deleteSellerAssigned()}>{'Quitar Vendedor'}</button>}
-                    
-                    
+                        ? <button className={styles.sellerButton} onClick={() => assignFunctionToTrue()}>{'Asignar Vendedor'}</button>
+                        : <button className={styles.sellerButton} onClick={() => deleteSellerAssigned()}>{'Quitar Vendedor'}</button>}
                 </div>
                 <div className={styles.operationFormBase}>
                     <h3>Realizar Venta</h3>
                     <div className={styles.operationStringData}>
                         <div>
                             <p className={styles.descriptionOver}>Apodo Cliente</p>
-                            <input className={styles.operationStringParagragh} type="text" onKeyDown={handleKeyDownClient} onChange={onChangeClientName} value={props.clientSelected?.name}/>
+                            <input className={styles.operationStringParagragh} type="text" onKeyDown={handleKeyDownClient} onChange={onChangeClientName} value={props.clientSelected?.name} />
                         </div>
                         <div>
                             <p className={styles.descriptionOver}>Número de Teléfono</p>
@@ -343,7 +292,6 @@ export default function SellOperationFormComponent(props:SellOperationFormProps)
                             </div>
                         </div>
                         <div>
-
                             {props.sellerSelected != null ?
                                 <div>
                                     <p className={styles.descriptionOver}>Apodo Vendedor</p>

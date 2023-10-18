@@ -2,15 +2,14 @@
 import { SellerCommissionForm } from '@/models/SellOperationModel';
 import styles from './AddSellerOperation.module.css'
 import { useForm } from "react-hook-form";
-import { useEffect, useState , Dispatch, SetStateAction} from 'react';
-import { ONLY_NUMBERS_ON_STRING, ONLY_NUMBER_WITH_DECIMALS_ON_STRING } from '@/models/RegexConsts';
+import { useState , Dispatch, SetStateAction} from 'react';
+import { ONLY_NUMBER_WITH_DECIMALS_ON_STRING } from '@/models/RegexConsts';
 import { Seller } from '@/models/SellerModel';
 import toast, { Toaster } from 'react-hot-toast';
 
 interface AddSellerOperationProps {
     sellerSelected: Seller|null;
     setSellerSelected: Dispatch<SetStateAction<Seller | null>>;
-    setAssignSellerCommission: Dispatch<SetStateAction<boolean>>;
     setSellerProfit:Dispatch<SetStateAction<number>>;
     sellerProfit:number;
     setPanelScreen:Dispatch<SetStateAction<number>>;
@@ -19,7 +18,7 @@ interface AddSellerOperationProps {
 
 export default function AddSellerOperation(props:AddSellerOperationProps) {
 
-    const { register, handleSubmit, watch, reset, setValue, formState: { errors } } = useForm<SellerCommissionForm>();
+    const { register, handleSubmit, formState: { errors } } = useForm<SellerCommissionForm>();
     const [sellerName, setSellerName] = useState<string | null>(null)
     const [calculated, setCalculated] = useState<boolean>(false)
 
