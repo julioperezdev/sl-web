@@ -1,4 +1,4 @@
-/* 
+
 .operationCurrencyBase{
     position: absolute;
     margin-left: auto;
@@ -51,6 +51,7 @@
     border: 2px solid rgb(219, 219, 219);
     border-radius: 20px;
     padding: 30px;
+    /* text-align: center; */
     margin-top: 100px;
     background-color: white;
 }
@@ -247,4 +248,4 @@
 .totalToSellBase{
     display: grid;
     grid-template-columns: repeat(2, 50%);
-} */
+}

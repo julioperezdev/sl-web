@@ -14,4 +14,5 @@ export interface CurrencyBoxResponse{
     quantity:number;
     quantityOperation:number;
     operationType:string;
+    status:string;
 }

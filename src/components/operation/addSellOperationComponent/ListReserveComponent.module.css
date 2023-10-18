@@ -1,4 +1,4 @@
-.listSellerBase{
+.listProviderBase{
     display: grid;
     min-height: 600px;
     margin: auto;
@@ -9,13 +9,10 @@
     font-size: 24px;
 }
 
-.listSellerBase > img{
-    margin: 0 auto;
-}
-.listSellerBase > p{
-    font-size: 30px;
+.listProviderBase > p{
+    font-size: 38px;
     margin: 20px auto;
-    font-weight: 500;
+    font-weight: 600;
     color: rgba(13, 13, 13, 0.75);
 }
 
@@ -26,7 +23,7 @@
 
 .listTitles{
     display: grid;
-    grid-template-columns: repeat(7, 14.28%);
+    grid-template-columns: repeat(4, 25%);
     color: rgb(122, 122, 122);
     font-weight: 600;
     font-size: 16px;
@@ -36,12 +33,12 @@
 .dataContainer{
     overflow:hidden;
     overflow-y:auto;
-    max-height: 450px;
+    max-height: 400px;
 }
 
 .listData{
     display: grid;
-    grid-template-columns: repeat(7, 14.28%);
+    grid-template-columns: repeat(4, 25%);
     border-radius: 10px;
     color: rgb(122, 122, 122);
     margin: 5px;
@@ -50,7 +47,7 @@
 
 .listDataSelected{
     display: grid;
-    grid-template-columns: repeat(7, 14.28%);
+    grid-template-columns: repeat(4, 25%);
     border-radius: 10px;
     color: rgb(122, 122, 122);
     background-color: rgba(212, 201, 231, 0.528);
@@ -72,12 +69,8 @@
     margin: 10px auto;
 }
 
-.description{
-    text-align: left;
-}
-
 .buttonBase{
-    margin-top: 50px;
+    margin-top: 80px;
 }
 
 .buttonBase > button{

@@ -1,9 +1,22 @@
 import './globals.css'
 import Header from '@/components/header/Header'
 import type { Metadata } from 'next'
-import { Inter, Montserrat } from 'next/font/google'
+import { Inter, Montserrat, Nunito } from 'next/font/google'
 
-const montserrat = Montserrat({ subsets: ['latin'] })
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  variable: '--font-montserrat'
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter'
+});
+
+const nunito = Nunito({
+  subsets: ['latin'],
+  variable: '--font-nunito'
+});
 
 export const metadata: Metadata = {
   title: 'Web de SL',
@@ -17,8 +30,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      {/* <body className={`${montserrat.variable} ${inter.variable} ${nunito.variable}`}> */}
       <body className={montserrat.className}>
-        <Header/>
+        <Header />
         {children}
       </body>
     </html>
