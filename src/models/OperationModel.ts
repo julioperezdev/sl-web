@@ -41,3 +41,19 @@ export interface BuyOperationResponse{
     total:number;
     updatedAt:string;
 }
+
+export interface GetOperationResponseDto{
+    id:string,
+    createdAt:string,
+    updatedAt:string,
+    clientName:string,
+    currencyMultiBox:string,
+    price:number,
+    quantity:number,
+    total:number
+}
+
+export interface GetBuyAndSellOperationResponseDto{
+    buyOperation:GetOperationResponseDto[],
+    sellOperation:GetOperationResponseDto[]
+}

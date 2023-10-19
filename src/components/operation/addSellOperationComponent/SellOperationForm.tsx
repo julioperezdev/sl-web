@@ -36,13 +36,22 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
     const [profitIncludingSeller, setProfitIncludingSeller] = useState<number>(0);
     const [totalProfit, setTotalProfit] = useState<number>(0)
     const [totalToPay, setTotalToPay] = useState<number>(0)
+    const [calculated, setCalculated] = useState<boolean>(false)
     const router = useRouter();
 
 
     function assignFunctionToTrue() {
+        if (props.reserveOperationSelected == null) {
+            toast.error('Se debe seleccionar una reserva para asignar un vendedor', { duration: 1500 })
+            return false;
+        }
         if (props.quantityToSell <= 0) {
             toast.loading('Debes colocar la cantidad a vender primero', { duration: 1500 })
             return;
+        }
+        if (props.reserveOperationSelected.reserve < props.quantityToSell) {
+            toast.error('Debes colocar una cantidad menor a la reserva seleccionada')
+            return false;
         }
         props.setPanelScreen(3)
     }
@@ -69,7 +78,6 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
             toast.error('Hay un error al asignar los datos del vendedor')
             return false;
         }
-        toast.success('llegó')
         return true;
     }
     const onClickBuyOperation = handleSubmit(async (data) => {
@@ -85,14 +93,14 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
             const response = await sendForm(dataValidated);
             if (response.status == 201) {
                 reset();
-                toast.success('Se ha guardado exitosamente la diferencia del cliente')
+                toast.success('Se ha guardado exitosamente la operación, queda en pendiente')
                 await sleep(ONE_SECOUND)
                 router.replace(`/operation`)
             } else {
-                toast.error('Ops... No se pudo realizar la operacion de compra')
+                toast.error('Ops... No se pudo realizar la operacion de venta')
             }
         } catch (error: any) {
-            toast.error('Ops... No se pudo realizar la operacion de compra')
+            toast.error('Ops... No se pudo realizar la operacion de venta')
         }
     }
     );
@@ -185,6 +193,18 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
         setCurrencyNameSelected(currencyEvent);
         let currencyFiltered: Currency = currencies?.find(particular => particular.name == currencyEvent)!
         setCurrencySelected(currencyFiltered)
+        console.log('entra')
+        props.setReserveOperation(null)
+        if(props.reserveOperationSelected != null) {
+            console.log('entra 2')
+            props.setReserveOperation(null)
+            if(calculated){
+                props.setQuantityToSell(0)
+                props.setSellerProfit(0)
+                props.setSellerSelected(null)
+            }
+        }
+
     };
 
     const onChangeClientName = (event: any) => {
@@ -208,7 +228,7 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
 
     async function showListReserveByCurrencyExchange(event: any) {
         let currencyToFindDoneOperationsByName = changeCurrencyName();
-        const response = await fetch(`${process.env.apiUrl}/v1/operation/get/done/${currencyToFindDoneOperationsByName}`, {
+        const response = await fetch(`${process.env.apiUrl}/v1/operation/get/done/reserve/${currencyToFindDoneOperationsByName}`, {
             method: 'PUT',
         });
         if (response.status == 204) {
@@ -229,7 +249,38 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
 
     const onChangeQuantityToSell = (event: any) => {
         props.setQuantityToSell(event.target.value);
+        if (props.sellerSelected != null) {
+            props.setSellerSelected(null)
+            props.setSellerProfit(0)
+            toast.loading('Se debe volver a asignar al vendedor por cambiar la cantidad', { duration: 1500 })
+        }
+        if (calculated) {
+            setCalculated(false)
+        }
     }
+
+    const onChangeSellPrice = (event: any) => {
+        if (calculated) {
+            setCalculated(false)
+        }
+    }
+
+
+    const onClickCalculate = handleSubmit(async (data) => {
+        try {
+            let valid = validateIfFormIsComplete(data);
+            if (!valid) return;
+            let totalToPayData = props.quantityToSell * data.sellPrice;
+            setTotalToPay(totalToPayData);
+            let totalBuyPrice = props.quantityToSell * props.reserveOperationSelected?.buyPrice!;
+            setTotalProfit(totalToPayData - totalBuyPrice);
+            setProfitIncludingSeller(totalToPayData - totalBuyPrice - props.sellerProfit);
+            setCalculated(true)
+        } catch (error: any) {
+            toast.error('Ops... No se pudo actualizar el Vendedor')
+        }
+    }
+    );
 
     return (
         <div>
@@ -286,7 +337,7 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
                             </div>
                             <div>
                                 <p className={styles.descriptionOver}>Precio Venta</p>
-                                <input type="text" {...register("sellPrice", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength: 40 })} />
+                                <input type="text" {...register("sellPrice", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength: 40 })} onChange={onChangeSellPrice}/>
                                 {errors.sellPrice && (errors.sellPrice!.type === "pattern" || errors.sellPrice!.type === "required") && (<span>Es obligatorio y solo son números</span>)}
                                 {errors.sellPrice && errors.sellPrice!.type === "maxLength" && (<span>Máximo de 40 dígitos</span>)}
                             </div>
@@ -295,7 +346,6 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
                             {props.sellerSelected != null ?
                                 <div>
                                     <p className={styles.descriptionOver}>Apodo Vendedor</p>
-                                    {/* <input className={styles.operationStringParagragh} type="text" onKeyDown={handleKeyDownToSeller} onChange={onChangeSellerName} /> */}
                                     <p className={styles.operationStringParagragh}>{props.sellerSelected?.name}</p>
                                 </div> : null
                             }
@@ -326,8 +376,12 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
                 </div>
                 <div className={styles.buttonBase}>
                     <button ><Link href='/operation'>Cancelar</Link></button>
-                    <button onClick={onClickBuyOperation} >Ejecutar</button>
-                    <button onClick={onClickBuyOperation} >Continuar</button>
+                    {!calculated
+                        ? <button onClick={onClickCalculate}>Calcular</button>
+                        : <>
+                            <button onClick={onClickBuyOperation} >Ejecutar</button>
+                            <button onClick={onClickBuyOperation} >Continuar</button>
+                        </>}
                 </div>
                 <Toaster />
             </div>

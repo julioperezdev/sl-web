@@ -1,0 +1,48 @@
+.listSellerBase{
+    display: grid;
+    min-height: 600px;
+    margin: auto;
+    margin-top: 40px;
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    font-size: 24px;
+}
+
+.listSellerBase > p{
+    font-size: 38px;
+    margin: 20px auto;
+    font-weight: 600;
+    color: rgba(13, 13, 13, 0.75);
+}
+
+.panelBase{
+    display: grid;
+    grid-template-columns: repeat(2,50%);
+    width: 300px;
+    justify-self: center;
+}
+
+.panelBase > p{
+    margin: 0 10px;
+    padding: 3px 5px;
+    align-self: center;
+}
+
+.buyText{
+    background-color: #29BD6D4D;
+    border-radius: 50px;
+    font-weight: 600;
+    color: #0D0D0DBF;
+}
+
+.sellText{
+    background-color: #FB000026;
+    border-radius: 50px;
+    font-weight: 600;
+    color: #0D0D0DBF;
+}
+
+.blankDiv{
+    min-height: 600px;
+}

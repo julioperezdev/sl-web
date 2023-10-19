@@ -28,12 +28,13 @@ export default function AddBuyOperationComponent() {
     const [percentDolarSmall, setPercentDolarSmall] = useState<number>(0)
     const [amountToDolarSmall, setAmountToDolarSmall] = useState<number>(0)
     const [totalToPay, setTotalToPay] = useState<number>(0)
+    const [calculated, setCalculated] = useState<boolean>(false)
 
     const router = useRouter();
 
     const onClickBuyOperation = handleSubmit(async (data) => {
         try {
-            if(clientSelected == null){
+            if (clientSelected == null) {
                 toast.error('Se debe seleccionar un Cliente para realizar la operacion')
                 return;
             }
@@ -137,6 +138,11 @@ export default function AddBuyOperationComponent() {
         setCurrencyNameSelected(currencyEvent);
         let currencyFiltered: Currency = currencies?.find(particular => particular.name == currencyEvent)!
         setCurrencySelected(currencyFiltered)
+        if (calculated) {
+            setCalculated(false)
+            setTotalToPay(0)
+            setAmountToDolarSmall(0)
+        }
     };
 
     function isDolarSmall() {
@@ -158,16 +164,17 @@ export default function AddBuyOperationComponent() {
         if (!regexToValidateNumber.test(value)) {
             toast.error('solo se aceptan numero en el formulario')
         } else {
-            let valueTyped : number = value;
+            let valueTyped: number = value;
             if (attributeName == 'buyPriceForm') setBuyPrice(valueTyped);
             if (attributeName == 'quantity') setQuantityToBuy(valueTyped);
-            if (attributeName == 'percent' && percentDolarSmall  > 100) {
+            if (attributeName == 'percent' && percentDolarSmall > 100) {
                 toast.error('tiene un maximo de 100%')
-            }else{
+            } else {
                 setPercentDolarSmall(valueTyped);
             }
-            if(buyPrice != 0 && quantityToBuy != 0) {
-                calculateTotalToPay(buyPrice, quantityToBuy, percentDolarSmall);}
+            if (buyPrice != 0 && quantityToBuy != 0) {
+                calculateTotalToPay(buyPrice, quantityToBuy, percentDolarSmall);
+            }
         }
     }
 
@@ -181,6 +188,68 @@ export default function AddBuyOperationComponent() {
         setTotalToPay(result);
     }
 
+    function validateIfFormIsComplete(data: BuyOperationForm) {
+        if (clientSelected == null) {
+            toast.error('Se debe seleccionar un Cliente para realizar la operacion')
+            return false;
+        }
+        if (data.buyPriceForm <= 0) {
+            toast.error('Se debe seleccionar un precio de compra')
+            return false;
+        }
+        if (data.quantity <= 0) {
+            toast.error('Debes colocar una cantidad')
+            return false;
+        }
+        if (isDolarSmall()) {
+            if (data.percent! <= 0) {
+                toast.error('Se debe seleccionar un porcentaje')
+                return false;
+            }
+            // if (<=0) {
+            //     toast.error('Debes colocar una cantidad menor a la reserva seleccionada')
+            //     return false;
+            // }
+        }
+        return true;
+    }
+    const onClickCalculate = handleSubmit(async (data) => {
+        try {
+            let valid = validateIfFormIsComplete(data);
+            if (!valid) return;
+            let result = data.buyPriceForm * data.quantity;
+            if (isDolarSmall() && data.percent! > 0) {
+                let newBuyPrice = data.buyPriceForm - ((data.buyPriceForm * data.percent!) / 100);
+                setAmountToDolarSmall(newBuyPrice);
+                result = newBuyPrice * data.quantity
+            }
+            setTotalToPay(result);
+            setCalculated(true)
+        } catch (error: any) {
+            toast.error('Ops... No se pudo actualizar el Vendedor')
+        }
+    }
+    );
+
+    // const onChangeQuantityToSell = (event: any) => {
+    //     props.setQuantityToSell(event.target.value);
+    //     if (props.sellerSelected != null) {
+    //         props.setSellerSelected(null)
+    //         props.setSellerProfit(0)
+    //         toast.loading('Se debe volver a asignar al vendedor por cambiar la cantidad', { duration: 1500 })
+    //     }
+    //     if (calculated) {
+    //         setCalculated(false)
+    //     }
+    // }
+
+    const onChangeToUnCalculate = (event: any) => {
+        if (calculated) {
+            setCalculated(false)
+            setTotalToPay(0)
+            setAmountToDolarSmall(0)
+        }
+    }
     useEffect(() => {
         getLasUpdatedCurrencies();
     }, [])
@@ -203,7 +272,7 @@ export default function AddBuyOperationComponent() {
                     <p>Fecha {format(new Date(), 'dd/MM/yyyy')}</p>
                     <div className={styles.officeCheck} onClick={() => setIsOfficeCheck(!isOfficeCheck)}>
                         <p>Check Oficina</p>
-                        <input type="checkbox" defaultChecked={isOfficeCheck}/>
+                        <input type="checkbox" defaultChecked={isOfficeCheck} />
                     </div>
                 </div>
                 <div className={styles.operationFormBase}>
@@ -231,13 +300,13 @@ export default function AddBuyOperationComponent() {
                         <div className={styles.inputsPrices}>
                             <div>
                                 <p className={styles.descriptionOver}>Precio Compra</p>
-                                <input type="text" {...register("buyPriceForm", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength: 40 })}/>
+                                <input type="text" {...register("buyPriceForm", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength: 40 })} onChange={onChangeToUnCalculate}/>
                                 {errors.buyPriceForm && (errors.buyPriceForm.type === "pattern" || errors.buyPriceForm.type === "required") && (<span>Es obligatorio y solo son números</span>)}
                                 {errors.buyPriceForm && errors.buyPriceForm.type === "maxLength" && (<span>Máximo de 40 dígitos</span>)}
                             </div>
                             <div>
                                 <p className={styles.descriptionOver}>Cantidad a Comprar</p>
-                                <input type="text" {...register("quantity", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength: 40 })}  />
+                                <input type="text" {...register("quantity", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength: 40 })} onChange={onChangeToUnCalculate} />
                                 {errors.quantity && (errors.quantity.type === "pattern" || errors.quantity.type === "required") && (<span>Es obligatorio y solo son números</span>)}
                                 {errors.quantity && errors.quantity.type === "maxLength" && (<span>Máximo de 40 dígitos</span>)}
                             </div>
@@ -246,7 +315,7 @@ export default function AddBuyOperationComponent() {
                             ? <div className={styles.inputsPrices}>
                                 <div>
                                     <p className={styles.descriptionOver}>Ingrese porcentaje</p>
-                                    <input type="text" {...register("percent", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength: 40 })} />
+                                    <input type="text" {...register("percent", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength: 40 })} onChange={onChangeToUnCalculate}/>
                                     {errors.percent && (errors.percent!.type === "pattern" || errors.percent!.type === "required") && (<span>Es obligatorio y solo son números</span>)}
                                     {errors.percent && errors.percent!.type === "maxLength" && (<span>Máximo de 40 dígitos</span>)}
                                 </div>
@@ -264,9 +333,13 @@ export default function AddBuyOperationComponent() {
                     <p className={styles.totaToPayDescription}>$ {totalToPay}</p>
                 </div>
                 <div className={styles.buttonBase}>
-                    <button onClick={onClickBuyOperation} >Continuar</button>
-                    <button onClick={onClickBuyOperation} >Ejecutar</button>
                     <button ><Link href='/operation'>Cancelar</Link></button>
+                    {!calculated
+                        ? <button onClick={onClickCalculate}>Calcular</button>
+                        : <>
+                            <button onClick={onClickBuyOperation} >Ejecutar</button>
+                            <button onClick={onClickBuyOperation} >Continuar</button>
+                        </>}
                 </div>
                 <Toaster />
             </div>

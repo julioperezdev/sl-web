@@ -1,22 +1,23 @@
 .listSellerBase{
     display: grid;
+    width: 100%;
     min-height: 600px;
     margin: auto;
     margin-top: 40px;
     border-radius: 20px;
     padding: 30px;
-    text-align: center;
+    /* text-align: center; */
     font-size: 24px;
 }
 
-.listSellerBase > img{
-    margin: 0 auto;
-}
 .listSellerBase > p{
     font-size: 30px;
-    margin: 20px auto;
+    margin: 0px auto;
     font-weight: 500;
     color: rgba(13, 13, 13, 0.75);
+    text-align: left;
+    width: 100%;
+    padding-left: 80px;
 }
 
 .listDataBase{
@@ -31,15 +32,15 @@
     font-weight: 600;
     font-size: 16px;
     margin-bottom: 20px;
-    margin-top: 50px;
+    margin-top: 10px;
 }
 .dataContainer{
     overflow:hidden;
     overflow-y:auto;
-    max-height: 450px;
+    max-height: 350px;
 }
 
-.listData{
+.listDataCompra{
     display: grid;
     grid-template-columns: repeat(7, 14.28%);
     border-radius: 10px;
@@ -48,6 +49,22 @@
     align-items: center;
 }
 
+.listDataVenta{
+    display: grid;
+    grid-template-columns: repeat(7, 14.28%);
+    border-radius: 10px;
+    color: rgb(122, 122, 122);
+    margin: 5px;
+    align-items: center;
+}
+
+.listDataCompra:hover{
+    background-color: #29BD6D4D;
+}
+
+.listDataVenta:hover{
+    background-color: #FB000026;
+}
 .listDataSelected{
     display: grid;
     grid-template-columns: repeat(7, 14.28%);
@@ -63,11 +80,12 @@
     margin: 10px auto;
 }
 
-.listData:hover{
-    background-color: #29BD6D4D;
+.listDataCompra > p{
+    font-size: 18px;
+    margin: 10px auto;
 }
 
-.listData > p{
+.listDataVenta > p{
     font-size: 18px;
     margin: 10px auto;
 }

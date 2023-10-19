@@ -1,7 +1,7 @@
-import ListOperationComponent from "@/components/operation/listOperation/ListOperationComponent"
+import ListPendingOperationComponent from "@/components/operation/listPendingOperation/ListPendingOperationComponent"
 
 export default function PendingOperationPage() {
     return (
-      <ListOperationComponent/>
+      <ListPendingOperationComponent/>
     )
   }

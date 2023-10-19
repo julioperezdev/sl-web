@@ -31,7 +31,7 @@ export default function Header() {
             title: 'Operaciones Pendientes',
             description: 'Visualizar todas las operaciones de compra y venta en espera de ser ejecutadas o canceladas.'
         }, {
-            url: '/',
+            url: '/operation/done',
             image: '/images/image_13.png',
             title: 'Histórico de Operaciones',
             description: 'Visualizar todas las operaciones realizadas de compra y venta.'

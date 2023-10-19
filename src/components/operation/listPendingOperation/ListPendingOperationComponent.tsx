@@ -1,17 +1,22 @@
 'use client'
-import styles from './ListOperationComponent.module.css';
+import styles from './ListPendingOperationComponent.module.css'
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { parseISO, format } from 'date-fns';
-import { BuyOperation, BuyOperationResponse } from '@/models/OperationModel';
+import { BuyOperation, BuyOperationResponse, GetBuyAndSellOperationResponseDto, GetOperationResponseDto } from '@/models/OperationModel';
 import toast, { Toaster } from 'react-hot-toast';
+import ListParticularPendingOperationComponent from './ListParticularPendingOperationComponent';
 
-export default function ListOperationComponent() {
-    const [selected, setSelected] = useState<string | null>(null)
-    const [operations, setOperations] = useState<BuyOperationResponse[]>([])
+export default function ListPendingOperationComponent() {
+    const [selected, setSelected] = useState<number>(0)
+
+    //const [operations, setOperations] = useState<GetBuyAndSellOperationResponseDto | null>(null)
+    const [hasData, setHasData] = useState<boolean>(false)
+    const [buyOperations, setBuyOperations] = useState<GetOperationResponseDto[] | null>(null)
+    const [sellOperations, setSellOperations] = useState<GetOperationResponseDto[] | null>(null)
 
     async function getOperations() {
-        const response = await fetch(process.env.apiUrl + '/v1/operation/get', {
+        const response = await fetch(process.env.apiUrl + '/v1/operation/get/pending', {
             method: 'PUT',
         });
         if (response.status == 204) {
@@ -20,16 +25,15 @@ export default function ListOperationComponent() {
         }
         let responseValue = await response.json();
         console.log(responseValue)
-        let buyOperationData: BuyOperationResponse[] = responseValue;
-        setOperations(buyOperationData)
+        setHasData(true);
+        let pendingOperationData: GetBuyAndSellOperationResponseDto = responseValue;
+        if(pendingOperationData.buyOperation) setBuyOperations(pendingOperationData.buyOperation)
+        if(pendingOperationData.sellOperation) setSellOperations(pendingOperationData.sellOperation)
     }
     useEffect(() => {
         getOperations();
     }, [])
 
-    function isSelected(id: string): boolean {
-        return id == selected;
-    }
     async function onHadleClickExecute() {
         console.log('click', selected)
         if (selected == null) {
@@ -91,45 +95,19 @@ export default function ListOperationComponent() {
         }
         //debe existir un diseño para diferenciar las solicitudes pendientes y realizadas, o agregarle el campo en la lista
 
+        function showScreenByNumber(){
+            if(selected == 0) return <div className={styles.blankDiv}></div>
+            if(selected == 1) return <ListParticularPendingOperationComponent operation={buyOperations} operationType='comprar'/>
+            if(selected == 2) return <ListParticularPendingOperationComponent operation={sellOperations} operationType='vender'/>
+        }
         return (
             <div className={styles.listSellerBase}>
                 <p>Operaciones pendiente</p>
-                <p>De Compra</p>
-                <div className={styles.listDataBase}>
-                    <div className={styles.listTitles}>
-                        <p>Fecha</p>
-                        <p>Hora</p>
-                        <p>Apodo Cliente</p>
-                        <p>Tipo de Divisa</p>
-                        <p>Precio Compra</p>
-                        <p>Cantidad a Comprar</p>
-                        <p>Total</p>
-                    </div>
-                    <div className={styles.dataContainer}>
-                        {
-                            operations.length > 0 ? operations.map(operation => (
-                                <div className={isSelected(operation.id) ? styles.listDataSelected : styles.listData} key={operation.id} onClick={() => setSelected(operation.id)}>
-                                    <p>{format(parseISO(operation.updatedAt!), 'd/MM/yyyy')}</p>
-                                    <p>{format(parseISO(operation.updatedAt!), 'hh:mm:ss')}</p>
-                                    <p>{operation.clientName}</p>
-                                    <p>{operation.currencyMultiBox}</p>
-                                    <p>{operation.price}</p>
-                                    <p>{operation.quantity}</p>
-                                    <p>{operation.total}</p>
-                                </div>
-                            ))
-                                : <p>NO HAY DATOS</p>
-                        }
-                    </div>
+                <div className={styles.panelBase}>
+                    <p className={styles.buyText} onClick={()=>setSelected(1)}>Compras</p>
+                    <p className={styles.sellText} onClick={()=>setSelected(2)}>Ventas</p>
                 </div>
-                <div className={styles.buttonBase}>
-                    <button><Link href='/operation'>Atrás</Link></button>
-                    {/* <button><Link href={`/sellers/update/${selected}`}>Modificar</Link></button> */}
-                    <button onClick={() => onHadleClickExecute()}>Ejecutar</button>
-                    <button onClick={() => onHadleClickCancel()}>Cancelar</button>
-                    {/* <button><Link href={`/`}>Ejecutar</Link></button> */}
-                </div>
-                <Toaster />
+                {showScreenByNumber()}
             </div>
         )
     }
