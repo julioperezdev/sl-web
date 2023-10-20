@@ -84,9 +84,9 @@ export default function UpdateNoteComponent(idValue: { idValue: string }) {
                     <option value="#fcfcde">Amarillo</option>
                 </select>
                 <p className={styles.descriptionOver}>Detalle</p>
-                <input type="text" placeholder='Detalle' {...register("description", { required: true, maxLength: 30 })} />
+                <input type="text" placeholder='Detalle' {...register("description", { required: true, maxLength: 150 })} />
                 {errors.description && errors.description.type === "required" && (<span>La descripción es obligatoria</span>)}
-                {errors.description && errors.description.type === "maxLength" && (<span>Máximo de 30 dígitos</span>)}
+                {errors.description && errors.description.type === "maxLength" && (<span>Máximo de 150 dígitos</span>)}
             </div>
             <div className={styles.buttonBase}>
                 <button><Link href='/note/list'>Atras</Link></button>

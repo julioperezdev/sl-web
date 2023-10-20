@@ -26,7 +26,7 @@
 
 .listTitles{
     display: grid;
-    grid-template-columns: 25% 25% 50%;
+    grid-template-columns: 25% 25% 45% 5%;
     color: rgb(122, 122, 122);
     font-weight: 600;
     font-size: 16px;
@@ -39,7 +39,7 @@
 }
 .listData{
     display: grid;
-    grid-template-columns: 25% 25% 50%;
+    grid-template-columns: 25% 25% 45% 5%;
     border-radius: 10px;
     color: rgb(122, 122, 122);
     margin: 5px;
@@ -48,7 +48,7 @@
 
 .listDataSelected{
     display: grid;
-    grid-template-columns: 25% 25% 50%;
+    grid-template-columns: 25% 25% 45% 5%;
     border-radius: 10px;
     color: rgb(122, 122, 122);
     background-color: rgba(212, 201, 231, 0.528);
@@ -99,4 +99,13 @@
 .buttonBase > button > a{
     text-decoration: none;  
     color: #fafafa;
+}
+
+.deleteButton{
+    color: #FB000061;
+    font-weight: 600;
+}
+
+.deleteButton:hover{
+    font-weight: 800;
 }
