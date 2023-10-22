@@ -25,7 +25,7 @@ export default function PesosForm(props: PesosFormProps) {
 
 
     function cancelSellerAssigner() {
-       props.setPanelScreen(1);
+       //props.setPanelScreen(1);
     }
 
     const onClickProvider = handleSubmit(async (data) => {
@@ -48,7 +48,7 @@ export default function PesosForm(props: PesosFormProps) {
                     <option value="e">Egreso</option>
                 </select>
                 <p className={styles.descriptionOver}>Importe</p>
-                <input type="text" {...register("priceByPeso", { required: true, pattern: ONLY_NUMBER_WITH_DECIMALS_ON_STRING })} onChange={onChangeSellerProfit} />
+                <input type="text" {...register("priceByPeso", { required: true, pattern: ONLY_NUMBER_WITH_DECIMALS_ON_STRING })} /*onChange={onChangeSellerProfit}*/ />
                 {errors.priceByPeso && (errors.priceByPeso.type === "pattern" || errors.priceByPeso.type === "required") && (<span>Es obligatorio y solo son números</span>)}
                 {errors.priceByPeso && errors.priceByPeso.type === "maxLength" && (<span>Máximo de 20 dígitos</span>)}
             </div>
