@@ -64,37 +64,37 @@ export default function Header() {
     const boxesOptions: HeaderOptionData[] = [
         {
             url: '/multibox/list/PESO',
-            image: '/images/image_40.png',
+            image: '/images/cajenpesos.png',
             title: 'Caja en Pesos',
             description: 'Visualizar los movimientos de la caja en pesos, realizar ingresos y egresos.'
         }, {
             url: '/multibox/foreign-currency',
-            image: '/images/image_40.png',
+            image: '/images/image_37.png',
             title: 'Caja de Divisas',
             description: 'Visualizar las cajas de todas las divisas: dolar grande, dolar chico y cambio, euro y reales, realizar ingresos y egresos.'
         }, {
             url: '/multibox/list/PESO_OFFICE',
-            image: '/images/image_40.png',
+            image: '/images/deudaoficina.png',
             title: 'Deuda Oficina',
             description: 'Ver detalle del saldo acumulado y pagar el total de la deuda.'
         }, {
             url: '/multibox/list/PESO',//cambiar la URL cuando exista la iformacion
-            image: '/images/image_40.png',
+            image: '/images/balance.png',
             title: 'Ganancias',
             description: 'Ver caja de Balance, asignación de ganancías a Caja 1 o Caja 2'
         }, {
             url: '/multibox/list/PESO',//cambiar la URL cuando exista la iformacion
-            image: '/images/image_40.png',
+            image: '/images/caja1.png',
             title: 'Cajas 1',
             description: 'Visualizar movimientos de la caja 1, realizar ingresos y egresos'
         }, {
             url: '/multibox/list/PESO',//cambiar la URL cuando exista la iformacion
-            image: '/images/image_40.png',
+            image: '/images/caja1.png',
             title: 'Cajas 2',
             description: 'Visualizar movimientos de la caja 2, realizar ingresos y egresos'
         }, {
             url: '/multibox',
-            image: '/images/image_40.png',
+            image: '/images/cajas.png',
             title: 'Menu de Cajas',
             description: 'Visualizar el menu de todas las opciones'
         }
@@ -113,9 +113,9 @@ export default function Header() {
             description: 'Crear nuevos recordatorios, visualizar, modificar y eliminar'
         }, {
             url: '/clear',
-            image: '/trash.png',
+            image: '/images/Borrar_Datos.png',
             title: 'Borrar Datos',
-            description: 'Lorem ipsum dolor, sit amet consectetur adipisicing'
+            description: 'Borrar todos los datos de almacenamiento'
         } 
     ]
 

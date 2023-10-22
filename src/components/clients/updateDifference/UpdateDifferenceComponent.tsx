@@ -95,9 +95,9 @@ export default function UpdateDifferenceComponent(idValue: { idValue: string }) 
                     </div>
                 </div>
                 <p className={styles.descriptionOver}>Descripción</p>
-                <textarea placeholder='Detalle Inconveniente' className={styles.description} {...register("description", { required: true, maxLength: 30 })} />
+                <textarea placeholder='Detalle Inconveniente' className={styles.description} {...register("description", { required: true, maxLength: 100 })} />
                 {errors.description && errors.description.type === "required" && (<span>La descripción es obligatoria</span>)}
-                {errors.description && errors.description.type === "maxLength" && (<span>Máximo de 30 dígitos</span>)}
+                {errors.description && errors.description.type === "maxLength" && (<span>Máximo de 100 dígitos</span>)}
             </div>
             <div>
                 <button ><Link href='/clients/difference/list'>Cancelar</Link></button>

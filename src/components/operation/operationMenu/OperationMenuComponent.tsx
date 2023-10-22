@@ -24,8 +24,8 @@ export default function OperationMenuComponent() {
       },
       {
         optionsImage: '/images/image_13.png',
-        optionHref: '/',
-        optionDescription: 'Histórial de operaciones'
+        optionHref: '/operation/done',
+        optionDescription: 'Histórico de operaciones'
       }
       
     ]

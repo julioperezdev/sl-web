@@ -13,7 +13,7 @@ export default function ForeignCurrencyMenuComponent() {
         optionDescription: 'Dólares Grandes'
       },
       {
-        optionsImage: '/images/image_41.png',
+        optionsImage: '/images/iconodolarchico.png',
         optionHref: '/multibox/foreign-currency/USD_LOW',
         optionDescription: 'Dólar Chico y Cambio'
       },

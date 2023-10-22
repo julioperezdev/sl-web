@@ -11,6 +11,7 @@ export default function MultiboxListComponent(multiboxName: { multiboxName: stri
     const [boxList, setBoxList] = useState<CurrencyBoxResponse[]>([])
     const router = useRouter();
 
+
     async function getMultiboxByName() {
         const response = await fetch(`${process.env.apiUrl}/v1/box/get/${multiboxName.multiboxName}`, {
             method: 'PUT',
@@ -60,24 +61,38 @@ export default function MultiboxListComponent(multiboxName: { multiboxName: stri
     }
     function isIngressOrEgressOperation(currencyNameToValidate: string, operationType: string, operationStatus: string) {
         if (isForeignCurrencyByName(currencyNameToValidate)) {
+            //ingreso true
             if (operationType === 'comprar' && operationStatus != 'cancelado' || operationType === 'ingreso efectivo') return true;
+            else if (operationType === 'vender' && operationStatus == 'cancelado') return true;
+
+            //egreso false
             else if (operationType === 'comprar' && operationStatus == 'cancelado') return false;
             else if (operationType === 'vender' && operationStatus != 'cancelado') return false;
-            else if (operationType === 'vender' && operationStatus == 'cancelado') return true;
+
         } else if (isPesosCurrencyByName(currencyNameToValidate)) {
             if (currencyNameToValidate === 'PESO') {
+                //ingreso true
                 if (operationType === 'vender' && operationStatus != 'cancelado' || operationType === 'ingreso efectivo') return true;
-                else if (operationType === 'comprar' && operationStatus == 'cancelado' || operationType === 'pago deuda') return false;
+                else if (operationType === 'comprar' && operationStatus == 'cancelado') return true;
+                //egreso false
+                else if (operationType === 'comprar' && operationStatus != 'cancelado' || operationType === 'pago deuda') return false;
             } else if (currencyNameToValidate == 'PESO_OFFICE') {
+                //ingreso true
                 if (operationType === 'comprar' && operationStatus != 'cancelado') return true;
+                else if (operationType === 'ingreso efectivo') return true;
+                //egreso false
                 else if (operationType === 'comprar' && operationStatus == 'cancelado') return false;
                 else if (operationType === 'pago deuda') return false;
-                else if (operationType === 'ingreso efectivo') return true;
             }
         }
     }
+
+    function redirectAuxPage(){
+        //router.replace(`/multibox/${multiboxName.multiboxName}/aux`)
+    }
     return (
         <div className={styles.listSellerBase}>
+            <button onClick={redirectAuxPage} className={styles.auxiliarButton}>Boton auxiliar</button>
             <p>{titleMultibox(multiboxName.multiboxName)}</p>
             <div className={styles.listDataBase}>
                 <div className={styles.listTitles}>

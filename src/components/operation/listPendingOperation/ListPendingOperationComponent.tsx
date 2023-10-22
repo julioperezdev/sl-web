@@ -8,7 +8,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import ListParticularPendingOperationComponent from './ListParticularPendingOperationComponent';
 
 export default function ListPendingOperationComponent() {
-    const [selected, setSelected] = useState<number>(0)
+    const [selected, setSelected] = useState<number>(1)
 
     //const [operations, setOperations] = useState<GetBuyAndSellOperationResponseDto | null>(null)
     const [hasData, setHasData] = useState<boolean>(false)
@@ -96,7 +96,7 @@ export default function ListPendingOperationComponent() {
         //debe existir un diseño para diferenciar las solicitudes pendientes y realizadas, o agregarle el campo en la lista
 
         function showScreenByNumber(){
-            if(selected == 0) return <div className={styles.blankDiv}></div>
+            // if(selected == 0) return <div className={styles.blankDiv}></div>
             if(selected == 1) return <ListParticularPendingOperationComponent operation={buyOperations} operationType='comprar'/>
             if(selected == 2) return <ListParticularPendingOperationComponent operation={sellOperations} operationType='vender'/>
         }

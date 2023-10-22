@@ -16,6 +16,7 @@ export default function AddSellOperationComponent() {
     const [reserveOperationSelected, setReserveOperationSelected] = useState<ReserveOfBuyOperation|null>(null)
     const [quantityToSell, setQuantityToSell] = useState<number>(0)
     const [sellerProfit, setSellerProfit] = useState<number>(0)
+    const [sellPrice, setSellPrice] = useState<number>(0)
 
     function defineScreen() {
         if (panelScreen == 1) {
@@ -31,6 +32,8 @@ export default function AddSellOperationComponent() {
                 setQuantityToSell={setQuantityToSell} 
                 clientSelected={clientSelected}
                 setClientSelected={setClientSelected}
+                sellPrice={sellPrice}
+                setSellPrice={setSellPrice}
             />
         } else if (panelScreen == 2) {
             return <ListReserveComponent

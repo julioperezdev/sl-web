@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 export default function ListReserveComponent(props:ReserveOfBuyOperationProps) {
 
     const [selected, setSelected] = useState<string | null>(null)
+    const [internalReserve, setInternalReserve] = useState<ReserveOfBuyOperation | null>(null)
 
     function isSelected(operationId:string): boolean {
         return operationId == selected;
@@ -15,20 +16,25 @@ export default function ListReserveComponent(props:ReserveOfBuyOperationProps) {
 
     function onClickSelectReserve(operationSelected:ReserveOfBuyOperation){
         setSelected(operationSelected.id);
-        props.setReserveOperationSelected(operationSelected)
+        setInternalReserve(operationSelected)
+        // props.setReserveOperationSelected(operationSelected)
     }
     function onClickReserveOperation(){
         if(!selected){
             toast.loading('Debes seleccionar una operacion', {duration:1500})
             return;
         }
+        props.setReserveOperationSelected(internalReserve)
         props.setPanelScreen(1)
     }
 
     function onClickCancelListReserve(){
-        if(selected || props.reserveOperation){
+        if(props.reserveOperation){
+            props.setPanelScreen(1)
+        }
+        else{
             setSelected(null);
-            props.setReserveOperationSelected(null);
+            setInternalReserve(null);
             props.setPanelScreen(1)
         }
     }

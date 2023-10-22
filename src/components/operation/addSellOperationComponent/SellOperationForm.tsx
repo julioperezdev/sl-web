@@ -6,7 +6,7 @@ import { v4 as uuid } from 'uuid'
 import toast, { Toaster } from 'react-hot-toast';
 import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 import { format } from 'date-fns';
-import { ONLY_NUMBERS_ON_STRING } from '@/models/RegexConsts';
+import { ONLY_NUMBERS_ON_STRING, ONLY_NUMBER_WITH_DECIMALS_ON_STRING } from '@/models/RegexConsts';
 import { useRouter } from 'next/navigation';
 import { ONE_SECOUND, sleep } from '@/helper/sleepInMilli/Sleep';
 import { Currency } from "@/models/CurrencyModel";
@@ -26,6 +26,8 @@ interface SellOperationFormProps {
     setQuantityToSell: Dispatch<SetStateAction<number>>;
     clientSelected: Client | null;
     setClientSelected: Dispatch<SetStateAction<Client | null>>;
+    sellPrice:number;
+    setSellPrice:Dispatch<SetStateAction<number>>;
 }
 export default function SellOperationFormComponent(props: SellOperationFormProps) {
     const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm<SellOperationForm>();
@@ -168,6 +170,16 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
         }
         let clientData: any = await response.json();
         props.setClientSelected(clientData)
+        await validateIfHasDifference(clientData.id)
+    }
+
+    async function validateIfHasDifference(clientId:string){
+        const response = await fetch(`${process.env.apiUrl}/v1/client/difference/get/by/client/id/${clientId}`, {
+            method: 'PUT',
+        });
+        if (response.status == 302) {
+            toast.loading('Cliente está registrado en diferencia de clientes',{duration:1500})
+        }
     }
 
     const handleKeyDownClient = (event: any) => {
@@ -244,6 +256,7 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
         getLasUpdatedCurrencies();
         if (props.quantityToSell != 0) {
             setValue('quantity', props.quantityToSell)
+            setValue('sellPrice', props.sellPrice)
         }
     }, [])
 
@@ -263,6 +276,12 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
         if (calculated) {
             setCalculated(false)
         }
+        let value = event.target.value;
+        if(ONLY_NUMBER_WITH_DECIMALS_ON_STRING.test(value)){
+            let numberValue:number = value;
+            props.setSellPrice(numberValue)
+        }
+        
     }
 
 
@@ -379,7 +398,7 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
                     {!calculated
                         ? <button onClick={onClickCalculate}>Calcular</button>
                         : <>
-                            <button onClick={onClickBuyOperation} >Ejecutar</button>
+                            <button onClick={onClickBuyOperation} >Abrir operatión</button>
                             <button onClick={onClickBuyOperation} >Continuar</button>
                         </>}
                 </div>

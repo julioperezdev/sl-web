@@ -113,6 +113,17 @@ export default function AddBuyOperationComponent() {
         }
         let clientData: any = await response.json();
         setClientSelected(clientData)
+        await validateIfHasDifference(clientData.id)
+    }
+
+    async function validateIfHasDifference(clientId:string){
+        const response = await fetch(`${process.env.apiUrl}/v1/client/difference/get/by/client/id/${clientId}`, {
+            method: 'PUT',
+        });
+        console.log(response)
+        if (response.status == 302) {
+            toast.loading('Cliente está registrado en diferencia de clientes',{duration:1500})
+        }
     }
 
     const handleKeyDown = (event: any) => {
