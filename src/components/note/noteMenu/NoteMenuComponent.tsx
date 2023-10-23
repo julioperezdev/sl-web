@@ -15,7 +15,7 @@ export default function NoteMenuComponent() {
       {
         optionsImage: '/images/Historico_de_recordatorios.png',
         optionHref: '/note/list',
-        optionDescription: 'Histórial de Recordatorios'
+        optionDescription: 'Histórico de Recordatorios'
       }
     ]
   }

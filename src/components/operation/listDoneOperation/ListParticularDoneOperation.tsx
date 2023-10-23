@@ -119,10 +119,6 @@ export default function ListParticularDoneOperation(props:{operationType:string,
                 </div>
                 <div className={styles.buttonBase}>
                     <button><Link href='/operation'>Atrás</Link></button>
-                    {/* <button><Link href={`/sellers/update/${selected}`}>Modificar</Link></button> */}
-                    <button onClick={() => onHadleClickExecute()}>Ejecutar</button>
-                    <button onClick={() => onHadleClickCancel()}>Cancelar</button>
-                    {/* <button><Link href={`/`}>Ejecutar</Link></button> */}
                 </div>
                 <Toaster />
             </div>

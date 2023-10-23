@@ -132,7 +132,6 @@ export default function MultiboxListComponent(multiboxName: { multiboxName: stri
             </div>
             <div className={styles.buttonBase}>
                 <button><Link href={isForeignCurrency() ? `/multibox/foreign-currency` : `/multibox`}>Atrás</Link></button>
-                <button><Link href={`/multibox`}>Modificar</Link></button>
             </div>
         </div>
     )
