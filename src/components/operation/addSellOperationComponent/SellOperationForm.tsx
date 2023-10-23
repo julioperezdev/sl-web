@@ -6,7 +6,7 @@ import { v4 as uuid } from 'uuid'
 import toast, { Toaster } from 'react-hot-toast';
 import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 import { format } from 'date-fns';
-import { ONLY_NUMBERS_ON_STRING, ONLY_NUMBER_WITH_DECIMALS_ON_STRING } from '@/models/RegexConsts';
+import { ONLY_NUMBERS_ON_STRING, ONLY_NUMBER_WITH_DECIMALS_ON_STRING, ONLY_NUMBER_WITH_TWO_DECIMALS_ON_STRING } from '@/models/RegexConsts';
 import { useRouter } from 'next/navigation';
 import { ONE_SECOUND, sleep } from '@/helper/sleepInMilli/Sleep';
 import { Currency } from "@/models/CurrencyModel";
@@ -350,13 +350,13 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
                             </div>
                             <div>
                                 <p className={styles.descriptionOver}>Cantidad a Vender</p>
-                                <input type="text" {...register("quantity", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength: 40 })} onChange={onChangeQuantityToSell} />
+                                <input type="text" {...register("quantity", { required: true, pattern: ONLY_NUMBER_WITH_TWO_DECIMALS_ON_STRING, maxLength: 40 })} onChange={onChangeQuantityToSell} />
                                 {errors.quantity && (errors.quantity.type === "pattern" || errors.quantity.type === "required") && (<span>Es obligatorio y solo son números</span>)}
                                 {errors.quantity && errors.quantity.type === "maxLength" && (<span>Máximo de 40 dígitos</span>)}
                             </div>
                             <div>
                                 <p className={styles.descriptionOver}>Precio Venta</p>
-                                <input type="text" {...register("sellPrice", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength: 40 })} onChange={onChangeSellPrice}/>
+                                <input type="text" {...register("sellPrice", { required: true, pattern: ONLY_NUMBER_WITH_TWO_DECIMALS_ON_STRING, maxLength: 40 })} onChange={onChangeSellPrice}/>
                                 {errors.sellPrice && (errors.sellPrice!.type === "pattern" || errors.sellPrice!.type === "required") && (<span>Es obligatorio y solo son números</span>)}
                                 {errors.sellPrice && errors.sellPrice!.type === "maxLength" && (<span>Máximo de 40 dígitos</span>)}
                             </div>
@@ -398,7 +398,7 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
                     {!calculated
                         ? <button onClick={onClickCalculate}>Calcular</button>
                         : <>
-                            <button onClick={onClickBuyOperation} >Abrir operatión</button>
+                            <button onClick={onClickBuyOperation} >Abrir operación</button>
                             <button onClick={onClickBuyOperation} >Continuar</button>
                         </>}
                 </div>

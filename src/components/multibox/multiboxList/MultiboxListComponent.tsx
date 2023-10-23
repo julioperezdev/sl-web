@@ -90,6 +90,15 @@ export default function MultiboxListComponent(multiboxName: { multiboxName: stri
     function redirectAuxPage(){
         //router.replace(`/multibox/${multiboxName.multiboxName}/aux`)
     }
+
+    function returnOperationType(operationString:string){
+        if(operationString == 'comprar') return 'Compra';
+        else if(operationString == 'vender') return 'Venta';
+        else if(operationString == 'ingreso efectivo') return 'Ingreso Manual';
+        else if(operationString == 'pago deuda') return 'Pago Deuda Oficina';
+        else return operationString;
+        
+    }
     return (
         <div className={styles.listSellerBase}>
             <button onClick={redirectAuxPage} className={styles.auxiliarButton}>Boton auxiliar</button>
@@ -111,7 +120,7 @@ export default function MultiboxListComponent(multiboxName: { multiboxName: stri
                                 <p>{format(parseISO(box.updatedAt!), 'd/MM/yyyy')}</p>
                                 <p>{format(parseISO(box.updatedAt!), 'hh:mm:ss')}</p>
                                 <p>{box.status}</p>
-                                <p>{box.operationType}</p>
+                                <p>{returnOperationType(box.operationType)}</p>
                                 <p>{isIngressOrEgressOperation(multiboxName.multiboxName, box.operationType, box.status) ? box.quantityOperation : '-'}</p>
                                 <p>{isIngressOrEgressOperation(multiboxName.multiboxName, box.operationType, box.status) ? '-' : box.quantityOperation}</p>
                                 <p>{box.quantity}</p>

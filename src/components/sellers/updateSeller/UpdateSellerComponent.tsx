@@ -72,9 +72,9 @@ export default function UpdateSellerComponent(idValue: { idValue: string }) {
     }, [])
     return (
         <form className={styles.formBase}>
-            <h2>Modificar Cliente</h2>
+            <h2>Modificar Vendedor</h2>
             <div className={styles.formData}>
-                <p className={styles.descriptionOver}>Apodo Cliente</p>
+                <p className={styles.descriptionOver}>Apodo Vendedor</p>
                 <p className={styles.name}>{seller?.name}</p>
                 <p className={styles.descriptionOver}>Teléfono</p>
                 <input type="text" placeholder='Número de teléfono' {...register("phone", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength: 20 })} />

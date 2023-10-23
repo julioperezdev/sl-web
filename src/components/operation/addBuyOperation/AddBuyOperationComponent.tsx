@@ -6,12 +6,13 @@ import { v4 as uuid } from 'uuid'
 import toast, { Toaster } from 'react-hot-toast';
 import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
-import { ONLY_NUMBERS_ON_STRING } from '@/models/RegexConsts';
+import {ONLY_NUMBER_WITH_DECIMALS_ON_STRING, ONLY_NUMBER_WITH_TWO_DECIMALS_ON_STRING } from '@/models/RegexConsts';
 import { useRouter } from 'next/navigation';
 import { ONE_SECOUND, sleep } from '@/helper/sleepInMilli/Sleep';
 import { Currency } from "@/models/CurrencyModel";
 import { Client } from "@/models/ClientModel";
 import { BuyOperationForm, BuyOperationRequest } from "@/models/OperationModel";
+import { converDotReturningNumberWithTwoDecimals } from "@/helper/numberConverter/NumberConverter";
 
 export default function AddBuyOperationComponent() {
 
@@ -74,6 +75,7 @@ export default function AddBuyOperationComponent() {
         return result!;
     }
     function converFormData(data: BuyOperationForm): BuyOperationRequest {
+        
         return {
             id: uuid(),
             hasOfficeCheck: isOfficeCheck,
@@ -116,13 +118,13 @@ export default function AddBuyOperationComponent() {
         await validateIfHasDifference(clientData.id)
     }
 
-    async function validateIfHasDifference(clientId:string){
+    async function validateIfHasDifference(clientId: string) {
         const response = await fetch(`${process.env.apiUrl}/v1/client/difference/get/by/client/id/${clientId}`, {
             method: 'PUT',
         });
         console.log(response)
         if (response.status == 302) {
-            toast.loading('Cliente está registrado en diferencia de clientes',{duration:1500})
+            toast.loading('Cliente está registrado en diferencia de clientes', { duration: 1500 })
         }
     }
 
@@ -167,28 +169,6 @@ export default function AddBuyOperationComponent() {
         setClientName(event.target.value);
     }
 
-    async function eventToCalculateTotalToPay(event: any) {
-        console.log(event.target.name)
-        let attributeName = event.target.name;
-        let value = event.target.value;
-        const regexToValidateNumber = /^[0-9]+$/
-        if (!regexToValidateNumber.test(value)) {
-            toast.error('solo se aceptan numero en el formulario')
-        } else {
-            let valueTyped: number = value;
-            if (attributeName == 'buyPriceForm') setBuyPrice(valueTyped);
-            if (attributeName == 'quantity') setQuantityToBuy(valueTyped);
-            if (attributeName == 'percent' && percentDolarSmall > 100) {
-                toast.error('tiene un maximo de 100%')
-            } else {
-                setPercentDolarSmall(valueTyped);
-            }
-            if (buyPrice != 0 && quantityToBuy != 0) {
-                calculateTotalToPay(buyPrice, quantityToBuy, percentDolarSmall);
-            }
-        }
-    }
-
     function calculateTotalToPay(buyPrice: number, quantity: number, percent: number) {
         let result = buyPrice * quantity;
         if (isDolarSmall() && percent > 0) {
@@ -217,10 +197,6 @@ export default function AddBuyOperationComponent() {
                 toast.error('Se debe seleccionar un porcentaje')
                 return false;
             }
-            // if (<=0) {
-            //     toast.error('Debes colocar una cantidad menor a la reserva seleccionada')
-            //     return false;
-            // }
         }
         return true;
     }
@@ -228,31 +204,20 @@ export default function AddBuyOperationComponent() {
         try {
             let valid = validateIfFormIsComplete(data);
             if (!valid) return;
+            let percentConverted = isDolarSmall() ? data.percent! : 0;
             let result = data.buyPriceForm * data.quantity;
-            if (isDolarSmall() && data.percent! > 0) {
-                let newBuyPrice = data.buyPriceForm - ((data.buyPriceForm * data.percent!) / 100);
+            if (isDolarSmall() && percentConverted > 0) {
+                let newBuyPrice = data.buyPriceForm - ((data.buyPriceForm * percentConverted) / 100);
                 setAmountToDolarSmall(newBuyPrice);
                 result = newBuyPrice * data.quantity
             }
             setTotalToPay(result);
             setCalculated(true)
         } catch (error: any) {
-            toast.error('Ops... No se pudo actualizar el Vendedor')
+            toast.error('Ops... Hubo un error al calcular ')
         }
     }
     );
-
-    // const onChangeQuantityToSell = (event: any) => {
-    //     props.setQuantityToSell(event.target.value);
-    //     if (props.sellerSelected != null) {
-    //         props.setSellerSelected(null)
-    //         props.setSellerProfit(0)
-    //         toast.loading('Se debe volver a asignar al vendedor por cambiar la cantidad', { duration: 1500 })
-    //     }
-    //     if (calculated) {
-    //         setCalculated(false)
-    //     }
-    // }
 
     const onChangeToUnCalculate = (event: any) => {
         if (calculated) {
@@ -311,13 +276,13 @@ export default function AddBuyOperationComponent() {
                         <div className={styles.inputsPrices}>
                             <div>
                                 <p className={styles.descriptionOver}>Precio Compra</p>
-                                <input type="text" {...register("buyPriceForm", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength: 40 })} onChange={onChangeToUnCalculate}/>
+                                <input type="text" {...register("buyPriceForm", { required: true, pattern: ONLY_NUMBER_WITH_TWO_DECIMALS_ON_STRING, maxLength: 40 })} onChange={onChangeToUnCalculate} />
                                 {errors.buyPriceForm && (errors.buyPriceForm.type === "pattern" || errors.buyPriceForm.type === "required") && (<span>Es obligatorio y solo son números</span>)}
                                 {errors.buyPriceForm && errors.buyPriceForm.type === "maxLength" && (<span>Máximo de 40 dígitos</span>)}
                             </div>
                             <div>
                                 <p className={styles.descriptionOver}>Cantidad a Comprar</p>
-                                <input type="text" {...register("quantity", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength: 40 })} onChange={onChangeToUnCalculate} />
+                                <input type="text" {...register("quantity", { required: true, pattern: ONLY_NUMBER_WITH_TWO_DECIMALS_ON_STRING, maxLength: 40 })} onChange={onChangeToUnCalculate} />
                                 {errors.quantity && (errors.quantity.type === "pattern" || errors.quantity.type === "required") && (<span>Es obligatorio y solo son números</span>)}
                                 {errors.quantity && errors.quantity.type === "maxLength" && (<span>Máximo de 40 dígitos</span>)}
                             </div>
@@ -326,8 +291,8 @@ export default function AddBuyOperationComponent() {
                             ? <div className={styles.inputsPrices}>
                                 <div>
                                     <p className={styles.descriptionOver}>Ingrese porcentaje</p>
-                                    <input type="text" {...register("percent", { required: true, pattern: ONLY_NUMBERS_ON_STRING, maxLength: 40 })} onChange={onChangeToUnCalculate}/>
-                                    {errors.percent && (errors.percent!.type === "pattern" || errors.percent!.type === "required") && (<span>Es obligatorio y solo son números</span>)}
+                                    <input type="text" {...register("percent", { required: true, pattern: ONLY_NUMBER_WITH_TWO_DECIMALS_ON_STRING, maxLength: 40 })} onChange={onChangeToUnCalculate} />
+                                    {errors.percent && (errors.percent!.type === "pattern" || errors.percent!.type === "required") && (<span>Es obligatorio y solo son números con maximo 2 decimales</span>)}
                                     {errors.percent && errors.percent!.type === "maxLength" && (<span>Máximo de 40 dígitos</span>)}
                                 </div>
                                 <div>
