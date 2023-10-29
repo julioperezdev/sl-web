@@ -28,12 +28,12 @@ export default function MultiboxMenuComponent() {
       },
       {
         optionsImage: '/images/caja1.png',
-        optionHref: '/multibox/box/1',
+        optionHref: '/multibox/seller-box/1',
         optionDescription: 'Caja 1'
       },
       {
         optionsImage: '/images/caja1.png',
-        optionHref: '/multibox/box/2',
+        optionHref: '/multibox/seller-box/2',
         optionDescription: 'Caja 2'
       }
     ]

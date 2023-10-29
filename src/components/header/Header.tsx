@@ -78,17 +78,17 @@ export default function Header() {
             title: 'Deuda Oficina',
             description: 'Ver detalle del saldo acumulado y pagar el total de la deuda.'
         }, {
-            url: '/multibox/list/PESO',//cambiar la URL cuando exista la iformacion
+            url: '/multibox/balance',//cambiar la URL cuando exista la iformacion
             image: '/images/balance.png',
             title: 'Ganancias',
             description: 'Ver caja de Balance, asignación de ganancías a Caja 1 o Caja 2'
         }, {
-            url: '/multibox/list/PESO',//cambiar la URL cuando exista la iformacion
+            url: '/multibox/seller-box/1',//cambiar la URL cuando exista la iformacion
             image: '/images/caja1.png',
             title: 'Cajas 1',
             description: 'Visualizar movimientos de la caja 1, realizar ingresos y egresos'
         }, {
-            url: '/multibox/list/PESO',//cambiar la URL cuando exista la iformacion
+            url: '/multibox/seller-box/2',//cambiar la URL cuando exista la iformacion
             image: '/images/caja1.png',
             title: 'Cajas 2',
             description: 'Visualizar movimientos de la caja 2, realizar ingresos y egresos'
