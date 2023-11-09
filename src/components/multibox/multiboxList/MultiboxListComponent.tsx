@@ -66,6 +66,7 @@ export default function MultiboxListComponent(multiboxName: { multiboxName: stri
             else if (operationType === 'vender' && operationStatus == 'cancelado') return true;
 
             //egreso false
+            else if(operationType === 'egreso efectivo') return false;
             else if (operationType === 'comprar' && operationStatus == 'cancelado') return false;
             else if (operationType === 'vender' && operationStatus != 'cancelado') return false;
 
@@ -75,6 +76,7 @@ export default function MultiboxListComponent(multiboxName: { multiboxName: stri
                 if (operationType === 'vender' && operationStatus != 'cancelado' || operationType === 'ingreso efectivo') return true;
                 else if (operationType === 'comprar' && operationStatus == 'cancelado') return true;
                 //egreso false
+                else if(operationType === 'egreso efectivo') return false;
                 else if (operationType === 'comprar' && operationStatus != 'cancelado' || operationType === 'pago deuda') return false;
             } else if (currencyNameToValidate == 'PESO_OFFICE') {
                 //ingreso true
@@ -88,13 +90,14 @@ export default function MultiboxListComponent(multiboxName: { multiboxName: stri
     }
 
     function redirectAuxPage(){
-        //router.replace(`/multibox/${multiboxName.multiboxName}/aux`)
+        router.replace(`/multibox/auxiliar/${multiboxName.multiboxName}`)
     }
 
     function returnOperationType(operationString:string){
         if(operationString == 'comprar') return 'Compra';
         else if(operationString == 'vender') return 'Venta';
         else if(operationString == 'ingreso efectivo') return 'Ingreso Manual';
+        else if(operationString == 'egreso efectivo') return 'Egreso Manual';
         else if(operationString == 'pago deuda') return 'Pago Deuda Oficina';
         else return operationString;
         

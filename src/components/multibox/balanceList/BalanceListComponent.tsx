@@ -5,15 +5,16 @@ import { useEffect, useState } from 'react';
 import { parseISO, format } from 'date-fns';
 import { CurrencyBox, CurrencyBoxResponse } from '@/models/MultiboxModel';
 import { useRouter } from 'next/navigation';
+import { BalanceResponse } from '@/models/BalanceModel';
 
 export default function BalanceListComponent() {
     const [selected, setSelected] = useState<string | null>(null)
-    const [boxList, setBoxList] = useState<CurrencyBoxResponse[]>([])
+    const [balanceList, setBalanceList] = useState<BalanceResponse[]>([])
     const router = useRouter();
 
 
     async function getMultiboxByName() {
-        const response = await fetch(`${process.env.apiUrl}/v1/box/get/balance`, {
+        const response = await fetch(`${process.env.apiUrl}/v1/box/balance/get`, {
             method: 'PUT',
         });
         if (response.status == 204) {
@@ -21,8 +22,8 @@ export default function BalanceListComponent() {
             return
         }
         let responseValue = await response.json();
-        let currencyBoxData: CurrencyBoxResponse[] = responseValue;
-        setBoxList(currencyBoxData)
+        let balanceData: BalanceResponse[] = responseValue;
+        setBalanceList(balanceData)
     }
     useEffect(() => {
         getMultiboxByName();
@@ -32,26 +33,24 @@ export default function BalanceListComponent() {
         return id == selected;
     }
     
-    function isIngressOrEgressOperation(operationType: string, operationStatus: string) {
+    function isIngressOrEgressOperation(operationType: string) {
        
             //ingreso true
-            if (operationType === 'comprar' && operationStatus != 'cancelado' || operationType === 'ingreso efectivo') return true;
-            else if (operationType === 'vender' && operationStatus == 'cancelado') return true;
+            if (operationType === 'ganancia final')return true;
 
             //egreso false
-            else if (operationType === 'comprar' && operationStatus == 'cancelado') return false;
-            else if (operationType === 'vender' && operationStatus != 'cancelado') return false;
+            else if (operationType === 'asignar caja') return false;
+            //else if (operationType === 'asignar caja 2') return false;
     }
 
     function redirectAuxPage(){
-        //router.replace(`/multibox/${multiboxName.multiboxName}/aux`)
+        router.replace(`/multibox/auxiliar/BALANCE`)
     }
 
     function returnOperationType(operationString:string){
-        if(operationString == 'comprar') return 'Compra';
-        else if(operationString == 'vender') return 'Venta';
-        else if(operationString == 'ingreso efectivo') return 'Ingreso Manual';
-        else if(operationString == 'pago deuda') return 'Pago Deuda Oficina';
+        if(operationString == 'ganancia final') return 'Ganancia Final';
+        else if(operationString == 'asignar caja') return 'Comisión Caja';
+        else if(operationString == 'asignar caja 2') return 'Comisión Caja 2';
         else return operationString;
         
     }
@@ -63,23 +62,22 @@ export default function BalanceListComponent() {
                 <div className={styles.listTitles}>
                     <p>Fecha</p>
                     <p>Hora</p>
-                    <p>Estatus</p>
                     <p>Movimiento</p>
+                    {/* <p>Estatus</p> */}
                     <p>Ingreso</p>
                     <p>Egreso</p>
                     <p>Saldo Acumulado</p>
                 </div>
                 <div className={styles.dataContainer}>
                     {
-                        boxList.length > 0 ? boxList.map(box => (
+                        balanceList.length > 0 ? balanceList.map(box => (
                             <div className={isSelected(box.id) ? styles.listDataSelected : styles.listData} key={box.id} onClick={() => setSelected(box.id)}>
                                 <p>{format(parseISO(box.updatedAt!), 'd/MM/yyyy')}</p>
                                 <p>{format(parseISO(box.updatedAt!), 'hh:mm:ss')}</p>
-                                <p>{box.status}</p>
                                 <p>{returnOperationType(box.operationType)}</p>
-                                <p>{isIngressOrEgressOperation(box.operationType, box.status) ? box.quantityOperation : '-'}</p>
-                                <p>{isIngressOrEgressOperation(box.operationType, box.status) ? '-' : box.quantityOperation}</p>
-                                <p>{box.quantity}</p>
+                                <p>{isIngressOrEgressOperation(box.operationType) ? box.quantityOperation : '-'}</p>
+                                <p>{isIngressOrEgressOperation(box.operationType) ? '-' : box.quantityOperation}</p>
+                                <p>{box.profit}</p>
                             </div>
                         ))
                             : <p>NO HAY DATOS</p>

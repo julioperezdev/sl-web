@@ -1,0 +1,96 @@
+.formBase{
+    display: grid;
+    width: 350px;
+    height: 580px;
+    justify-content: center;
+    margin: auto;
+    border: 2px solid rgb(214, 214, 214);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    margin-top: 100px;
+}
+
+.formBase > p{
+    font-size: 30px;
+    font-weight: 600;
+    margin-top: 20px;
+    color: rgba(13, 13, 13, 0.75);
+}
+
+
+.formData{
+    width: 400px;
+    height: 400px;
+}
+.descriptionOver{
+    text-align: left;
+    font-size: 15px;
+    margin-top: 8px;
+    color: rgba(108, 108, 108, 1);
+    padding-left: 30px;
+}
+.name{
+    font-size: 22px; 
+    height: 40px;
+    width: 320px;
+    border: 1px solid rgb(136, 136, 136);
+    padding-top: 10px;
+    padding-left: 20px;
+    border-radius: 5px;
+    text-align: left;
+    color: rgba(125, 125, 125, 1);
+    margin: 5px auto;
+}
+.formBase > div > input{
+    display: grid;
+    width: 300px;
+    height: 40px;
+    font-size: 22px;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(136, 136, 136);
+    border-radius: 5px;
+    margin: 5px auto;
+    padding: 5px 20px;
+    outline: none;
+    color: rgba(125, 125, 125, 1);
+}
+
+.name{
+    background-color: rgb(232, 232, 232) !important;
+}
+
+.formBase > div > select{
+    
+    width: 340px;
+    height: 40px;
+    font-size: 22px;
+    align-items: center;
+    background-color: rgb(232, 232, 232);
+    border: 1px solid rgb(136, 136, 136);
+    border-radius: 5px;
+    margin: 5px auto;
+    padding: 5px 20px;
+    outline: none;
+    color: #7D7D7D;
+}
+.formBase > div > button{
+    padding: 10px;
+    width: 150px;
+    height: 40px;
+    margin: 5px;
+    margin-top: 80px;
+    border-radius: 5px;
+    background-color: rgba(0, 140, 255, 1);
+    color: #fafafa;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    border: 0px;    
+}
+
+.formBase > div > button > a{
+    text-decoration: none;  
+    color: #fafafa;
+}

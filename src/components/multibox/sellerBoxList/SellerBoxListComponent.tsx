@@ -3,17 +3,17 @@ import styles from './SellerBoxListComponent.module.css';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { parseISO, format } from 'date-fns';
-import { CurrencyBox, CurrencyBoxResponse } from '@/models/MultiboxModel';
 import { useRouter } from 'next/navigation';
+import { SellerBoxResponse } from '@/models/SellerBoxModel';
 
 export default function SellerBoxListComponent(props: { name: string }) {
     const [selected, setSelected] = useState<string | null>(null)
-    const [boxList, setBoxList] = useState<CurrencyBoxResponse[]>([])
+    const [boxList, setBoxList] = useState<SellerBoxResponse[]>([])
     const router = useRouter();
 
 
     async function getMultiboxByName() {
-        const response = await fetch(`${process.env.apiUrl}/v1/box/get/sellerbox/${props.name}`, {
+        const response = await fetch(`${process.env.apiUrl}/v1/box/seller-box/get/${props.name}`, {
             method: 'PUT',
         });
         if (response.status == 204) {
@@ -21,49 +21,35 @@ export default function SellerBoxListComponent(props: { name: string }) {
             return
         }
         let responseValue = await response.json();
-        let currencyBoxData: CurrencyBoxResponse[] = responseValue;
+        let currencyBoxData: SellerBoxResponse[] = responseValue;
         setBoxList(currencyBoxData)
     }
     useEffect(() => {
         getMultiboxByName();
     }, [])
 
-    function titleMultibox(currencyBox: string): string {
-        let title = 'Caja en ...';
-        if (currencyBox === 'USD_HIGH') return 'Caja en Dolar Grande'
-        else if (currencyBox === 'USD_LOW') return 'Caja en Dolar Chico y Cambio'
-        else if (currencyBox === 'EURO') return 'Caja en Euros'
-        else if (currencyBox === 'REAL') return 'Caja en Reales'
-        else if (currencyBox === 'PESO') return 'Caja en Pesos'
-        else if (currencyBox === 'PESO_OFFICE') return 'Deuda Oficina'
-        return title;
-
-    }
     function isSelected(id: string): boolean {
         return id == selected;
     }
     
-    function isIngressOrEgressOperation(operationType: string, operationStatus: string) {
+    function isIngressOrEgressOperation(operationType: string) {
     
             //ingreso true
-            if (operationType === 'comprar' && operationStatus != 'cancelado' || operationType === 'ingreso efectivo') return true;
-            else if (operationType === 'vender' && operationStatus == 'cancelado') return true;
+            if (operationType === 'asignar caja') return true;
+            else if (operationType === 'ingreso efectivo') return true;
 
             //egreso false
-            else if (operationType === 'comprar' && operationStatus == 'cancelado') return false;
-            else if (operationType === 'vender' && operationStatus != 'cancelado') return false;
-
+            else if (operationType === 'egreso efectivo') return false;
     }
 
     function redirectAuxPage(){
-        //router.replace(`/multibox/${multiboxName.multiboxName}/aux`)
+        router.replace(`/multibox/auxiliar/SELLER_BOX_${props.name}`)
     }
 
     function returnOperationType(operationString:string){
-        if(operationString == 'comprar') return 'Compra';
-        else if(operationString == 'vender') return 'Venta';
+        if(operationString == 'asignar caja') return 'Asignar caja';
         else if(operationString == 'ingreso efectivo') return 'Ingreso Manual';
-        else if(operationString == 'pago deuda') return 'Pago Deuda Oficina';
+        else if(operationString == 'egreso efectivo') return 'Egreso Manual';
         else return operationString;
         
     }
@@ -75,7 +61,6 @@ export default function SellerBoxListComponent(props: { name: string }) {
                 <div className={styles.listTitles}>
                     <p>Fecha</p>
                     <p>Hora</p>
-                    <p>Estatus</p>
                     <p>Movimiento</p>
                     <p>Ingreso</p>
                     <p>Egreso</p>
@@ -87,10 +72,9 @@ export default function SellerBoxListComponent(props: { name: string }) {
                             <div className={isSelected(box.id) ? styles.listDataSelected : styles.listData} key={box.id} onClick={() => setSelected(box.id)}>
                                 <p>{format(parseISO(box.updatedAt!), 'd/MM/yyyy')}</p>
                                 <p>{format(parseISO(box.updatedAt!), 'hh:mm:ss')}</p>
-                                <p>{box.status}</p>
                                 <p>{returnOperationType(box.operationType)}</p>
-                                <p>{isIngressOrEgressOperation(box.operationType, box.status) ? box.quantityOperation : '-'}</p>
-                                <p>{isIngressOrEgressOperation(box.operationType, box.status) ? '-' : box.quantityOperation}</p>
+                                <p>{isIngressOrEgressOperation(box.operationType) ? box.quantityOperation : '-'}</p>
+                                <p>{isIngressOrEgressOperation(box.operationType) ? '-' : box.quantityOperation}</p>
                                 <p>{box.quantity}</p>
                             </div>
                         ))

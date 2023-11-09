@@ -35,7 +35,7 @@ export default function CurrencyHomeComponent() {
                             <p className={styles.currencyDescription}>Compra</p>
                             <p className={styles.currencyDescription}>Venta</p>
                         </div>
-                        <p className={styles.dates}>Actualizado: {format(new Date(), 'd/MM/yyyy hh:mm:ss')}</p>
+                        <p suppressHydrationWarning className={styles.dates}>Actualizado: {format(new Date(), 'd/MM/yyyy hh:mm:ss')}</p>
                     </div> :
                     <div className={styles.currencyUsd}>
                         <Image src={'/images/Icono_de_SL.png'} alt='fff' width={50} height={50} />
@@ -46,7 +46,7 @@ export default function CurrencyHomeComponent() {
                             <p className={styles.currencyDescription}>Compra</p>
                             <p className={styles.currencyDescription}>Venta</p>
                         </div>
-                        <p className={styles.dates}>Actualizado: {format(parseISO(currency?.updatedAt!), 'd/MM/yyyy hh:mm:ss')}</p>
+                        <p suppressHydrationWarning className={styles.dates}>Actualizado: {format(parseISO(currency?.updatedAt!), 'd/MM/yyyy hh:mm:ss')}</p>
                     </div>
                 }
                 <div>
