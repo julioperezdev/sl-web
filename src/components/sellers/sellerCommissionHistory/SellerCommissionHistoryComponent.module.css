@@ -1,82 +1,116 @@
-.listDifferenceBase{
+.listSellerBase{
     display: grid;
-    width: 85%;
     min-height: 600px;
     margin: auto;
-    border: 2px solid rgb(169, 169, 169);
+    margin-top: 40px;
     border-radius: 20px;
     padding: 30px;
-    box-shadow: 8px 8px 8px rgb(215, 215, 215);
     text-align: center;
     font-size: 24px;
 }
 
-.listDifferenceBase > img{
+.auxiliarButton{
+    width: 274px;
+    height: 41px;
+    background: linear-gradient(90deg, #FF00E5 0%, #008CFF 100%);
+    border: transparent;
+    border-radius: 8px;
+    font-size: 22px;
+    font-weight: 600;
+    color: #FFFFFF;
+    display: grid;
+    justify-self: end;
+    align-items: center;
+}
+
+.listSellerBase > img{
     margin: 0 auto;
 }
-.listDifferenceBase > p{
-    font-size: 38px;
-    margin: 0;
+.listSellerBase > p{
+    font-size: 30px;
+    margin: 20px auto;
+    font-weight: 500;
+    color: rgba(13, 13, 13, 0.75);
 }
 
 .listDataBase{
     display: grid;
     width: 100%;
-    text-align: center;
 }
 
 .listTitles{
     display: grid;
-    grid-template-columns: repeat(6, 16.6%);
+    grid-template-columns: repeat(7, 14.28%);
     color: rgb(122, 122, 122);
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 20px;
+    margin-top: 50px;
+}
+.dataContainer{
+    overflow:hidden;
+    overflow-y:auto;
+    max-height: 450px;
 }
 
 .listData{
     display: grid;
-    grid-template-columns: repeat(6, 16.6%);
+    grid-template-columns: repeat(7, 14.28%);
     border-radius: 10px;
-    background-color: rgba(228, 220, 241, 0.528);
     color: rgb(122, 122, 122);
-    /* box-shadow: 5px 5px 5px rgb(215, 215, 215); */
     margin: 5px;
     align-items: center;
-    
-
 }
 
-.listDataChecked{
+.listDataSelected{
     display: grid;
-    grid-template-columns: repeat(6, 16.6%);
+    grid-template-columns: repeat(7, 14.28%);
     border-radius: 10px;
-    background-color: rgb(244, 255, 117);
     color: rgb(122, 122, 122);
-    /* box-shadow: 5px 5px 5px rgb(215, 215, 215); */
+    background-color: rgba(212, 201, 231, 0.528);
     margin: 5px;
     align-items: center;
-    
 }
 
-.buttonBase > a{
-    width: 100px;
-    padding: 10px;
-    font-size: 24px;
-    text-decoration: none;
-    margin: 10px 5px;
-    border-radius: 10px;
-    background-color: rgb(64, 178, 239);
-    color: rgb(255, 255, 255);
+.listDataSelected > p{
+    font-size: 18px;
+    margin: 10px auto;
+}
 
+.listData:hover{
+    background-color: rgba(228, 220, 241, 0.528);
+}
+
+.listData > p{
+    font-size: 18px;
+    margin: 10px auto;
+}
+
+.description{
+    text-align: left;
+}
+
+.buttonBase{
+    margin-top: 50px;
 }
 
 .buttonBase > button{
     min-width: 100px;
+    height: 42px;
+    width: 150px;
     padding: 10px;
-    font-size: 24px;
+    font-size: 18px;
     text-decoration: none;
     margin: 10px 5px;
-    border-radius: 10px;
-    background-color: rgb(64, 178, 239);
-    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    background-color: rgba(0, 140, 255, 1);
+    color: #fafafa;
     border: 0;
 
+}
+
+.buttonBase > button > a{
+    text-decoration: none;
+    margin: 10px 5px;
+    color: rgb(255, 255, 255);
 }
