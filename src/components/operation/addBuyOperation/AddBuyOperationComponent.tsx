@@ -4,15 +4,14 @@ import Link from 'next/link';
 import { useForm } from "react-hook-form";
 import { v4 as uuid } from 'uuid'
 import toast, { Toaster } from 'react-hot-toast';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { format } from 'date-fns';
-import {ONLY_NUMBER_WITH_DECIMALS_ON_STRING, ONLY_NUMBER_WITH_TWO_DECIMALS_ON_STRING } from '@/models/RegexConsts';
+import { ONLY_NUMBER_WITH_DECIMALS_ON_STRING, ONLY_NUMBER_WITH_TWO_DECIMALS_ON_STRING } from '@/models/RegexConsts';
 import { useRouter } from 'next/navigation';
 import { ONE_SECOUND, sleep } from '@/helper/sleepInMilli/Sleep';
 import { Currency } from "@/models/CurrencyModel";
 import { Client } from "@/models/ClientModel";
 import { BuyOperationForm, BuyOperationRequest } from "@/models/OperationModel";
-import { converDotReturningNumberWithTwoDecimals } from "@/helper/numberConverter/NumberConverter";
 
 export default function AddBuyOperationComponent() {
 
@@ -24,14 +23,59 @@ export default function AddBuyOperationComponent() {
     const [clientSelected, setClientSelected] = useState<Client | null>(null)
     const [clientName, setClientName] = useState<string | null>(null)
 
-    const [buyPrice, setBuyPrice] = useState<number>(0)
-    const [quantityToBuy, setQuantityToBuy] = useState<number>(0)
-    const [percentDolarSmall, setPercentDolarSmall] = useState<number>(0)
     const [amountToDolarSmall, setAmountToDolarSmall] = useState<number>(0)
     const [totalToPay, setTotalToPay] = useState<number>(0)
     const [calculated, setCalculated] = useState<boolean>(false)
 
+    const [items, setItems] = useState<Array<string>>([]);
+    const [query, setQuery] = useState<string>("");
+    const [show, setShow] = useState<boolean>(false);
+
     const router = useRouter();
+
+    async function onClickNameSelected(selected:string){    
+        setQuery(selected)    
+        setClientName(selected);
+        await getClientByName(selected)
+        setShow(false)
+
+    }
+
+    const filteredItems = useMemo(() => {
+        return items.filter(item => {
+            return item.toLowerCase().includes(query.toLowerCase())
+        })
+    }, [items, query])
+
+
+    const onChangeName = (event: any) => {
+        if (clientSelected != null) {
+            setClientSelected(null)
+        }
+        //setClientName(event.target.value);
+        setQuery(event.target.value)
+        setShow(true)
+    }
+
+    async function getClientsName() {
+        let response = await fetch(process.env.apiUrl + '/v1/client/get/names', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS'
+            }
+        });
+        if (response.status == 204) {
+            toast.error("No se pudo obtener la lista de nombres de clientes")
+            return
+        } else if (response.status == 302) {
+            const clientsNames = await response.json();
+            setItems(clientsNames)
+            console.log(clientsNames);
+        }
+
+    }
 
     const onClickBuyOperation = handleSubmit(async (data) => {
         try {
@@ -75,7 +119,7 @@ export default function AddBuyOperationComponent() {
         return result!;
     }
     function converFormData(data: BuyOperationForm): BuyOperationRequest {
-        
+
         return {
             id: uuid(),
             hasOfficeCheck: isOfficeCheck,
@@ -112,6 +156,7 @@ export default function AddBuyOperationComponent() {
             return
         } else if (response.status == 302) {
             toast.success('Se encontró el cliente, falta completar los otros datos')
+            setShow(false)
         }
         let clientData: any = await response.json();
         setClientSelected(clientData)
@@ -160,13 +205,6 @@ export default function AddBuyOperationComponent() {
 
     function isDolarSmall() {
         return currencyNameSelected != null && currencyNameSelected === 'Dolar Chico y Cambio';
-    }
-
-    const onChangeName = (event: any) => {
-        if (clientSelected != null) {
-            setClientSelected(null)
-        }
-        setClientName(event.target.value);
     }
 
     function calculateTotalToPay(buyPrice: number, quantity: number, percent: number) {
@@ -228,6 +266,7 @@ export default function AddBuyOperationComponent() {
     }
     useEffect(() => {
         getLasUpdatedCurrencies();
+        getClientsName();
     }, [])
 
     return (
@@ -255,8 +294,20 @@ export default function AddBuyOperationComponent() {
                     <h3>Realizar Compra</h3>
                     <div className={styles.operationStringData}>
                         <div>
-                            <p className={styles.descriptionOver}>Apodo Cliente</p>
-                            <input className={styles.operationStringParagragh} type="text" onKeyDown={handleKeyDown} onChange={onChangeName} />
+                            <div>
+                                <p className={styles.descriptionOver}>Apodo Cliente</p>
+                                <input className={styles.operationStringParagragh} type="text" onKeyDown={handleKeyDown} onChange={onChangeName} value={query} />
+                            </div>
+                            {
+                                query != '' && show
+                                    ? <div className={styles.itemNameBase}>
+                                        {filteredItems.map(item => (
+                                            <div className={styles.itemNameParticular} key={item} onClick={() => onClickNameSelected(item)}>{item}</div>
+                                        ))}
+                                    </div>
+                                    : <></>
+                            }
+
                         </div>
                         <div>
                             <p className={styles.descriptionOver}>Número de Teléfono</p>

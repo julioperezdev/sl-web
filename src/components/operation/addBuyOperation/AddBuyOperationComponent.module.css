@@ -127,6 +127,22 @@
     outline: none;
     color: #7D7D7D;
 }
+.itemNameBase{
+    background-color:white;
+    border: 1px solid rgb(182, 182, 182);
+    border-radius: 5px;
+    width: 180px;
+    padding: 5px 20px;
+    margin: 0px 10px;
+    position: absolute;
+    right: inherit;
+    
+}
+
+.itemNameParticular:hover{
+    cursor: pointer;
+}
+
 .waitingCurrencyType{
     width: 240px;
     height: 38px;
