@@ -1,24 +1,59 @@
 export interface BuyOperationForm{
     currencyMultiBox: string 
-    buyPriceForm:number;
-    quantity:number
+    buyPriceForm:number|undefined;
+    quantity:number|undefined
     percent?:number
 }
 
+// export interface BuyOperationData{
+//     operationType :string;
+//     currencyMultiBox: string 
+//     buyPrice:number;
+//     quantity:number
+//     percent?:number
+// }
+
 export interface BuyOperationData{
+    id:string;
+    hasOfficeCheck:boolean;
+    clientId:string;
     operationType :string;
     currencyMultiBox: string 
     buyPrice:number;
     quantity:number
     percent?:number
 }
-
 export interface BuyOperationRequest{
+   ibuyOperationRequest:BuyOperationData[];
+}
+export interface BuyOperationContinue{
     id:string;
     hasOfficeCheck:boolean;
     clientId:string;
-    buyOperationData: BuyOperationData[];
+    clientName:string;
+    clientPhone:string;
+    operationType :string;
+    currencyMultiBox: string 
+    buyPrice:number;
+    quantity:number;
+    totalToPay:number;
+    percent?:number;
 }
+
+// export interface BuyOperationData{
+//     operationType :string;
+//     currencyMultiBox: string 
+//     buyPrice:number;
+//     quantity:number
+//     percent?:number
+// }
+
+// export interface BuyOperationRequest{
+//     id:string;
+//     hasOfficeCheck:boolean;
+//     clientId:string;
+//     buyOperationData: BuyOperationData[];
+// }
 
 export interface BuyOperation{
     id:string;

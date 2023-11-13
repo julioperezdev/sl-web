@@ -11,11 +11,12 @@ import { useRouter } from 'next/navigation';
 import { ONE_SECOUND, sleep } from '@/helper/sleepInMilli/Sleep';
 import { Currency } from "@/models/CurrencyModel";
 import { Client } from "@/models/ClientModel";
-import { BuyOperationForm, BuyOperationRequest } from "@/models/OperationModel";
+import { BuyOperationContinue, BuyOperationData, BuyOperationForm, BuyOperationRequest } from "@/models/OperationModel";
+import AddWishBuyOperations from "./AddWishBuyOperation";
 
 export default function AddBuyOperationComponent() {
 
-    const { register, handleSubmit, reset, watch, formState: { errors } } = useForm<BuyOperationForm>();
+    const { register, handleSubmit, setValue, reset, watch, formState: { errors } } = useForm<BuyOperationForm>();
     const [isOfficeCheck, setIsOfficeCheck] = useState<boolean>(false);
     const [currencies, setCurrencies] = useState<Currency[] | null>(null)
     const [currencyNameSelected, setCurrencyNameSelected] = useState<string>('')
@@ -26,15 +27,18 @@ export default function AddBuyOperationComponent() {
     const [amountToDolarSmall, setAmountToDolarSmall] = useState<number>(0)
     const [totalToPay, setTotalToPay] = useState<number>(0)
     const [calculated, setCalculated] = useState<boolean>(false)
+    const [listOperationsContinue, setListOperationsContinue] = useState<BuyOperationContinue[]>([]);
+
 
     const [items, setItems] = useState<Array<string>>([]);
     const [query, setQuery] = useState<string>("");
     const [show, setShow] = useState<boolean>(false);
 
     const router = useRouter();
+    const countRef = useRef<BuyOperationContinue[]>()
 
-    async function onClickNameSelected(selected:string){    
-        setQuery(selected)    
+    async function onClickNameSelected(selected: string) {
+        setQuery(selected)
         setClientName(selected);
         await getClientByName(selected)
         setShow(false)
@@ -52,7 +56,7 @@ export default function AddBuyOperationComponent() {
         if (clientSelected != null) {
             setClientSelected(null)
         }
-        //setClientName(event.target.value);
+        setClientName(event.target.value);
         setQuery(event.target.value)
         setShow(true)
     }
@@ -77,14 +81,43 @@ export default function AddBuyOperationComponent() {
 
     }
 
+    function deleteWishOperationById(idToDelete: string) {
+        let wishListFiltered = listOperationsContinue.filter(particular => particular.id !== idToDelete);
+        setListOperationsContinue(wishListFiltered)
+    }
+
+    const onClickContinueBuyOperation = handleSubmit(async (data) => {
+        try {
+            if (clientSelected == null) {
+                toast.error('Se debe seleccionar un Cliente para realizar la operacion')
+                return;
+            }
+            const dataBuilded = converFormDataToContinue(data);
+            setListOperationsContinue([...listOperationsContinue, dataBuilded]);
+            setQuery("")
+            setTotalToPay(0)
+            setValue('buyPriceForm', undefined)
+            setValue('quantity', undefined)
+            setClientSelected(null)
+            //setIsOfficeCheck(false)
+
+        } catch (error: any) {
+            toast.error('Ops... No se pudo realizar la operacion de compra')
+        }
+    }
+    );
+
     const onClickBuyOperation = handleSubmit(async (data) => {
         try {
             if (clientSelected == null) {
                 toast.error('Se debe seleccionar un Cliente para realizar la operacion')
                 return;
             }
-            const dataValidated = converFormData(data);
-            const response = await sendForm(dataValidated);
+            const dataValidated = converFormDataToContinue(data);
+            let listToConvert = [...listOperationsContinue, dataValidated];
+            setListOperationsContinue([...listOperationsContinue, dataValidated]);
+            let dataConverted = converFormData(listToConvert);
+            const response = await sendForm(dataConverted);
             if (response.status == 201) {
                 reset();
                 toast.success('Se ha guardado exitosamente la diferencia del cliente')
@@ -94,6 +127,7 @@ export default function AddBuyOperationComponent() {
                 toast.error('Ops... No se pudo realizar la operacion de compra')
             }
         } catch (error: any) {
+            console.log(error)
             toast.error('Ops... No se pudo realizar la operacion de compra')
         }
     }
@@ -118,26 +152,46 @@ export default function AddBuyOperationComponent() {
         else if (resultOfFiltered === 'Real') result = 'REAL'
         return result!;
     }
-    function converFormData(data: BuyOperationForm): BuyOperationRequest {
+
+    function converFormDataToContinue(data: BuyOperationForm): BuyOperationContinue {
 
         return {
             id: uuid(),
             hasOfficeCheck: isOfficeCheck,
             clientId: clientSelected!.id,
-            buyOperationData: [{
-                operationType: "comprar",
-                currencyMultiBox: convertCurrencyNameToCurrencyMultiboxValue(data.currencyMultiBox),
-                buyPrice: data.buyPriceForm,
-                quantity: data.quantity,
-                percent: data.percent
-            }]
+            clientName: clientSelected?.name!,
+            clientPhone: clientSelected?.phone!,
+            operationType: "comprar",
+            currencyMultiBox: data.currencyMultiBox,
+            buyPrice: data.buyPriceForm!,
+            quantity: data.quantity!,
+            totalToPay: totalToPay,
+            percent: data.percent
         }
     }
 
-    function sendForm(buyOperationRequest: BuyOperationRequest) {
+    function converFormData(listToConvert:BuyOperationContinue[]): BuyOperationData[] {
+        let listConverted: BuyOperationData[] = [];
+        listToConvert.forEach(particular => {
+            let converted: BuyOperationData = {
+                id: particular.id,
+                hasOfficeCheck: particular.hasOfficeCheck,
+                clientId: particular.clientId,
+                operationType: "comprar",
+                currencyMultiBox: convertCurrencyNameToCurrencyMultiboxValue(particular.currencyMultiBox),
+                buyPrice: particular.buyPrice,
+                quantity: particular.quantity,
+                percent: particular.percent
+            }
+            listConverted = [...listConverted, converted]
+        })
+        return listConverted;
+    }
+
+    function sendForm(buyOperationData: BuyOperationData[]) {
         return fetch(process.env.apiUrl + '/v1/operation/create/buy', {
             method: 'PUT',
-            body: JSON.stringify(buyOperationRequest),
+            body: JSON.stringify({buyOperationData:buyOperationData}),
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
@@ -222,11 +276,11 @@ export default function AddBuyOperationComponent() {
             toast.error('Se debe seleccionar un Cliente para realizar la operacion')
             return false;
         }
-        if (data.buyPriceForm <= 0) {
+        if (data.buyPriceForm! <= 0) {
             toast.error('Se debe seleccionar un precio de compra')
             return false;
         }
-        if (data.quantity <= 0) {
+        if (data.quantity! <= 0) {
             toast.error('Debes colocar una cantidad')
             return false;
         }
@@ -243,11 +297,11 @@ export default function AddBuyOperationComponent() {
             let valid = validateIfFormIsComplete(data);
             if (!valid) return;
             let percentConverted = isDolarSmall() ? data.percent! : 0;
-            let result = data.buyPriceForm * data.quantity;
+            let result = data.buyPriceForm! * data.quantity!;
             if (isDolarSmall() && percentConverted > 0) {
-                let newBuyPrice = data.buyPriceForm - ((data.buyPriceForm * percentConverted) / 100);
+                let newBuyPrice = data.buyPriceForm! - ((data.buyPriceForm! * percentConverted) / 100);
                 setAmountToDolarSmall(newBuyPrice);
-                result = newBuyPrice * data.quantity
+                result = newBuyPrice * data.quantity!
             }
             setTotalToPay(result);
             setCalculated(true)
@@ -365,11 +419,14 @@ export default function AddBuyOperationComponent() {
                         ? <button onClick={onClickCalculate}>Calcular</button>
                         : <>
                             <button onClick={onClickBuyOperation} >Ejecutar</button>
-                            <button onClick={onClickBuyOperation} >Continuar</button>
+                            <button onClick={onClickContinueBuyOperation} >Continuar</button>
                         </>}
                 </div>
                 <Toaster />
             </div>
+            <AddWishBuyOperations
+                listAddBuyOperation={listOperationsContinue}
+                deleteWishOperationById={deleteWishOperationById} />
         </div>
     )
 }
