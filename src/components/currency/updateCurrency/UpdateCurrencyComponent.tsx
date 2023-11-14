@@ -72,6 +72,11 @@ export default function UpdateCurrencyComponent() {
     async function getLasUpdatedCurrencies() {
         const response = await fetch(`${process.env.apiUrl}/v1/currency/get/last-updated`, {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS'
+            }
         });
         let currenciesData: Currency[] = await response.json();
         setCurrencySelected(currenciesData[0].name)

@@ -203,6 +203,11 @@ export default function AddBuyOperationComponent() {
     async function getClientByName(name: string) {
         const response = await fetch(`${process.env.apiUrl}/v1/client/get/name/${name}`, {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS'
+            }
         });
         if (response.status == 204) {
             toast.error('Ops... No se pudo encontrar un cliente con ese nombre')
@@ -220,6 +225,11 @@ export default function AddBuyOperationComponent() {
     async function validateIfHasDifference(clientId: string) {
         const response = await fetch(`${process.env.apiUrl}/v1/client/difference/get/by/client/id/${clientId}`, {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS'
+            }
         });
         console.log(response)
         if (response.status == 302) {

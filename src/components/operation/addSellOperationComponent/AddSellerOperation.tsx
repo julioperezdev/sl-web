@@ -111,6 +111,11 @@ export default function AddSellerOperation(props:AddSellerOperationProps) {
         console.log('llega 1')
         const response = await fetch(`${process.env.apiUrl}/v1/seller/get/name/${name}`, {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS'
+            }
         });
         if (response.status == 204) {
             toast.error('Ops... No se pudo encontrar un vendedor con ese nombre')

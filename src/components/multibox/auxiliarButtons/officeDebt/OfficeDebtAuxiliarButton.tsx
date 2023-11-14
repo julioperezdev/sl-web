@@ -24,14 +24,14 @@ export default function OfficeDebtAuxiliarButton() {
             const response = await sendForm(dataValidated);
             if (response.ok) {
                 reset();
-                toast.success('Se ha actualizado exitosamente el Vendedor')
+                toast.success('Se ha pagado la deuda correctamente')
                 await sleep(ONE_SECOUND)
-                router.replace(`/provider/list`)
+                router.replace(`/multibox/list/PESO_OFFICE`)
             } else {
-                toast.error('Ops... No se pudo actualizar el Vendedor')
+                toast.error('Ops... No se pudo pagar la deuda')
             }
         } catch (error: any) {
-            toast.error('Ops... No se pudo actualizar el Vendedor')
+            toast.error('Ops... No se pudo pagar la deuda')
         }
     }
     );

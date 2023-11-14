@@ -18,6 +18,11 @@ export default function ListDoneOperationBase() {
     async function getOperations() {
         const response = await fetch(process.env.apiUrl + '/v1/operation/get/done', {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS'
+            }
         });
         if (response.status == 204) {
             console.log('No hay datos')

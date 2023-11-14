@@ -1,21 +1,18 @@
 'use client'
 import styles from './ListParticularPendingOperationComponent.module.css';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction,useState } from 'react';
 import { parseISO, format } from 'date-fns';
-import { BuyOperation, BuyOperationResponse, GetOperationResponseDto } from '@/models/OperationModel';
+import {GetOperationResponseDto } from '@/models/OperationModel';
 import toast, { Toaster } from 'react-hot-toast';
-import { sleep } from '@/helper/sleepInMilli/Sleep';
-import { useRouter } from 'next/navigation';
 
 
-export default function ListParticularPendingOperationComponent(props: { operationType: string, operation: GetOperationResponseDto[] | null }) {
+export default function ListParticularPendingOperationComponent(props: { operationType: string, operation: GetOperationResponseDto[] | null, setOperation: Dispatch<SetStateAction<GetOperationResponseDto[] | null>> }) {
     const [selected, setSelected] = useState<string | null>(null)
 
     function isSelected(id: string): boolean {
         return id == selected;
     }
-    const router = useRouter();
 
     async function onHadleClickExecute() {
         console.log('click', selected)
@@ -41,8 +38,9 @@ export default function ListParticularPendingOperationComponent(props: { operati
             }
             let responseValue = await response.json();
             if (responseValue === true) toast.success('Se ejecutó la operación correctamente')
-            await sleep(1000)
-            router.replace('/operation')
+
+            let operationsFiltered = props.operation!.filter(particular => particular.id != selected);
+            props.setOperation(operationsFiltered)
         } catch (error) {
             toast.error('No se pudo realizar la operación')
         }
@@ -72,8 +70,8 @@ export default function ListParticularPendingOperationComponent(props: { operati
             }
             let responseValue = await response.json();
             if (responseValue === true) toast.success('Se canceló la operación correctamente')
-            await sleep(1000)
-            router.replace('/operation')
+            let operationsFiltered = props.operation!.filter(particular => particular.id != selected);
+            props.setOperation(operationsFiltered)
         } catch (error) {
             toast.error('No se pudo realizar la operación')
         }
@@ -127,10 +125,8 @@ export default function ListParticularPendingOperationComponent(props: { operati
             </div>
             <div className={styles.buttonBase}>
                 <button><Link href='/operation'>Atrás</Link></button>
-                {/* <button><Link href={`/sellers/update/${selected}`}>Modificar</Link></button> */}
                 <button onClick={() => onHadleClickExecute()}>Ejecutar</button>
                 <button onClick={() => onHadleClickCancel()}>Cancelar</button>
-                {/* <button><Link href={`/`}>Ejecutar</Link></button> */}
             </div>
             <Toaster />
         </div>

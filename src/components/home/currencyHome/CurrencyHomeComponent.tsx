@@ -12,6 +12,11 @@ export default function CurrencyHomeComponent() {
     async function getCurrencyByName() {
         const response = await fetch(`${process.env.apiUrl}/v1/currency/get/name/usd`, {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS'
+            }
         });
         let currenciesData: Currency = await response.json();
         setCurrency(currenciesData)

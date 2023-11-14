@@ -12,6 +12,11 @@ export default function NoteHomeComponent() {
     async function getNotes() {
         const response = await fetch(process.env.apiUrl + '/v1/note/get', {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS'
+            }
         });
         let notesData: Note[] = await response.json();
         setNotes(notesData.reverse().slice(0,6));

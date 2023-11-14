@@ -62,6 +62,11 @@ export default function AddDifferenceComponent() {
     async function getClientByName(name: string) {
         const response = await fetch(`${process.env.apiUrl}/v1/client/get/name/${name}`, {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS'
+            }
         });
         if (response.status == 204) {
             toast.error('Ops... No se pudo encontrar un cliente con ese nombre')

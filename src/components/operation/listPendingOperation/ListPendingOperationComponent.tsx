@@ -18,6 +18,11 @@ export default function ListPendingOperationComponent() {
     async function getOperations() {
         const response = await fetch(process.env.apiUrl + '/v1/operation/get/pending', {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS'
+            }
         });
         if (response.status == 204) {
             console.log('No hay datos')
@@ -97,8 +102,8 @@ export default function ListPendingOperationComponent() {
 
         function showScreenByNumber(){
             // if(selected == 0) return <div className={styles.blankDiv}></div>
-            if(selected == 1) return <ListParticularPendingOperationComponent operation={buyOperations} operationType='comprar'/>
-            if(selected == 2) return <ListParticularPendingOperationComponent operation={sellOperations} operationType='vender'/>
+            if(selected == 1) return <ListParticularPendingOperationComponent operation={buyOperations} operationType='comprar' setOperation={setBuyOperations}/>
+            if(selected == 2) return <ListParticularPendingOperationComponent operation={sellOperations} operationType='vender'setOperation={setSellOperations}/>
         }
         return (
             <div className={styles.listSellerBase}>

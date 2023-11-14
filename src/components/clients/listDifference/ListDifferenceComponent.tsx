@@ -13,6 +13,11 @@ export default function ListDifferenceComponent() {
     async function getDifferenceClients() {
         const response = await fetch(process.env.apiUrl + '/v1/client/difference/get', {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS'
+            }
         });
         if(response.status == 204){
             console.log('No hay datos')

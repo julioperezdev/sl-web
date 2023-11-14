@@ -61,6 +61,11 @@ export default function UpdateDifferenceComponent(idValue: { idValue: string }) 
     async function getDifferenceClientById() {
         const response = await fetch(`${process.env.apiUrl}/v1/client/difference/get/${idValue.idValue}`, {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS'
+            }
         });
         let differenceData: DifferenceClientDtoResponse = await response.json();
         setValue('differenceType', differenceData.differenceType)

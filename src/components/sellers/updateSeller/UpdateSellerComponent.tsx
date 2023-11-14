@@ -60,6 +60,11 @@ export default function UpdateSellerComponent(idValue: { idValue: string }) {
     async function getSellerById() {
         const response = await fetch(`${process.env.apiUrl}/v1/seller/get/${idValue.idValue}`, {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS'
+            }
         });
         let sellerData: Seller = await response.json();
         setValue('phone', sellerData.phone)

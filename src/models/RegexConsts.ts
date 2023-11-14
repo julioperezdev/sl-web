@@ -1,5 +1,6 @@
 export const ONLY_LETTERS_ON_STRING = /^[A-Za-z ]+$/i
 export const ONLY_NUMBERS_ON_STRING = /^[0-9]+$/i ;
+export const ONLY_LETTERS_AND_NUMBERS_ON_STRING = /^[A-Za-z0-9 ]*$/i
 export const ONLY_NUMBER_WITH_DECIMALS_ON_STRING = /^[1-9]\d*(\.\d+)?$/ ;
 export const ONLY_NUMBER_WITH_TWO_DECIMALS_ON_STRING=/^\d+(\.\d{1,2})?$/;
 

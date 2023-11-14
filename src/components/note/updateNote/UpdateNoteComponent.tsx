@@ -59,6 +59,11 @@ export default function UpdateNoteComponent(idValue: { idValue: string }) {
     async function getNoteById() {
         const response = await fetch(`${process.env.apiUrl}/v1/note/get/${idValue.idValue}`, {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS'
+            }
         });
         let noteData: Note = await response.json();
         setValue('description', noteData.description)

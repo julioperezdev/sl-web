@@ -219,6 +219,11 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
     async function getClientByName(name: string) {
         const response = await fetch(`${process.env.apiUrl}/v1/client/get/name/${name}`, {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS'
+            }
         });
         if (response.status == 204) {
             toast.error('Ops... No se pudo encontrar un cliente con ese nombre')
@@ -236,6 +241,11 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
     async function validateIfHasDifference(clientId:string){
         const response = await fetch(`${process.env.apiUrl}/v1/client/difference/get/by/client/id/${clientId}`, {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS'
+            }
         });
         if (response.status == 302) {
             toast.loading('Cliente está registrado en diferencia de clientes',{duration:1500})
@@ -251,6 +261,11 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
     async function getLasUpdatedCurrencies() {
         const response = await fetch(`${process.env.apiUrl}/v1/currency/get/last-updated`, {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS'
+            }
         });
         let currenciesData: Currency[] = await response.json();
         let dolarHigh = currenciesData.filter(particular => particular.name === 'Dolar Grande')
@@ -294,6 +309,11 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
         let currencyToFindDoneOperationsByName = changeCurrencyName();
         const response = await fetch(`${process.env.apiUrl}/v1/operation/get/done/reserve/${currencyToFindDoneOperationsByName}`, {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS'
+            }
         });
         if (response.status == 204) {
             return

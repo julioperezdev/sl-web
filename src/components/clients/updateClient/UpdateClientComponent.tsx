@@ -58,6 +58,11 @@ export default function UpdateClientComponent(idValue: {idValue:string}) {
     async function getClientById() {
         const response = await fetch(`${process.env.apiUrl}/v1/client/get/${idValue.idValue}`,{
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS'
+            }
         });
         let clientsData: Client = await response.json();
         setValue('phone', clientsData.phone)

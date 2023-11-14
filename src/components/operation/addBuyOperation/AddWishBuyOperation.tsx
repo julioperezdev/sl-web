@@ -11,6 +11,16 @@ interface AddWishBuyOperationsProps {
 
 export default function AddWishBuyOperations(props: AddWishBuyOperationsProps) {
 
+    function shortCurrency(currencyBox: string): string {
+        let result :string;
+        if (currencyBox === 'Dolar Grande') result = 'USD'
+        else if (currencyBox === 'Dolar Chico y Cambio') result = 'USD'
+        else if (currencyBox === 'Euro') result = 'EUR'
+        else if (currencyBox === 'Real') result = 'RE'
+        return result!;
+
+    }
+
 
     return (
         <div className={styles.AddWishBuyOperationsBase}>
@@ -26,7 +36,7 @@ export default function AddWishBuyOperations(props: AddWishBuyOperationsProps) {
                                 <p>{particular.clientPhone}</p>
                                 <p>{particular.currencyMultiBox}</p>
                                 <p>$ {particular.buyPrice}</p>
-                                <p>EUR {particular.quantity}</p>
+                                <p>{shortCurrency(particular.currencyMultiBox)} {particular.quantity}</p>
                                 <p>$ {particular.totalToPay}</p>
                                 <p className={styles.x} onClick={() => props.deleteWishOperationById(particular.id)}>X</p>
                             </div>

@@ -16,6 +16,11 @@ export default function ListNoteComponent() {
     async function getNotes() {
         const response = await fetch(process.env.apiUrl + '/v1/note/get', {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS'
+            }
         });
         let notesData: Note[] = await response.json();
         setNotes(notesData)
@@ -42,6 +47,11 @@ export default function ListNoteComponent() {
     async function deleteNoteById(id:string){
         const response = await fetch(`${process.env.apiUrl}/v1/note/delete/${id}`, {
             method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS'
+            }
         });
         if(response.status == 501){
             toast.error('No se pudo borrar, intente nuevamente')
