@@ -21,7 +21,7 @@ export default function ListReserveComponent(props:ReserveOfBuyOperationProps) {
     }
     function onClickReserveOperation(){
         if(!selected){
-            toast.loading('Debes seleccionar una operacion', {duration:1500})
+            toast.loading('Debes seleccionar una operacion', { duration: 5000 })
             return;
         }
         props.setReserveOperationSelected(internalReserve)

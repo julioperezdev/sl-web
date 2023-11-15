@@ -20,14 +20,14 @@ export default function AddClientComponent() {
             const response = await sendForm(dataValidated);
             if (response.status == 201) {
                 reset();
-                toast.success('Se ha guardado exitosamente el Cliente')
+                toast.success('Se ha guardado exitosamente el Cliente', { duration: 5000 })
                 await sleep(ONE_SECOUND);
                 router.replace(`/clients`)
             } else {
-                toast.error('Ops... No se pudo guardar el Cliente')
+                toast.error('Ops... No se pudo guardar el Cliente', { duration: 5000 })
             }
         } catch (error: any) {
-            toast.error('Ops... No se pudo guardar el Cliente')
+            toast.error('Ops... No se pudo guardar el Cliente', { duration: 5000 })
         }
     }
     );
@@ -75,7 +75,9 @@ export default function AddClientComponent() {
                 <button><Link href='/clients'>Cancelar</Link></button>
                 <button onClick={onSubmit} >Guardar</button>
             </div>
-            <Toaster />
+            <Toaster 
+            position="bottom-left"
+            reverseOrder={false}/>
         </div>
     )
 }

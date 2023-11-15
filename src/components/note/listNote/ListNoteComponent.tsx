@@ -32,7 +32,7 @@ export default function ListNoteComponent() {
 
     function validateIsSelected(){
         if(selected == null){
-            toast.error('Se debe seleccionar un comentario antes de tomar una accion')
+            toast.error('Se debe seleccionar un comentario antes de tomar una accion', { duration: 5000 })
             return false;
         }
         return true;
@@ -54,7 +54,7 @@ export default function ListNoteComponent() {
             }
         });
         if(response.status == 501){
-            toast.error('No se pudo borrar, intente nuevamente')
+            toast.error('No se pudo borrar, intente nuevamente', { duration: 5000 })
             return;
         }
         let notesFiltered = notes.filter(particular => particular.id != id);
@@ -95,7 +95,9 @@ export default function ListNoteComponent() {
                 <button><Link href='/note'>Atrás</Link></button>
                 <button onClick={onClickUpdateNote}>Modificar</button>
             </div>
-            <Toaster/>
+            <Toaster 
+            position="bottom-left"
+            reverseOrder={false}/>
         </div>
     )
 }

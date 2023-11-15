@@ -41,7 +41,7 @@ export default function SellerCommissionComponent() {
 
     async function payCommissionToSeller(){
         if (selected == null) {
-            toast.error('Debes seleccionar una comisión para poder pagarla')
+            toast.error('Debes seleccionar una comisión para poder pagarla', { duration: 5000 })
             return
         }
         const response = await fetch(`${process.env.apiUrl}/v1/seller/commission/pay/${selected}`, {
@@ -57,7 +57,7 @@ export default function SellerCommissionComponent() {
             return
         }
         if(response.status == 202){
-            toast.success('Se puedo pagar exitosamente')
+            toast.success('Se puedo pagar exitosamente', { duration: 5000 })
             await sleep(1000)
             router.replace('/sellers')
         }
@@ -97,7 +97,9 @@ export default function SellerCommissionComponent() {
                 <button><Link href={`/sellers`}>Atrás</Link></button>
                 <button onClick={payCommissionToSeller}>Pagar</button>
             </div>
-            <Toaster />
+            <Toaster 
+            position="bottom-left"
+            reverseOrder={false}/>
         </div>
     )
 }

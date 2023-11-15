@@ -22,14 +22,14 @@ export default function UpdateDifferenceComponent(idValue: { idValue: string }) 
             const response = await sendForm(dataValidated);
             if (response.ok) {
                 reset();
-                toast.success('Se ha actualizado exitosamente la Diferencia de Cliente')
+                toast.success('Se ha actualizado exitosamente la Diferencia de Cliente', { duration: 5000 })
                 await sleep(ONE_SECOUND)
-                router.replace(`/clients/difference`)
+                router.replace(`/clients/difference/list`)
             } else {
-                toast.error('Ops... No se pudo actualizar a Diferencia de Cliente')
+                toast.error('Ops... No se pudo actualizar a Diferencia de Cliente', { duration: 5000 })
             }
         } catch (error: any) {
-            toast.error('Ops... No se pudo actualizar a Diferencia de Cliente')
+            toast.error('Ops... No se pudo actualizar a Diferencia de Cliente', { duration: 5000 })
         }
     }
     );
@@ -108,7 +108,9 @@ export default function UpdateDifferenceComponent(idValue: { idValue: string }) 
                 <button ><Link href='/clients/difference/list'>Cancelar</Link></button>
                 <button onClick={onClickDifference} >Guardar</button>
             </div>
-            <Toaster />
+            <Toaster 
+            position="bottom-left"
+            reverseOrder={false}/>
         </div>
     )
 }

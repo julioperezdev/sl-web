@@ -45,6 +45,20 @@
     color: #7D7D7D;
 }
 
+.formBase > div > div > div > input{
+    display: grid;
+    width: 300px;
+    font-size: 22px;
+    align-items: center;
+    background-color: rgb(232, 232, 232);
+    border: 1px solid rgb(136, 136, 136);
+    border-radius: 5px;
+    margin: 5px auto;
+    padding: 5px 20px;
+    outline: none;
+    color: #7D7D7D;
+}
+
 .formBase > div > div > p{
     display: grid;
     width: 300px;
@@ -112,4 +126,22 @@
 .formBase > div > button > a{
     text-decoration: none;  
     color: #fafafa;
+}
+
+.itemNameBase{
+    background-color:white;
+    border: 1px solid rgb(182, 182, 182);
+    border-radius: 5px;
+    width: 180px;
+    padding: 5px 20px;
+    margin: 0px 10px;
+    position: absolute;
+    right: 552px;
+    top: 340px;
+    text-align: left;
+    
+}
+
+.itemNameParticular:hover{
+    cursor: pointer;
 }

@@ -109,7 +109,10 @@ export default function MultiboxListComponent(multiboxName: { multiboxName: stri
     }
     return (
         <div className={styles.listSellerBase}>
-            <button onClick={redirectAuxPage} className={styles.auxiliarButton}>Boton auxiliar</button>
+            {isForeignCurrency() 
+            ? <></>
+            : <button onClick={redirectAuxPage} className={styles.auxiliarButton}>Boton auxiliar</button>}
+            
             <p>{titleMultibox(multiboxName.multiboxName)}</p>
             <div className={styles.listDataBase}>
                 <div className={styles.listTitles}>

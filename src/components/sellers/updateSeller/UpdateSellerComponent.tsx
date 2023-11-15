@@ -24,14 +24,14 @@ export default function UpdateSellerComponent(idValue: { idValue: string }) {
             const response = await sendForm(dataValidated);
             if (response.ok) {
                 reset();
-                toast.success('Se ha actualizado exitosamente el Vendedor')
+                toast.success('Se ha actualizado exitosamente el Vendedor', { duration: 5000 })
                 await sleep(ONE_SECOUND)
-                router.replace(`/sellers`)
+                router.replace(`/sellers/list`)
             } else {
-                toast.error('Ops... No se pudo actualizar el Vendedor')
+                toast.error('Ops... No se pudo actualizar el Vendedor', { duration: 5000 })
             }
         } catch (error: any) {
-            toast.error('Ops... No se pudo actualizar el Vendedor')
+            toast.error('Ops... No se pudo actualizar el Vendedor', { duration: 5000 })
         }
     }
     );
@@ -95,7 +95,9 @@ export default function UpdateSellerComponent(idValue: { idValue: string }) {
                 <button><Link href='/sellers/list'>Cancelar</Link></button>
                 <button onClick={onClickDifference} >Guardar</button>
             </div>
-            <Toaster />
+            <Toaster 
+            position="bottom-left"
+            reverseOrder={false}/>
         </form>
     )
 }

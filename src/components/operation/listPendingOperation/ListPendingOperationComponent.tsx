@@ -42,7 +42,7 @@ export default function ListPendingOperationComponent() {
     async function onHadleClickExecute() {
         console.log('click', selected)
         if (selected == null) {
-            toast.error('Debes seleccionar una operación para poder ejecutarla')
+            toast.error('Debes seleccionar una operación para poder ejecutarla', { duration: 5000 })
             return
         }
         try {
@@ -62,16 +62,16 @@ export default function ListPendingOperationComponent() {
                 return
             }
             let responseValue = await response.json();
-            if (responseValue === true) toast.success('Se pudo ejecutar la operación')
+            if (responseValue === true) toast.success('Se pudo ejecutar la operación', { duration: 5000 })
         } catch (error) {
-            toast.error('No se pudo realizar la operación')
+            toast.error('No se pudo realizar la operación', { duration: 5000 })
         }
     }
 
         async function onHadleClickCancel() {
             console.log('click', selected)
             if (selected == null) {
-                toast.error('Debes seleccionar una operación para poder ejecutarla')
+                toast.error('Debes seleccionar una operación para poder ejecutarla', { duration: 5000 })
                 return
             }
             try {
@@ -91,9 +91,9 @@ export default function ListPendingOperationComponent() {
                     return
                 }
                 let responseValue = await response.json();
-                if (responseValue === true) toast.success('Se pudo ejecutar la operación')
+                if (responseValue === true) toast.success('Se pudo ejecutar la operación', { duration: 5000 })
             } catch (error) {
-                toast.error('No se pudo realizar la operación')
+                toast.error('No se pudo realizar la operación', { duration: 5000 })
             }
 
 

@@ -8,7 +8,6 @@ import { useRouter } from 'next/navigation';
 import { ONE_SECOUND, sleep } from '@/helper/sleepInMilli/Sleep';
 import { AddNoteRequest, NoteRequestForm } from '@/models/NoteModel';
 import { format } from 'date-fns'
-import { ONLY_LETTERS_AND_NUMBERS_ON_STRING } from '@/models/RegexConsts';
 
 export default function AddNoteComponent() {
 
@@ -22,14 +21,14 @@ export default function AddNoteComponent() {
             const response = await sendForm(dataValidated);
             if (response.status == 201) {
                 reset();
-                toast.success('Se ha guardado exitosamente el Recordatorio')
+                toast.success('Se ha guardado exitosamente el Recordatorio', { duration: 5000 })
                 await sleep(ONE_SECOUND);
                 router.replace(`/note`)
             } else {
-                toast.error('Ops... No se pudo guardar el Recordatorio')
+                toast.error('Ops... No se pudo guardar el Recordatorio', { duration: 5000 })
             }
         } catch (error: any) {
-            toast.error('Ops... No se pudo guardar el Recordatorio')
+            toast.error('Ops... No se pudo guardar el Recordatorio', { duration: 5000 })
         }
     }
     );
@@ -65,16 +64,17 @@ export default function AddNoteComponent() {
                     <option value="#ffe3e3">Rojo</option>
                     <option value="#fcfcde">Amarillo</option>
                 </select>
-                <textarea placeholder='Detalle' className={styles.description} {...register("description", { required: true, maxLength: 150, pattern: ONLY_LETTERS_AND_NUMBERS_ON_STRING })} />
+                <textarea placeholder='Detalle' className={styles.description} {...register("description", { required: true, maxLength: 150 })} />
                 {errors.description && errors.description.type === "required" && (<span>La descripción es obligatoria</span>)}
                 {errors.description && errors.description.type === "maxLength" && (<span>Máximo de 150 dígitos</span>)}
-                {errors.description && errors.description.type === "pattern" && (<span>Solo acepta letras, números y espacios</span>)}
             </div>
             <div>
                 <button><Link href='/note'>Atras</Link></button>
                 <button onClick={onSubmit} >Guardar</button>
             </div>
-            <Toaster />
+            <Toaster 
+            position="bottom-left"
+            reverseOrder={false}/>
         </div>
     )
 }

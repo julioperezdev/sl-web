@@ -22,14 +22,14 @@ export default function UpdateProviderComponent(idValue: { idValue: string }) {
             const response = await sendForm(dataValidated);
             if (response.ok) {
                 reset();
-                toast.success('Se ha actualizado exitosamente el Vendedor')
+                toast.success('Se ha actualizado exitosamente el Vendedor', { duration: 5000 })
                 await sleep(ONE_SECOUND)
                 router.replace(`/provider/list`)
             } else {
-                toast.error('Ops... No se pudo actualizar el Vendedor')
+                toast.error('Ops... No se pudo actualizar el Vendedor', { duration: 5000 })
             }
         } catch (error: any) {
-            toast.error('Ops... No se pudo actualizar el Vendedor')
+            toast.error('Ops... No se pudo actualizar el Vendedor', { duration: 5000 })
         }
     }
     );
@@ -89,10 +89,12 @@ export default function UpdateProviderComponent(idValue: { idValue: string }) {
                 {errors.address && errors.address.type === "maxLength" && (<span>Máximo de 50 dígitos</span>)}
             </div>
             <div>
-                <button><Link href='/provider'>Cancelar</Link></button>
+                <button><Link href='/provider/list'>Cancelar</Link></button>
                 <button id="formSubmit" type="submit" >Guardar</button>
             </div>
-            <Toaster />
+            <Toaster 
+            position="bottom-left"
+            reverseOrder={false}/>
         </form>
     )
 }

@@ -24,14 +24,14 @@ export default function OfficeDebtAuxiliarButton() {
             const response = await sendForm(dataValidated);
             if (response.ok) {
                 reset();
-                toast.success('Se ha pagado la deuda correctamente')
+                toast.success('Se ha pagado la deuda correctamente', { duration: 5000 })
                 await sleep(ONE_SECOUND)
                 router.replace(`/multibox/list/PESO_OFFICE`)
             } else {
-                toast.error('Ops... No se pudo pagar la deuda')
+                toast.error('Ops... No se pudo pagar la deuda', { duration: 5000 })
             }
         } catch (error: any) {
-            toast.error('Ops... No se pudo pagar la deuda')
+            toast.error('Ops... No se pudo pagar la deuda', { duration: 5000 })
         }
     }
     );
@@ -89,7 +89,9 @@ export default function OfficeDebtAuxiliarButton() {
                 <button><Link href='/multibox'>Cancelar</Link></button>
                 <button id="formSubmit" type="submit" >Ejecutar</button>
             </div>
-            <Toaster />
+            <Toaster 
+            position="bottom-left"
+            reverseOrder={false}/>
         </form>
     )
 }

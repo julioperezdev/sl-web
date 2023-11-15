@@ -51,9 +51,7 @@ export default function AddSellerOperation(props:AddSellerOperationProps) {
     }
     const onChangeSellerName = (event: any) => {
         if (props.sellerSelected != null) {
-            toast.loading('Haz cambiado al Vendedor, debes confirmar uno nuevo',{
-                duration: 2500,
-              })
+            toast.loading('Haz cambiado al Vendedor, debes confirmar uno nuevo', { duration: 5000 })
             props.setSellerSelected(null)
         }
         setSellerName(event.target.value);
@@ -70,7 +68,7 @@ export default function AddSellerOperation(props:AddSellerOperationProps) {
             }
         });
         if (response.status == 204) {
-            toast.error("No se pudo obtener la lista de nombres de clientes")
+            toast.error("No se pudo obtener la lista de nombres de clientes", { duration: 5000 })
             return
         } else if (response.status == 302) {
             const sellersNames = await response.json();
@@ -84,7 +82,7 @@ export default function AddSellerOperation(props:AddSellerOperationProps) {
 
     function closeSellerAssigner(){
         if(props.sellerSelected == null){
-            toast.error('Se debe seleccionar el Vendedor')
+            toast.error('Se debe seleccionar el Vendedor', { duration: 5000 })
             return
         }
         props.setPanelScreen(1)
@@ -102,7 +100,7 @@ export default function AddSellerOperation(props:AddSellerOperationProps) {
             props.setSellerProfit(data.priceByPeso * props.quantityToSell)
             setCalculated(true)
         } catch (error: any) {
-            toast.error('Ops... No se pudo actualizar el Vendedor')
+            toast.error('Ops... No se pudo actualizar el Vendedor', { duration: 5000 })
         }
     }
     );
@@ -118,11 +116,11 @@ export default function AddSellerOperation(props:AddSellerOperationProps) {
             }
         });
         if (response.status == 204) {
-            toast.error('Ops... No se pudo encontrar un vendedor con ese nombre')
+            toast.error('Ops... No se pudo encontrar un vendedor con ese nombre', { duration: 5000 })
             props.setSellerSelected(null)
             return
         } else if (response.status == 302) {
-            toast.success('Se encontró el vendedor, falta completar los otros datos')
+            toast.success('Se encontró el vendedor, falta completar los otros datos', { duration: 5000 })
             setShow(false)
         }
         let sellerData: Seller = await response.json();
@@ -173,7 +171,9 @@ export default function AddSellerOperation(props:AddSellerOperationProps) {
                 ? <button onClick={onClickProvider}>Calcular</button> 
                 : <button onClick={() =>closeSellerAssigner()}>Asignar</button>}
             </div>
-            <Toaster/>
+            <Toaster 
+            position="bottom-left"
+            reverseOrder={false}/>
         </div>
     )
 }

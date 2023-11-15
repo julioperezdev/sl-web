@@ -71,7 +71,7 @@ export default function AddBuyOperationComponent() {
             }
         });
         if (response.status == 204) {
-            toast.error("No se pudo obtener la lista de nombres de clientes")
+            toast.error("No se pudo obtener la lista de nombres de clientes", { duration: 5000 })
             return
         } else if (response.status == 302) {
             const clientsNames = await response.json();
@@ -89,7 +89,7 @@ export default function AddBuyOperationComponent() {
     const onClickContinueBuyOperation = handleSubmit(async (data) => {
         try {
             if (clientSelected == null) {
-                toast.error('Se debe seleccionar un Cliente para realizar la operacion')
+                toast.error('Se debe seleccionar un Cliente para realizar la operacion', { duration: 5000 })
                 return;
             }
             const dataBuilded = converFormDataToContinue(data);
@@ -102,7 +102,7 @@ export default function AddBuyOperationComponent() {
             //setIsOfficeCheck(false)
 
         } catch (error: any) {
-            toast.error('Ops... No se pudo realizar la operacion de compra')
+            toast.error('Ops... No se pudo realizar la operacion de compra', { duration: 5000 })
         }
     }
     );
@@ -110,7 +110,7 @@ export default function AddBuyOperationComponent() {
     const onClickBuyOperation = handleSubmit(async (data) => {
         try {
             if (clientSelected == null) {
-                toast.error('Se debe seleccionar un Cliente para realizar la operacion')
+                toast.error('Se debe seleccionar un Cliente para realizar la operacion', { duration: 5000 })
                 return;
             }
             const dataValidated = converFormDataToContinue(data);
@@ -120,15 +120,15 @@ export default function AddBuyOperationComponent() {
             const response = await sendForm(dataConverted);
             if (response.status == 201) {
                 reset();
-                toast.success('Se ha guardado exitosamente la diferencia del cliente')
+                toast.success('Se ha guardado exitosamente la diferencia del cliente', { duration: 5000 })
                 await sleep(ONE_SECOUND)
                 router.replace(`/operation`)
             } else {
-                toast.error('Ops... No se pudo realizar la operacion de compra')
+                toast.error('Ops... No se pudo realizar la operacion de compra', { duration: 5000 })
             }
         } catch (error: any) {
             console.log(error)
-            toast.error('Ops... No se pudo realizar la operacion de compra')
+            toast.error('Ops... No se pudo realizar la operacion de compra', { duration: 5000 })
         }
     }
     );
@@ -138,10 +138,10 @@ export default function AddBuyOperationComponent() {
         let availableCurrencyName: string[] = ['Dolar Grande', 'Dolar Chico y Cambio', 'Euro', 'Real'];
         let resultOfFilter = availableCurrencyName.filter(particular => particular == currencyNameToConvert);
         if (resultOfFilter.length != 1) {
-            toast.error("no se ha colocado un Tipo de Divisa habilitada")
+            toast.error("no se ha colocado un Tipo de Divisa habilitada", { duration: 5000 })
             throw new Error("Currency Name does not exist as available name");
         } else if (resultOfFilter.length > 1) {
-            toast.error("no se pueden usar dos Tipos de Divisas a la vez")
+            toast.error("no se pueden usar dos Tipos de Divisas a la vez", { duration: 5000 })
             throw new Error("Currency Name only can be one");
         }
         let resultOfFiltered: string = resultOfFilter[0];
@@ -210,11 +210,11 @@ export default function AddBuyOperationComponent() {
             }
         });
         if (response.status == 204) {
-            toast.error('Ops... No se pudo encontrar un cliente con ese nombre')
+            toast.error('Ops... No se pudo encontrar un cliente con ese nombre', { duration: 5000 })
             setClientSelected(null)
             return
         } else if (response.status == 302) {
-            toast.success('Se encontró el cliente, falta completar los otros datos')
+            toast.success('Se encontró el cliente, falta completar los otros datos', { duration: 5000 })
             setShow(false)
         }
         let clientData: any = await response.json();
@@ -233,7 +233,7 @@ export default function AddBuyOperationComponent() {
         });
         console.log(response)
         if (response.status == 302) {
-            toast.loading('Cliente está registrado en diferencia de clientes', { duration: 1500 })
+            toast.loading('Cliente está registrado en diferencia de clientes', { duration: 5000 })
         }
     }
 
@@ -283,20 +283,20 @@ export default function AddBuyOperationComponent() {
 
     function validateIfFormIsComplete(data: BuyOperationForm) {
         if (clientSelected == null) {
-            toast.error('Se debe seleccionar un Cliente para realizar la operacion')
+            toast.error('Se debe seleccionar un Cliente para realizar la operacion', { duration: 5000 })
             return false;
         }
         if (data.buyPriceForm! <= 0) {
-            toast.error('Se debe seleccionar un precio de compra')
+            toast.error('Se debe seleccionar un precio de compra', { duration: 5000 })
             return false;
         }
         if (data.quantity! <= 0) {
-            toast.error('Debes colocar una cantidad')
+            toast.error('Debes colocar una cantidad', { duration: 5000 })
             return false;
         }
         if (isDolarSmall()) {
             if (data.percent! <= 0) {
-                toast.error('Se debe seleccionar un porcentaje')
+                toast.error('Se debe seleccionar un porcentaje', { duration: 5000 })
                 return false;
             }
         }
@@ -316,7 +316,7 @@ export default function AddBuyOperationComponent() {
             setTotalToPay(result);
             setCalculated(true)
         } catch (error: any) {
-            toast.error('Ops... Hubo un error al calcular ')
+            toast.error('Ops... Hubo un error al calcular ', { duration: 5000 })
         }
     }
     );
@@ -432,7 +432,9 @@ export default function AddBuyOperationComponent() {
                             <button onClick={onClickContinueBuyOperation} >Continuar</button>
                         </>}
                 </div>
-                <Toaster />
+                <Toaster 
+                position="bottom-left"
+                reverseOrder={false}/>
             </div>
             <AddWishBuyOperations
                 listAddBuyOperation={listOperationsContinue}

@@ -22,14 +22,14 @@ export default function AddSellerComponent() {
             const response = await sendForm(dataValidated);
             if (response.status == 201) {
                 reset();
-                toast.success('Se ha guardado exitosamente el Vendedor')
+                toast.success('Se ha guardado exitosamente el Vendedor', { duration: 5000 })
                 await sleep(ONE_SECOUND);
                 router.replace(`/sellers`)
             } else {
-                toast.error('Ops... No se pudo guardar el Vendedor')
+                toast.error('Ops... No se pudo guardar el Vendedor', { duration: 5000 })
             }
         } catch (error: any) {
-            toast.error('Ops... No se pudo guardar el Vendedor')
+            toast.error('Ops... No se pudo guardar el Vendedor', { duration: 5000 })
         }
     }
     );
@@ -72,7 +72,9 @@ export default function AddSellerComponent() {
                 <button><Link href='/sellers'>Cancelar</Link></button>
                 <button onClick={onSubmit}>Guardar</button>
             </div>
-            <Toaster />
+            <Toaster 
+            position="bottom-left"
+            reverseOrder={false}/>
         </div>
     )
 }

@@ -24,14 +24,14 @@ export default function UpdateNoteComponent(idValue: { idValue: string }) {
             const response = await sendForm(dataValidated);
             if (response.ok) {
                 reset();
-                toast.success('Se ha actualizado exitosamente el Recordatorio')
+                toast.success('Se ha actualizado exitosamente el Recordatorio', { duration: 5000 })
                 await sleep(ONE_SECOUND);
                 router.replace(`/note/list`)
             } else {
-                toast.error('Ops... No se pudo actualizar el Recordatorio')
+                toast.error('Ops... No se pudo actualizar el Recordatorio', { duration: 5000 })
             }
         } catch (error: any) {
-            toast.error('Ops... No se pudo actualizar el Recordatorio')
+            toast.error('Ops... No se pudo actualizar el Recordatorio', { duration: 5000 })
         }
     }
     );
@@ -97,7 +97,9 @@ export default function UpdateNoteComponent(idValue: { idValue: string }) {
                 <button><Link href='/note/list'>Atras</Link></button>
                 <button onClick={onSubmit}>Guardar</button>
             </div>
-            <Toaster />
+            <Toaster 
+            position="bottom-left"
+            reverseOrder={false}/>
         </div>
     )
 }

@@ -80,7 +80,7 @@ export default function Header() {
         }, {
             url: '/multibox/balance',//cambiar la URL cuando exista la iformacion
             image: '/images/balance.png',
-            title: 'Ganancias',
+            title: 'Balance',
             description: 'Ver caja de Balance, asignación de ganancías a Caja 1 o Caja 2'
         }, {
             url: '/multibox/seller-box/1',//cambiar la URL cuando exista la iformacion

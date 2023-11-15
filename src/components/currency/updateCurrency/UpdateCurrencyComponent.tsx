@@ -22,21 +22,21 @@ export default function UpdateCurrencyComponent() {
         try {
             const validation = validateFormData(data);
             if(!validation){
-                toast.error('Para actualizar se debe modificar la información')
+                toast.error('Para actualizar se debe modificar la información', { duration: 5000 })
                 return;
             }
             const dataValidated = converFormData(data);
             const response = await sendForm(dataValidated);
             if (response.ok) {
                 reset();
-                toast.success('Se ha actualizado exitosamente la Diferencia de Cliente')
+                toast.success('Se ha actualizado exitosamente la Diferencia de Cliente', { duration: 5000 })
                 await sleep(ONE_SECOUND)
                 router.replace(`/currency`)
             } else {
-                toast.error('Ops... No se pudo actualizar a Diferencia de Cliente')
+                toast.error('Ops... No se pudo actualizar a Diferencia de Cliente', { duration: 5000 })
             }
         } catch (error: any) {
-            toast.error('Ops... No se pudo actualizar a Diferencia de Cliente')
+            toast.error('Ops... No se pudo actualizar a Diferencia de Cliente', { duration: 5000 })
         }
     }
     );
@@ -126,7 +126,9 @@ export default function UpdateCurrencyComponent() {
                 <button><Link href='/currency'>Cancelar</Link></button>
                 <button onClick={onClickDifference}>Guardar</button>
             </div>
-            <Toaster />
+            <Toaster 
+            position="bottom-left"
+            reverseOrder={false}/>
         </form>
     )
 }

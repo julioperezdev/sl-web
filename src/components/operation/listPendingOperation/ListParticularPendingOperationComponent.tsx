@@ -17,7 +17,7 @@ export default function ListParticularPendingOperationComponent(props: { operati
     async function onHadleClickExecute() {
         console.log('click', selected)
         if (selected == null) {
-            toast.error('Debes seleccionar una operación para poder ejecutarla')
+            toast.error('Debes seleccionar una operación para poder ejecutarla', { duration: 5000 })
             return
         }
         try {
@@ -37,19 +37,19 @@ export default function ListParticularPendingOperationComponent(props: { operati
                 return
             }
             let responseValue = await response.json();
-            if (responseValue === true) toast.success('Se ejecutó la operación correctamente')
+            if (responseValue === true) toast.success('Se ejecutó la operación correctamente', { duration: 5000 })
 
             let operationsFiltered = props.operation!.filter(particular => particular.id != selected);
             props.setOperation(operationsFiltered)
         } catch (error) {
-            toast.error('No se pudo realizar la operación')
+            toast.error('No se pudo realizar la operación', { duration: 5000 })
         }
     }
 
     async function onHadleClickCancel() {
         console.log('click', selected)
         if (selected == null) {
-            toast.error('Debes seleccionar una operación para poder ejecutarla')
+            toast.error('Debes seleccionar una operación para poder ejecutarla', { duration: 5000 })
             return
         }
         try {
@@ -69,11 +69,11 @@ export default function ListParticularPendingOperationComponent(props: { operati
                 return
             }
             let responseValue = await response.json();
-            if (responseValue === true) toast.success('Se canceló la operación correctamente')
+            if (responseValue === true) toast.success('Se canceló la operación correctamente', { duration: 5000 })
             let operationsFiltered = props.operation!.filter(particular => particular.id != selected);
             props.setOperation(operationsFiltered)
         } catch (error) {
-            toast.error('No se pudo realizar la operación')
+            toast.error('No se pudo realizar la operación', { duration: 5000 })
         }
 
 
@@ -128,7 +128,9 @@ export default function ListParticularPendingOperationComponent(props: { operati
                 <button onClick={() => onHadleClickExecute()}>Ejecutar</button>
                 <button onClick={() => onHadleClickCancel()}>Cancelar</button>
             </div>
-            <Toaster />
+            <Toaster 
+            position="bottom-left"
+            reverseOrder={false}/>
         </div>
     )
 }

@@ -70,9 +70,7 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
 
     const onChangeClientName = (event: any) => {
         if (props.clientSelected != null) {
-            toast.loading('Haz cambiado del Cliente, debes confirmar uno nuevo', {
-                duration: 2500,
-            })
+            toast.loading('Haz cambiado del Cliente, debes confirmar uno nuevo', { duration: 5000 })
             props.setClientSelected(null)
         }
         setClientName(event.target.value);
@@ -89,7 +87,7 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
             }
         });
         if (response.status == 204) {
-            toast.error("No se pudo obtener la lista de nombres de clientes")
+            toast.error("No se pudo obtener la lista de nombres de clientes", { duration: 5000 })
             return
         } else if (response.status == 302) {
             const clientsNames = await response.json();
@@ -103,15 +101,15 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
 
     function assignFunctionToTrue() {
         if (props.reserveOperationSelected == null) {
-            toast.error('Se debe seleccionar una reserva para asignar un vendedor', { duration: 1500 })
+            toast.error('Se debe seleccionar una reserva para asignar un vendedor', { duration: 5000 })
             return false;
         }
         if (props.quantityToSell <= 0) {
-            toast.loading('Debes colocar la cantidad a vender primero', { duration: 1500 })
+            toast.loading('Debes colocar la cantidad a vender primero', { duration: 5000 })
             return;
         }
         if (props.reserveOperationSelected.reserve < props.quantityToSell) {
-            toast.error('Debes colocar una cantidad menor a la reserva seleccionada')
+            toast.error('Debes colocar una cantidad menor a la reserva seleccionada', { duration: 5000 })
             return false;
         }
         props.setPanelScreen(3)
@@ -124,19 +122,19 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
 
     function validateIfFormIsComplete(data: SellOperationForm) {
         if (props.clientSelected == null) {
-            toast.error('Se debe seleccionar un Cliente para realizar la operacion')
+            toast.error('Se debe seleccionar un Cliente para realizar la operacion', { duration: 5000 })
             return false;
         }
         if (props.reserveOperationSelected == null) {
-            toast.error('Se debe seleccionar una reserva para realizar la operacion')
+            toast.error('Se debe seleccionar una reserva para realizar la operacion', { duration: 5000 })
             return false;
         }
         if (props.reserveOperationSelected.reserve < data.quantity) {
-            toast.error('Debes colocar una cantidad menor a la reserva seleccionada')
+            toast.error('Debes colocar una cantidad menor a la reserva seleccionada', { duration: 5000 })
             return false;
         }
         if (props.sellerProfit == 0 && props.sellerSelected != null) {
-            toast.error('Hay un error al asignar los datos del vendedor')
+            toast.error('Hay un error al asignar los datos del vendedor', { duration: 5000 })
             return false;
         }
         return true;
@@ -154,14 +152,14 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
             const response = await sendForm(dataValidated);
             if (response.status == 201) {
                 reset();
-                toast.success('Se ha guardado exitosamente la operación, queda en pendiente')
+                toast.success('Se ha guardado exitosamente la operación, queda en pendiente', { duration: 5000 })
                 await sleep(ONE_SECOUND)
                 router.replace(`/operation`)
             } else {
-                toast.error('Ops... No se pudo realizar la operacion de venta')
+                toast.error('Ops... No se pudo realizar la operacion de venta', { duration: 5000 })
             }
         } catch (error: any) {
-            toast.error('Ops... No se pudo realizar la operacion de venta')
+            toast.error('Ops... No se pudo realizar la operacion de venta', { duration: 5000 })
         }
     }
     );
@@ -190,10 +188,10 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
         let availableCurrencyName: string[] = ['Dolar Grande', 'Dolar Chico y Cambio', 'Euro', 'Real'];
         let resultOfFilter = availableCurrencyName.filter(particular => particular == currencyNameToConvert);
         if (resultOfFilter.length != 1) {
-            toast.error("no se ha colocado un Tipo de Divisa habilitada")
+            toast.error("no se ha colocado un Tipo de Divisa habilitada", { duration: 5000 })
             throw new Error("Currency Name does not exist as available name");
         } else if (resultOfFilter.length > 1) {
-            toast.error("no se pueden usar dos Tipos de Divisas a la vez")
+            toast.error("no se pueden usar dos Tipos de Divisas a la vez", { duration: 5000 })
             throw new Error("Currency Name only can be one");
         }
         let resultOfFiltered: string = resultOfFilter[0];
@@ -226,11 +224,11 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
             }
         });
         if (response.status == 204) {
-            toast.error('Ops... No se pudo encontrar un cliente con ese nombre')
+            toast.error('Ops... No se pudo encontrar un cliente con ese nombre', { duration: 5000 })
             props.setClientSelected(null)
             return
         } else if (response.status == 302) {
-            toast.success('Se encontró el cliente, falta completar los otros datos')
+            toast.success('Se encontró el cliente, falta completar los otros datos', { duration: 5000 })
             setShow(false)
         }
         let clientData: any = await response.json();
@@ -248,7 +246,7 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
             }
         });
         if (response.status == 302) {
-            toast.loading('Cliente está registrado en diferencia de clientes',{duration:1500})
+            toast.loading('Cliente está registrado en diferencia de clientes', { duration: 5000 })
         }
     }
 
@@ -338,7 +336,7 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
         if (props.sellerSelected != null) {
             props.setSellerSelected(null)
             props.setSellerProfit(0)
-            toast.loading('Se debe volver a asignar al vendedor por cambiar la cantidad', { duration: 1500 })
+            toast.loading('Se debe volver a asignar al vendedor por cambiar la cantidad', { duration: 5000 })
         }
         if (calculated) {
             setCalculated(false)
@@ -369,7 +367,7 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
             setProfitIncludingSeller(totalToPayData - totalBuyPrice - props.sellerProfit);
             setCalculated(true)
         } catch (error: any) {
-            toast.error('Ops... No se pudo actualizar el Vendedor')
+            toast.error('Ops... No se pudo actualizar el Vendedor', { duration: 5000 })
         }
     }
     );
@@ -488,7 +486,9 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
                             <button onClick={onClickBuyOperation} >Continuar</button>
                         </>}
                 </div>
-                <Toaster />
+                <Toaster 
+                position="bottom-left"
+                reverseOrder={false}/>
             </div>
         </div>
     )
