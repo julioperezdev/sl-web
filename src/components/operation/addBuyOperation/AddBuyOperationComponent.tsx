@@ -99,6 +99,7 @@ export default function AddBuyOperationComponent() {
             setValue('buyPriceForm', undefined)
             setValue('quantity', undefined)
             setClientSelected(null)
+            setCalculated(false)
             //setIsOfficeCheck(false)
 
         } catch (error: any) {
@@ -107,6 +108,23 @@ export default function AddBuyOperationComponent() {
     }
     );
 
+    async function onClickExecuteOnlyWishList(){
+        try{
+            let dataConverted = converFormData(listOperationsContinue);
+            const response = await sendForm(dataConverted);
+            if (response.status == 201) {
+                reset();
+                toast.success('Se ha guardado exitosamente la diferencia del cliente', { duration: 5000 })
+                await sleep(ONE_SECOUND)
+                router.replace(`/operation`)
+            } else {
+                toast.error('Ops... No se pudo realizar la operacion de compra', { duration: 5000 })
+            }
+        } catch (error: any) {
+            console.log(error)
+            toast.error('Ops... No se pudo realizar la operacion de compra', { duration: 5000 })
+        }
+    }
     const onClickBuyOperation = handleSubmit(async (data) => {
         try {
             if (clientSelected == null) {
@@ -286,12 +304,12 @@ export default function AddBuyOperationComponent() {
             toast.error('Se debe seleccionar un Cliente para realizar la operacion', { duration: 5000 })
             return false;
         }
-        if (data.buyPriceForm! <= 0) {
-            toast.error('Se debe seleccionar un precio de compra', { duration: 5000 })
-            return false;
-        }
         if (data.quantity! <= 0) {
             toast.error('Debes colocar una cantidad', { duration: 5000 })
+            return false;
+        }
+        if (data.buyPriceForm! <= 0) {
+            toast.error('Se debe seleccionar un precio de compra', { duration: 5000 })
             return false;
         }
         if (isDolarSmall()) {
@@ -390,23 +408,23 @@ export default function AddBuyOperationComponent() {
                     <div className={styles.operationNumberData}>
                         <div className={styles.inputsPrices}>
                             <div>
-                                <p className={styles.descriptionOver}>Precio Compra</p>
-                                <input type="text" {...register("buyPriceForm", { required: true, pattern: ONLY_NUMBER_WITH_TWO_DECIMALS_ON_STRING, maxLength: 40 })} onChange={onChangeToUnCalculate} />
-                                {errors.buyPriceForm && (errors.buyPriceForm.type === "pattern" || errors.buyPriceForm.type === "required") && (<span>Es obligatorio y solo son números</span>)}
-                                {errors.buyPriceForm && errors.buyPriceForm.type === "maxLength" && (<span>Máximo de 40 dígitos</span>)}
-                            </div>
-                            <div>
                                 <p className={styles.descriptionOver}>Cantidad a Comprar</p>
-                                <input type="text" {...register("quantity", { required: true, pattern: ONLY_NUMBER_WITH_TWO_DECIMALS_ON_STRING, maxLength: 40 })} onChange={onChangeToUnCalculate} />
+                                <input type="text" {...register("quantity", { required: false, pattern: ONLY_NUMBER_WITH_TWO_DECIMALS_ON_STRING, maxLength: 40 })} onChange={onChangeToUnCalculate} />
                                 {errors.quantity && (errors.quantity.type === "pattern" || errors.quantity.type === "required") && (<span>Es obligatorio y solo son números</span>)}
                                 {errors.quantity && errors.quantity.type === "maxLength" && (<span>Máximo de 40 dígitos</span>)}
+                            </div>
+                            <div>
+                                <p className={styles.descriptionOver}>Precio Compra</p>
+                                <input type="text" {...register("buyPriceForm", { required: false, pattern: ONLY_NUMBER_WITH_TWO_DECIMALS_ON_STRING, maxLength: 40 })} onChange={onChangeToUnCalculate} />
+                                {errors.buyPriceForm && (errors.buyPriceForm.type === "pattern" || errors.buyPriceForm.type === "required") && (<span>Es obligatorio y solo son números</span>)}
+                                {errors.buyPriceForm && errors.buyPriceForm.type === "maxLength" && (<span>Máximo de 40 dígitos</span>)}
                             </div>
                         </div>
                         {isDolarSmall()
                             ? <div className={styles.inputsPrices}>
                                 <div>
                                     <p className={styles.descriptionOver}>Ingrese porcentaje</p>
-                                    <input type="text" {...register("percent", { required: true, pattern: ONLY_NUMBER_WITH_TWO_DECIMALS_ON_STRING, maxLength: 40 })} onChange={onChangeToUnCalculate} />
+                                    <input type="text" {...register("percent", { required: false, pattern: ONLY_NUMBER_WITH_TWO_DECIMALS_ON_STRING, maxLength: 40 })} onChange={onChangeToUnCalculate} />
                                     {errors.percent && (errors.percent!.type === "pattern" || errors.percent!.type === "required") && (<span>Es obligatorio y solo son números con maximo 2 decimales</span>)}
                                     {errors.percent && errors.percent!.type === "maxLength" && (<span>Máximo de 40 dígitos</span>)}
                                 </div>
@@ -438,7 +456,8 @@ export default function AddBuyOperationComponent() {
             </div>
             <AddWishBuyOperations
                 listAddBuyOperation={listOperationsContinue}
-                deleteWishOperationById={deleteWishOperationById} />
+                deleteWishOperationById={deleteWishOperationById}
+                onClickExecuteOnlyWishList={onClickExecuteOnlyWishList} />
         </div>
     )
 }

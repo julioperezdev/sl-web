@@ -1,10 +1,8 @@
-.AddWishBuyOperationsBase {}
-
 .AddWishBuyOperationsExisting {
     height: 100px;
     background-color: #29BD6D1A;
     margin-top: 50px;
-    padding-bottom: 150px;
+    padding-bottom: 250px;
 }
 
 .AddWishBuyOperationsExisting>h3 {
@@ -31,4 +29,29 @@
 
 .x{
     color:#FB000080;
+}
+
+.totalToPayStyle{
+    text-align: center;
+    font-size: 30px;
+    padding-top: 30px;
+    font-weight: 600;
+    color: #FB000080;
+}
+.buttonBase {
+    display: grid;
+}
+.buttonBase > button{
+    padding: 10px;
+    width: 150px;
+    height: 40px;
+    margin: 5px auto;
+    margin-top: 40px;
+    border-radius: 5px;
+    background-color: rgba(0, 140, 255, 1);
+    color: #fafafa;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    border: 0px;    
 }

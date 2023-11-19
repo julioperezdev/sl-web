@@ -62,6 +62,7 @@ export default function SellerBoxListComponent(props: { name: string }) {
         <div className={styles.listSellerBase}>
             <button onClick={redirectAuxPage} className={styles.auxiliarButton}>Boton auxiliar</button>
             <p> Caja {props.name}</p>
+            <p className={styles.boxQuantity}>Saldo: {boxList.length > 0 ? boxList[0].quantity : 0}</p>
             <div className={styles.listDataBase}>
                 <div className={styles.listTitles}>
                     <p>Fecha</p>

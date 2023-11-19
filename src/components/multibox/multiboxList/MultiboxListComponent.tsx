@@ -114,6 +114,7 @@ export default function MultiboxListComponent(multiboxName: { multiboxName: stri
             : <button onClick={redirectAuxPage} className={styles.auxiliarButton}>Boton auxiliar</button>}
             
             <p>{titleMultibox(multiboxName.multiboxName)}</p>
+            <p className={styles.boxQuantity}>Saldo: {boxList.length > 0 ? boxList[0].quantity : 0}</p>
             <div className={styles.listDataBase}>
                 <div className={styles.listTitles}>
                     <p>Fecha</p>

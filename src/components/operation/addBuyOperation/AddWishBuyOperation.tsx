@@ -3,10 +3,12 @@ import { format } from "date-fns";
 import styles from "./AddWishBuyOperation.module.css"
 
 import { BuyOperationContinue } from "@/models/OperationModel";
+import { BaseSyntheticEvent } from "react";
 
 interface AddWishBuyOperationsProps {
     listAddBuyOperation: BuyOperationContinue[];
     deleteWishOperationById: (idToDelete:string) => void;
+    onClickExecuteOnlyWishList:() => Promise<void>;
 }
 
 export default function AddWishBuyOperations(props: AddWishBuyOperationsProps) {
@@ -19,6 +21,10 @@ export default function AddWishBuyOperations(props: AddWishBuyOperationsProps) {
         else if (currencyBox === 'Real') result = 'RE'
         return result!;
 
+    }
+
+    function totalInPesos(){
+        return props.listAddBuyOperation.reduce((sum, current)=> sum + current.totalToPay, 0);
     }
 
 
@@ -42,6 +48,14 @@ export default function AddWishBuyOperations(props: AddWishBuyOperationsProps) {
                             </div>
                         ))
                     }
+                    </div>
+                    {props.listAddBuyOperation 
+                    ?<div className={styles.totalToPayStyle}>
+                        Total en pesos : {totalInPesos()}
+                    </div>
+                    :<></>}
+                    <div className={styles.buttonBase}>
+                        <button onClick={props.onClickExecuteOnlyWishList} >Ejecutar</button>
                     </div>
                 </div>
                 : <></>}

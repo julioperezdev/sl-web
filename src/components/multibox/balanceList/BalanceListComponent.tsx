@@ -63,6 +63,7 @@ export default function BalanceListComponent() {
         <div className={styles.listSellerBase}>
             <button onClick={redirectAuxPage} className={styles.auxiliarButton}>Boton auxiliar</button>
             <p>Balance</p>
+            <p className={styles.boxQuantity}>Saldo: {balanceList.length > 0 ? balanceList[0].profit : 0}</p>
             <div className={styles.listDataBase}>
                 <div className={styles.listTitles}>
                     <p>Fecha</p>
