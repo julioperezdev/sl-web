@@ -207,7 +207,7 @@ export default function AddBuyOperationComponent() {
     }
 
     function sendForm(buyOperationData: BuyOperationData[]) {
-        return fetch(process.env.apiUrl + '/v1/operation/create/buy', {
+        return fetch(process.env.apiUrl + '/v1/operation/buy/create', {
             method: 'PUT',
             body: JSON.stringify({buyOperationData:buyOperationData}),
             headers: {

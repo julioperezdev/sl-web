@@ -203,7 +203,7 @@ export default function SellOperationFormComponent(props: SellOperationFormProps
         return result!;
     }
     function sendForm(sellOperationRequest: SellOperationRequest) {
-        return fetch(process.env.apiUrl + '/v1/operation/create/sell', {
+        return fetch(process.env.apiUrl + '/v1/operation/sell/create', {
             method: 'PUT',
             body: JSON.stringify(sellOperationRequest),
             headers: {
