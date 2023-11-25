@@ -1,0 +1,19 @@
+.base{
+    border: 2px solid black;
+    height: 100px;
+    width: 200px;
+    text-align: center;
+    display: grid;
+    align-items: center;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.name{
+    font-size: 29px;
+}
+
+.value{
+    font-weight: 600;
+    font-size: 25px;
+}

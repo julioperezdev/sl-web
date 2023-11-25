@@ -16,3 +16,16 @@ export interface CurrencyBoxResponse{
     operationType:string;
     status:string;
 }
+
+
+export interface SummaryMultiboxResponse{
+        pesosBox : number;
+        officeBox : number;
+        dollarHigh : number;
+        dollarLow : number;
+        euro : number;
+        real : number;
+        balance : number;
+        sellerBox1 : number;
+        sellerBox2 : number;
+}

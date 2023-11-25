@@ -4,6 +4,7 @@ import styles from './page.module.css'
 import LoginFormComponent from '@/components/loginForm/LoginFormComponent'
 import CurrencyHomeComponent from '@/components/home/currencyHome/CurrencyHomeComponent'
 import NoteHomeComponent from '@/components/home/noteHome/NoteHomeComponent'
+import SummaryBoxComponent from '@/components/home/summaryBox/SummaryBoxComponent'
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
 
     <CurrencyHomeComponent/>
     <NoteHomeComponent/>
+    <SummaryBoxComponent/>
     </main>
   )
 }
