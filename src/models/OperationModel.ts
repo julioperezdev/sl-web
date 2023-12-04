@@ -92,3 +92,9 @@ export interface GetBuyAndSellOperationResponseDto{
     buyOperation:GetOperationResponseDto[],
     sellOperation:GetOperationResponseDto[]
 }
+
+
+export interface TotalPendingOperationDto{
+    totalPendingBuyOperation:number,
+    totalPendingSellOperation:number
+}

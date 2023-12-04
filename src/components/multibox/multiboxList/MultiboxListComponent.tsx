@@ -5,10 +5,12 @@ import { useEffect, useState } from 'react';
 import { parseISO, format } from 'date-fns';
 import { CurrencyBox, CurrencyBoxResponse } from '@/models/MultiboxModel';
 import { useRouter } from 'next/navigation';
+import { TotalPendingOperationDto } from '@/models/OperationModel';
 
 export default function MultiboxListComponent(multiboxName: { multiboxName: string }) {
     const [selected, setSelected] = useState<string | null>(null)
     const [boxList, setBoxList] = useState<CurrencyBoxResponse[]>([])
+    const [totalPendingOperation, setTotalPendingOperation] = useState<TotalPendingOperationDto | null>(null)
     const router = useRouter();
 
 
@@ -29,8 +31,31 @@ export default function MultiboxListComponent(multiboxName: { multiboxName: stri
         let currencyBoxData: CurrencyBoxResponse[] = responseValue;
         setBoxList(currencyBoxData)
     }
+
+    async function getTotalPendingOperation() {
+        const response = await fetch(`${process.env.apiUrl}/v1/operation/get/pending/total`, {
+            method: 'PUT',
+            body:JSON.stringify({}),
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS'
+            }
+        });
+        if (response.status == 204) {
+            console.log('No hay datos')
+            return
+        }
+        let responseValue = await response.json();
+        console.log(responseValue)
+        let totalPendingOperationDto: TotalPendingOperationDto = responseValue;
+        setTotalPendingOperation(totalPendingOperationDto);
+    }
     useEffect(() => {
         getMultiboxByName();
+        if(isPesosCurrencyBox()){
+            getTotalPendingOperation()
+        }
     }, [])
 
     function titleMultibox(currencyBox: string): string {
@@ -63,6 +88,10 @@ export default function MultiboxListComponent(multiboxName: { multiboxName: stri
         const pesosCurrencyAvailables: string[] = ['PESO', 'PESO_OFFICE'];
         let pesosCurrencyFiltered = pesosCurrencyAvailables.filter(particular => currencyNameToValidate == particular);
         return pesosCurrencyFiltered.length === 1;
+    }
+
+    function isPesosCurrencyBox(): boolean {
+        return multiboxName.multiboxName === 'PESO';
     }
     function isIngressOrEgressOperation(currencyNameToValidate: string, operationType: string, operationStatus: string) {
         if (isForeignCurrencyByName(currencyNameToValidate)) {
@@ -112,7 +141,16 @@ export default function MultiboxListComponent(multiboxName: { multiboxName: stri
             {isForeignCurrency() 
             ? <></>
             : <button onClick={redirectAuxPage} className={styles.auxiliarButton}>Boton auxiliar</button>}
-            
+            {totalPendingOperation == null
+            ? <></>
+            :<div>
+                <h3>Total compras pendientes</h3>
+                <p>$ {totalPendingOperation.totalPendingBuyOperation}</p>
+                <hr />
+                <h3>Total ventas pendientes</h3>
+                <p>$ {totalPendingOperation.totalPendingSellOperation}</p>
+                <hr />
+            </div>}
             <p>{titleMultibox(multiboxName.multiboxName)}</p>
             <p className={styles.boxQuantity}>Saldo: {boxList.length > 0 ? boxList[0].quantity : 0}</p>
             <div className={styles.listDataBase}>
