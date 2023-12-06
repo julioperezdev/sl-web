@@ -14,6 +14,8 @@ export default function ListPendingOperationComponent() {
     const [hasData, setHasData] = useState<boolean>(false)
     const [buyOperations, setBuyOperations] = useState<GetOperationResponseDto[] | null>(null)
     const [sellOperations, setSellOperations] = useState<GetOperationResponseDto[] | null>(null)
+    const [totalBuyPending, setTotalBuyPending] = useState<number | null>(null)
+    const [totalSellPending, setTotalSellPending] = useState<number | null>(null)
 
     async function getOperations() {
         const response = await fetch(process.env.apiUrl + '/v1/operation/get/pending', {
@@ -34,10 +36,29 @@ export default function ListPendingOperationComponent() {
         let pendingOperationData: GetBuyAndSellOperationResponseDto = responseValue;
         if(pendingOperationData.buyOperation) setBuyOperations(pendingOperationData.buyOperation)
         if(pendingOperationData.sellOperation) setSellOperations(pendingOperationData.sellOperation)
+        totalByPendingOperation(pendingOperationData);
     }
     useEffect(() => {
         getOperations();
     }, [])
+
+
+    function totalByPendingOperation(pendingOperationData:GetBuyAndSellOperationResponseDto){
+        if(pendingOperationData.buyOperation){
+            let totalBuy = pendingOperationData.buyOperation
+            .map(particular => particular.total)
+            .reduce((previous,current) => previous+current, 0);
+
+            setTotalBuyPending(totalBuy);
+        }
+        if(pendingOperationData.sellOperation){
+            let totalSell = pendingOperationData.sellOperation
+            .map(particular => particular.total)
+            .reduce((previous,current) => previous+current, 0);
+
+            setTotalSellPending(totalSell);
+        }
+    }
 
     async function onHadleClickExecute() {
         console.log('click', selected)
@@ -102,8 +123,8 @@ export default function ListPendingOperationComponent() {
 
         function showScreenByNumber(){
             // if(selected == 0) return <div className={styles.blankDiv}></div>
-            if(selected == 1) return <ListParticularPendingOperationComponent operation={buyOperations} operationType='comprar' setOperation={setBuyOperations}/>
-            if(selected == 2) return <ListParticularPendingOperationComponent operation={sellOperations} operationType='vender'setOperation={setSellOperations}/>
+            if(selected == 1) return <ListParticularPendingOperationComponent operation={buyOperations} operationType='comprar' setOperation={setBuyOperations} totalPending={totalBuyPending}/>
+            if(selected == 2) return <ListParticularPendingOperationComponent operation={sellOperations} operationType='vender'setOperation={setSellOperations} totalPending={totalSellPending}/>
         }
         return (
             <div className={styles.listSellerBase}>

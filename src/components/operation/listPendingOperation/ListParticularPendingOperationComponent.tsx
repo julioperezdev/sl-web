@@ -7,7 +7,7 @@ import {GetOperationResponseDto } from '@/models/OperationModel';
 import toast, { Toaster } from 'react-hot-toast';
 
 
-export default function ListParticularPendingOperationComponent(props: { operationType: string, operation: GetOperationResponseDto[] | null, setOperation: Dispatch<SetStateAction<GetOperationResponseDto[] | null>> }) {
+export default function ListParticularPendingOperationComponent(props: { operationType: string, operation: GetOperationResponseDto[] | null, setOperation: Dispatch<SetStateAction<GetOperationResponseDto[] | null>>, totalPending:number| null }) {
     const [selected, setSelected] = useState<string | null>(null)
 
     function isSelected(id: string): boolean {
@@ -95,6 +95,7 @@ export default function ListParticularPendingOperationComponent(props: { operati
 
     return (
         <div className={styles.listSellerBase}>
+            <h3>Total en pesos de todas las operaciones: {props.totalPending}</h3>
             <p>De {defineTextByOperationType()}</p>
             <div className={styles.listDataBase}>
                 <div className={styles.listTitles}>

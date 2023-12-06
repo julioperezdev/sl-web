@@ -28,7 +28,7 @@ export default function AddBuyOperationComponent() {
     const [totalToPay, setTotalToPay] = useState<number>(0)
     const [calculated, setCalculated] = useState<boolean>(false)
     const [listOperationsContinue, setListOperationsContinue] = useState<BuyOperationContinue[]>([]);
-
+    const [totalPesosBox, setTotalPesosBox] = useState<number>(0)
 
     const [items, setItems] = useState<Array<string>>([]);
     const [query, setQuery] = useState<string>("");
@@ -76,7 +76,22 @@ export default function AddBuyOperationComponent() {
         } else if (response.status == 302) {
             const clientsNames = await response.json();
             setItems(clientsNames)
-            console.log(clientsNames);
+        }
+
+    }
+
+    async function getTotalPesosBox() {
+        let response = await fetch(process.env.apiUrl + '/v1/box/pesos/get/total', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS'
+            }
+        });
+        if (response.status == 202) {
+            const totalPesosResponse = await response.json();
+            setTotalPesosBox(totalPesosResponse)
         }
 
     }
@@ -349,10 +364,13 @@ export default function AddBuyOperationComponent() {
     useEffect(() => {
         getLasUpdatedCurrencies();
         getClientsName();
+        getTotalPesosBox();
     }, [])
 
     return (
         <div>
+            <h4>Saldo de caja en Pesos</h4>
+            <h3>{totalPesosBox}</h3>
             <div className={styles.operationCurrencyBase}>
                 <p className={styles.operationCurrencyTitle}>{currencyNameSelected}</p>
                 <div>
