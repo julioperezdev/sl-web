@@ -6,6 +6,7 @@ import { parseISO, format } from 'date-fns';
 import { CurrencyBox, CurrencyBoxResponse } from '@/models/MultiboxModel';
 import { useRouter } from 'next/navigation';
 import { BalanceResponse } from '@/models/BalanceModel';
+import { convertCurrencyMask } from '@/helper/numberConverter/NumberConverter';
 
 export default function BalanceListComponent() {
     const [selected, setSelected] = useState<string | null>(null)
@@ -63,7 +64,7 @@ export default function BalanceListComponent() {
         <div className={styles.listSellerBase}>
             <button onClick={redirectAuxPage} className={styles.auxiliarButton}>Boton auxiliar</button>
             <p>Balance</p>
-            <p className={styles.boxQuantity}>Saldo: {balanceList.length > 0 ? balanceList[0].profit : 0}</p>
+            <p className={styles.boxQuantity}>Saldo: {balanceList.length > 0 ? convertCurrencyMask(balanceList[0].profit) : 0}</p>
             <div className={styles.listDataBase}>
                 <div className={styles.listTitles}>
                     <p>Fecha</p>
@@ -81,9 +82,9 @@ export default function BalanceListComponent() {
                                 <p>{format(parseISO(box.updatedAt!), 'd/MM/yyyy')}</p>
                                 <p>{format(parseISO(box.updatedAt!), 'hh:mm:ss')}</p>
                                 <p>{returnOperationType(box.operationType)}</p>
-                                <p>{isIngressOrEgressOperation(box.operationType) ? box.quantityOperation : '-'}</p>
-                                <p>{isIngressOrEgressOperation(box.operationType) ? '-' : box.quantityOperation}</p>
-                                <p>{box.profit}</p>
+                                <p>{isIngressOrEgressOperation(box.operationType) ? convertCurrencyMask(box.quantityOperation) : '-'}</p>
+                                <p>{isIngressOrEgressOperation(box.operationType) ? '-' : convertCurrencyMask(box.quantityOperation)}</p>
+                                <p>{convertCurrencyMask(box.profit)}</p>
                             </div>
                         ))
                             : <p>NO HAY DATOS</p>

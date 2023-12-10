@@ -33,3 +33,11 @@ export function converDotReturningNumberWithTwoDecimals(numberWithDot:number):nu
 
 
 }
+export function convertCurrencyMask(currency:number):string{
+    //const formatter = new Intl.NumberFormat('de-DE', {
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      });
+    return formatter.format(currency);
+}

@@ -13,6 +13,7 @@ import { Currency } from "@/models/CurrencyModel";
 import { Client } from "@/models/ClientModel";
 import { BuyOperationContinue, BuyOperationData, BuyOperationForm, BuyOperationRequest } from "@/models/OperationModel";
 import AddWishBuyOperations from "./AddWishBuyOperation";
+import { convertCurrencyMask, normalizeInputMask } from "@/helper/numberConverter/NumberConverter";
 
 export default function AddBuyOperationComponent() {
 
@@ -370,7 +371,7 @@ export default function AddBuyOperationComponent() {
     return (
         <div>
             <h4>Saldo de caja en Pesos</h4>
-            <h3>{totalPesosBox}</h3>
+            <h3>{convertCurrencyMask(totalPesosBox)}</h3>
             <div className={styles.operationCurrencyBase}>
                 <p className={styles.operationCurrencyTitle}>{currencyNameSelected}</p>
                 <div>
@@ -457,7 +458,7 @@ export default function AddBuyOperationComponent() {
                 </div>
                 <div className={styles.totaToPay}>
                     <p className={styles.descriptionOverTotal}>Total pesos a pagar</p>
-                    <p className={styles.totaToPayDescription}>$ {totalToPay}</p>
+                    <p className={styles.totaToPayDescription}>{convertCurrencyMask(totalToPay)}</p>
                 </div>
                 <div className={styles.buttonBase}>
                     <button ><Link href='/operation'>Cancelar</Link></button>

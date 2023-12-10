@@ -6,6 +6,7 @@ import { parseISO, format } from 'date-fns';
 import { CurrencyBox, CurrencyBoxResponse } from '@/models/MultiboxModel';
 import { useRouter } from 'next/navigation';
 import { TotalPendingOperationDto } from '@/models/OperationModel';
+import { convertCurrencyMask } from '@/helper/numberConverter/NumberConverter';
 
 export default function MultiboxListComponent(multiboxName: { multiboxName: string }) {
     const [selected, setSelected] = useState<string | null>(null)
@@ -145,14 +146,14 @@ export default function MultiboxListComponent(multiboxName: { multiboxName: stri
             ? <></>
             :<div>
                 <h3>Total compras pendientes</h3>
-                <p>$ {totalPendingOperation.totalPendingBuyOperation}</p>
+                <p>{convertCurrencyMask(totalPendingOperation.totalPendingBuyOperation)}</p>
                 <hr />
                 <h3>Total ventas pendientes</h3>
-                <p>$ {totalPendingOperation.totalPendingSellOperation}</p>
+                <p>{convertCurrencyMask(totalPendingOperation.totalPendingSellOperation)}</p>
                 <hr />
             </div>}
             <p>{titleMultibox(multiboxName.multiboxName)}</p>
-            <p className={styles.boxQuantity}>Saldo: {boxList.length > 0 ? boxList[0].quantity : 0}</p>
+            <p className={styles.boxQuantity}>Saldo: {boxList.length > 0 ? convertCurrencyMask(boxList[0].quantity) : 0}</p>
             <div className={styles.listDataBase}>
                 <div className={styles.listTitles}>
                     <p>Fecha</p>
@@ -171,9 +172,9 @@ export default function MultiboxListComponent(multiboxName: { multiboxName: stri
                                 <p>{format(parseISO(box.updatedAt!), 'hh:mm:ss')}</p>
                                 <p>{box.status}</p>
                                 <p>{returnOperationType(box.operationType)}</p>
-                                <p>{isIngressOrEgressOperation(multiboxName.multiboxName, box.operationType, box.status) ? box.quantityOperation : '-'}</p>
-                                <p>{isIngressOrEgressOperation(multiboxName.multiboxName, box.operationType, box.status) ? '-' : box.quantityOperation}</p>
-                                <p>{box.quantity}</p>
+                                <p>{isIngressOrEgressOperation(multiboxName.multiboxName, box.operationType, box.status) ? convertCurrencyMask(box.quantityOperation) : '-'}</p>
+                                <p>{isIngressOrEgressOperation(multiboxName.multiboxName, box.operationType, box.status) ? '-' : convertCurrencyMask(box.quantityOperation)}</p>
+                                <p>{convertCurrencyMask(box.quantity)}</p>
                             </div>
                         ))
                             : <p>NO HAY DATOS</p>

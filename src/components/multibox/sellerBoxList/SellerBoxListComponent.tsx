@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { parseISO, format } from 'date-fns';
 import { useRouter } from 'next/navigation';
 import { SellerBoxResponse } from '@/models/SellerBoxModel';
+import { convertCurrencyMask } from '@/helper/numberConverter/NumberConverter';
 
 export default function SellerBoxListComponent(props: { name: string }) {
     const [selected, setSelected] = useState<string | null>(null)
@@ -62,7 +63,7 @@ export default function SellerBoxListComponent(props: { name: string }) {
         <div className={styles.listSellerBase}>
             <button onClick={redirectAuxPage} className={styles.auxiliarButton}>Boton auxiliar</button>
             <p> Caja {props.name}</p>
-            <p className={styles.boxQuantity}>Saldo: {boxList.length > 0 ? boxList[0].quantity : 0}</p>
+            <p className={styles.boxQuantity}>Saldo: {boxList.length > 0 ? convertCurrencyMask(boxList[0].quantity) : 0}</p>
             <div className={styles.listDataBase}>
                 <div className={styles.listTitles}>
                     <p>Fecha</p>
@@ -79,9 +80,9 @@ export default function SellerBoxListComponent(props: { name: string }) {
                                 <p>{format(parseISO(box.updatedAt!), 'd/MM/yyyy')}</p>
                                 <p>{format(parseISO(box.updatedAt!), 'hh:mm:ss')}</p>
                                 <p>{returnOperationType(box.operationType)}</p>
-                                <p>{isIngressOrEgressOperation(box.operationType) ? box.quantityOperation : '-'}</p>
-                                <p>{isIngressOrEgressOperation(box.operationType) ? '-' : box.quantityOperation}</p>
-                                <p>{box.quantity}</p>
+                                <p>{isIngressOrEgressOperation(box.operationType) ? convertCurrencyMask(box.quantityOperation) : '-'}</p>
+                                <p>{isIngressOrEgressOperation(box.operationType) ? '-' : convertCurrencyMask(box.quantityOperation)}</p>
+                                <p>{convertCurrencyMask(box.quantity)}</p>
                             </div>
                         ))
                             : <p>NO HAY DATOS</p>
