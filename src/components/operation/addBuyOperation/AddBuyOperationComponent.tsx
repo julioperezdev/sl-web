@@ -13,7 +13,7 @@ import { Currency } from "@/models/CurrencyModel";
 import { Client } from "@/models/ClientModel";
 import { BuyOperationContinue, BuyOperationData, BuyOperationForm, BuyOperationRequest } from "@/models/OperationModel";
 import AddWishBuyOperations from "./AddWishBuyOperation";
-import { convertCurrencyMask, normalizeInputMask } from "@/helper/numberConverter/NumberConverter";
+import { convertCurrencyMask } from "@/helper/numberConverter/NumberConverter";
 
 export default function AddBuyOperationComponent() {
 
