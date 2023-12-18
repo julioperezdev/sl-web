@@ -2,7 +2,7 @@
 .operationCurrencyBase{
     position: absolute;
     margin-left: auto;
-    right: 15%;
+    right: 8%;
     border:2px solid #bdbdbd;
     width: 100px;
     height: 180px;
@@ -72,11 +72,13 @@
     position: relative;
     margin-left: auto;
     right: 0;
-    width: 90px;
-    height: 40px;
+    width: 80px;
+    height: 20px;
     border: 1px solid rgb(214, 214, 214);
     border-radius: 10px;
     padding: 10px;
+    opacity: 50%;
+    margin-bottom: 10px;
 }
 .officeCheck > p{
     background-color: transparent;
@@ -88,15 +90,32 @@
     width: 100px;
     height: 30px;
     color: #FB0000;
+    opacity: 50%;
 }
-.officeCheck > input{
+
+.officeCheckSelected{
     position: relative;
-    bottom: 10px;
-    left: 45%;
+    margin-left: auto;
+    right: 0;
+    width: 80px;
+    height: 20px;
     border: 1px solid rgb(214, 214, 214);
     border-radius: 10px;
     padding: 10px;
+    margin-bottom: 10px;
 }
+.officeCheckSelected > p{
+    background-color: transparent;
+    border: none;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    width: 100px;
+    height: 30px;
+    color: #FB0000;
+}
+
 .operationFormBase > h3{
     text-align: center;
     font-size: 25px;

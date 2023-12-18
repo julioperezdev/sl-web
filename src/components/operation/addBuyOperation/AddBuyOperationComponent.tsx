@@ -19,6 +19,7 @@ export default function AddBuyOperationComponent() {
 
     const { register, handleSubmit, setValue, reset, watch, formState: { errors } } = useForm<BuyOperationForm>();
     const [isOfficeCheck, setIsOfficeCheck] = useState<boolean>(false);
+    const [isSmallDolarCheck, setIsSmallDolarCheck] = useState<boolean>(false);
     const [currencies, setCurrencies] = useState<Currency[] | null>(null)
     const [currencyNameSelected, setCurrencyNameSelected] = useState<string>('')
     const [currencySelected, setCurrencySelected] = useState<Currency | null>(null)
@@ -116,7 +117,6 @@ export default function AddBuyOperationComponent() {
             setValue('quantity', undefined)
             setClientSelected(null)
             setCalculated(false)
-            //setIsOfficeCheck(false)
 
         } catch (error: any) {
             toast.error('Ops... No se pudo realizar la operacion de compra', { duration: 5000 })
@@ -124,8 +124,8 @@ export default function AddBuyOperationComponent() {
     }
     );
 
-    async function onClickExecuteOnlyWishList(){
-        try{
+    async function onClickExecuteOnlyWishList() {
+        try {
             let dataConverted = converFormData(listOperationsContinue);
             const response = await sendForm(dataConverted);
             if (response.status == 201) {
@@ -204,7 +204,7 @@ export default function AddBuyOperationComponent() {
         }
     }
 
-    function converFormData(listToConvert:BuyOperationContinue[]): BuyOperationData[] {
+    function converFormData(listToConvert: BuyOperationContinue[]): BuyOperationData[] {
         let listConverted: BuyOperationData[] = [];
         listToConvert.forEach(particular => {
             let converted: BuyOperationData = {
@@ -225,7 +225,7 @@ export default function AddBuyOperationComponent() {
     function sendForm(buyOperationData: BuyOperationData[]) {
         return fetch(process.env.apiUrl + '/v1/operation/buy/create', {
             method: 'PUT',
-            body: JSON.stringify({buyOperationData:buyOperationData}),
+            body: JSON.stringify({ buyOperationData: buyOperationData }),
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
@@ -328,7 +328,7 @@ export default function AddBuyOperationComponent() {
             toast.error('Se debe seleccionar un precio de compra', { duration: 5000 })
             return false;
         }
-        if (isDolarSmall()) {
+        if (isDolarSmall() && isSmallDolarCheck) {
             if (data.percent! <= 0) {
                 toast.error('Se debe seleccionar un porcentaje', { duration: 5000 })
                 return false;
@@ -386,9 +386,16 @@ export default function AddBuyOperationComponent() {
             <div className={styles.formBase}>
                 <div className={styles.topData}>
                     <p>Fecha {format(new Date(), 'dd/MM/yyyy')}</p>
-                    <div className={styles.officeCheck} onClick={() => setIsOfficeCheck(!isOfficeCheck)}>
-                        <p>Check Oficina</p>
-                        <input type="checkbox" defaultChecked={isOfficeCheck} />
+                    <div>
+                        {isDolarSmall()
+                            ? <div className={isSmallDolarCheck ? styles.officeCheckSelected : styles.officeCheck} onClick={() => setIsSmallDolarCheck(!isSmallDolarCheck)}>
+                                <p>Porcentaje</p>
+                            </div>
+                            : <></>}
+
+                        <div className={isOfficeCheck ? styles.officeCheckSelected : styles.officeCheck} onClick={() => setIsOfficeCheck(!isOfficeCheck)}>
+                            <p>Check Oficina</p>
+                        </div>
                     </div>
                 </div>
                 <div className={styles.operationFormBase}>
@@ -439,7 +446,7 @@ export default function AddBuyOperationComponent() {
                                 {errors.buyPriceForm && errors.buyPriceForm.type === "maxLength" && (<span>Máximo de 40 dígitos</span>)}
                             </div>
                         </div>
-                        {isDolarSmall()
+                        {isDolarSmall() && isSmallDolarCheck
                             ? <div className={styles.inputsPrices}>
                                 <div>
                                     <p className={styles.descriptionOver}>Ingrese porcentaje</p>
@@ -469,9 +476,9 @@ export default function AddBuyOperationComponent() {
                             <button onClick={onClickContinueBuyOperation} >Continuar</button>
                         </>}
                 </div>
-                <Toaster 
-                position="bottom-left"
-                reverseOrder={false}/>
+                <Toaster
+                    position="bottom-left"
+                    reverseOrder={false} />
             </div>
             <AddWishBuyOperations
                 listAddBuyOperation={listOperationsContinue}
